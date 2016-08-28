@@ -1,0 +1,21 @@
+{
+  "name": "mccree",
+  "description": "A front-end framework with node render server.",
+  "main": "index.js",
+  "authors": [
+    "XWang1024"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/xwang1024/mccree",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.0"
+  }
+}
