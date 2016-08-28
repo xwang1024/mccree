@@ -35,3 +35,13 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# Bower Components
+bower_components
+
+# Public files
+public/js
+public/css
+
+# Marko Cache
+lib/views

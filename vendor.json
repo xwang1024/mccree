@@ -1,0 +1,17 @@
+{
+  "script": {
+    "base.js": [
+      "bower_components/jquery/dist/jquery.min.js",
+      "bower_components/seajs/dist/sea.js"
+    ],
+    "app.js": [
+      "app/scripts/*.js"
+    ]
+  },
+  "style": [
+
+  ],
+  "vendor": [
+
+  ]
+}

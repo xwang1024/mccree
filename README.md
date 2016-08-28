@@ -1,2 +1,2 @@
-# McCree
-Front-side render server &amp; front-side framework
+# mccree
+Front-side render server &amp; Front-side framework
