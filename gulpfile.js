@@ -1,56 +1,55 @@
 var resource = require('./resource.json');
 
-var gulp     = require('gulp'),
-    $        = require('gulp-load-plugins')(),
-    gulpsync = $.sync(gulp);
+var gulp        = require('gulp'),
+    $           = require('gulp-load-plugins')(),
+    runSequence = require('run-sequence'),
+    del         = require('del');
 
 var isProduction = false;
-var gulpTasks = [];
-var gulpTaskPromises = [];
+var assetTasks = [];
 
-// compile marko to marko.js 
-
-gulp.task('marko', function() {
-  gulpTaskPromises.push(new Promise(function(resolve, reject) {
-    gulp.src('app/templates/*.marko')
-      .pipe(pLog('Compiling marko templates...'))
-      .pipe($.markoc({preserveWhitespace: true})
-      .on('error', handleError))
-      .pipe(gulp.dest('lib/views'))
-      .pipe(pLog('Marko templates all compiled!'))
-      .on('end', resolve);
-  }));
+gulp.task('marko:cache', (callback) => {
+  log('Generate marko cache...');
+  gulp.src('app/templates/**/*.marko')
+    .pipe(gulp.dest('.marko_cache/'))
+    .on('end', callback);
 });
-gulpTasks.push('marko');
+
+gulp.task('marko:compile', (callback) => {
+  log('Compiling marko templates...');
+  gulp.src('.marko_cache/**/*.marko')
+    .pipe($.markoc({preserveWhitespace: true})
+    .on('error', handleError))
+    .pipe(gulp.dest('lib/views'))
+    .on('end', callback);
+});
 
 // compile script
 if(resource.script) {
   for(var k in resource.script) {
     ((k) => {
-      gulp.task('script:'+k, function() {
-        gulpTaskPromises.push(new Promise(function(resolve, reject) {
-          gulp.src(resource.script[k])
-              .pipe(pLog( 'Compiling script ' + k + '...' ))
-              .pipe($.eslint({
-                rules: { 'strict': 2 },
-                globals: [ 'jQuery', '$' ],
-                envs: ["browser", "node", "es6"],
-                ecmaVersion: 6,
-                ecmaFeatures: { "modules": true, "jsx": true }
-              }))
-              .pipe($.eslint.format())
-              .pipe($.eslint.failAfterError())
-              .on('error', handleError)
-              .pipe($.babel({ presets: ['es2015'] }))
-              .on('error', handleError)
-              .pipe($.if( isProduction, $.uglify() ))
-              .pipe($.concat(k))
-              .pipe(gulp.dest('public/js/'))
-              .pipe(pLog(k + ' compiled!'))
-              .on('end', resolve);
-        }));
+      gulp.task(`script:${k}`, (callback) => {
+        log(`Compiling script ${k}...`);
+        gulp.src(resource.script[k])
+          .pipe($.eslint({
+            rules: { 'strict': 2 },
+            globals: [ 'jQuery', '$' ],
+            envs: ["browser", "node", "es6"],
+            ecmaVersion: 6,
+            ecmaFeatures: { "modules": true, "jsx": true }
+          }))
+          .pipe($.eslint.format())
+          .pipe($.eslint.failAfterError())
+          .on('error', handleError)
+          .pipe($.babel({ presets: ['es2015'] }))
+          .on('error', handleError)
+          .pipe($.if( isProduction, $.uglify() ))
+          .pipe($.concat(k))
+          .pipe($.if(isProduction, $.md5Plus(10, '.marko_cache/partials/scripts.marko')))
+          .pipe(gulp.dest('public/js/'))
+          .on('end', callback);
       });
-      gulpTasks.push('script:'+k);
+      assetTasks.push(`script:${k}`);
     })(k);
   }
 } else {
@@ -59,26 +58,24 @@ if(resource.script) {
 
 var cssnanoOpts = {
   safe: true,
-  discardUnused: false, // no remove @font-face
-  reduceIdents: false // no change on @keyframes names
+  discardUnused: false, // not remove @font-face
+  reduceIdents: false // not change on @keyframes names
 }
 // compile style
 if(resource.style) {
   for(var k in resource.style) {
     ((k) => {
-      gulp.task('style:'+k, function() {
-        gulpTaskPromises.push(new Promise(function(resolve, reject) {
-          gulp.src(resource.style[k])
-            .pipe($.print(()=>($.util.colors.blue( 'Compiling style ' + k + '...' ))))
-            .pipe($.less())
-            .on("error", handleError)
-            .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
-            .pipe(gulp.dest('public/css/'))
-            .pipe(pLog(k + ' compiled!'))
-            .on('end', resolve);
-        }));
+      gulp.task(`style:${k}`, (callback) => {
+        log(`Compiling style ${k}...`);
+        gulp.src(resource.style[k])
+          .pipe($.less())
+          .on("error", handleError)
+          .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
+          .pipe($.if(isProduction, $.md5Plus(10, '.marko_cache/partials/styles.marko')))
+          .pipe(gulp.dest('public/css/'))
+          .on('end', callback);
       });
-      gulpTasks.push('style:'+k);
+      assetTasks.push(`style:${k}`);
     })(k);
   }
 } else {
@@ -87,26 +84,45 @@ if(resource.style) {
 
 // copy vendor
 if(resource.vendor) {
-  gulp.task('vendor', function() {
-    gulpTaskPromises.push(new Promise(function(resolve, reject) {
-      gulp.src(resource.vendor)
-        .pipe(pLog('Copying vendors...'))
-        .pipe(gulp.dest('public/vendor'))
-        .pipe(pLog('Vendors all copied!'))
-        .on('end', resolve);
-    }));
+  gulp.task('vendor', (callback) => {
+    log('Copying vendors...');
+    gulp.src(resource.vendor)
+      .pipe(gulp.dest('public/vendor'))
+      .on('end', callback);
   });
-  gulpTasks.push('vendor');
+  assetTasks.push('vendor');
 } else {
   log('There is no vendor attribute in vendor.json');
 }
 
+gulp.task('clean', (callback) => {
+  var delPaths = [ '.marko_cache/', 'lib/views/', 'public/css/', 'public/js/' ];
+  log(`Cleaning: ${delPaths.join(', ')}`);
+  del(delPaths, {force: true}, callback);
+  log(`Done!`);
+});
 
-
-gulp.task('default', gulpTasks, function() {
-  Promise.all(gulpTaskPromises).then(() => {
-    log('Finished')
+gulp.task('dev-build', (callback) => {
+  runSequence('marko:cache', assetTasks, 'marko:compile', function() {
+    log("******************");
+    log("* IT'S HIGH NOON * Dev build done!");
+    log("******************");
+    callback();
   });
+});
+
+gulp.task('release-build', (callback) => {
+  isProduction = true;
+  runSequence('marko:cache', assetTasks, 'marko:compile', function() {
+    log("******************");
+    log("* IT'S HIGH NOON * Release build done!");
+    log("******************");
+    callback();
+  });
+});
+
+gulp.task('default', (callback) => {
+  // TODO
 });
 
 // Error handler
