@@ -8,11 +8,16 @@ var gulp        = require('gulp'),
 var isProduction = false;
 var assetTasks = [];
 
-gulp.task('marko', (callback) => {
+gulp.task('template', (callback) => {
   log('Copying marko templates...');
   gulp.src('app/templates/**/*.marko')
     .pipe(gulp.dest('lib/views/'))
-    .on('end', callback);
+    .on('end', () => {
+      setTimeout(function() {
+        $.livereload.reload();
+      }, 1500);
+      callback();
+    });
 });
 
 // compile script
@@ -38,6 +43,7 @@ if(resource.script) {
           .pipe($.concat(k))
           .pipe($.if(isProduction, $.md5Plus(10, 'lib/views/partials/scripts.marko')))
           .pipe(gulp.dest('public/js/'))
+          .pipe($.livereload())
           .on('end', callback);
       });
       assetTasks.push(`script:${k}`);
@@ -64,6 +70,7 @@ if(resource.style) {
           .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
           .pipe($.if(isProduction, $.md5Plus(10, 'lib/views/partials/styles.marko')))
           .pipe(gulp.dest('public/css/'))
+          .pipe($.livereload())
           .on('end', callback);
       });
       assetTasks.push(`style:${k}`);
@@ -95,7 +102,7 @@ gulp.task('clean', (callback) => {
 });
 
 gulp.task('build-dev', (callback) => {
-  runSequence('marko', assetTasks, function() {
+  runSequence('template', assetTasks, function() {
     finishLog('Dev build done!');
     callback();
   });
@@ -103,18 +110,35 @@ gulp.task('build-dev', (callback) => {
 
 gulp.task('build-release', (callback) => {
   isProduction = true;
-  runSequence('marko', assetTasks, function() {
+  runSequence('template', assetTasks, function() {
     finishLog('Release build done!');
     callback();
   });
 });
 
 gulp.task('watch', function() {
-  // TODO
+  $.livereload.listen();
+
+  var watchSource = [];
+  gulp.watch(['app/templates/**/*.marko'], ['template']);
+  if(resource.script) {
+    for(var k in resource.script) {
+      gulp.watch(resource.script[k], [`script:${k}`]);
+      watchSource.concat(resource.script[k]);
+    }
+  }
+  if(resource.style) {
+    for(var k in resource.style) {
+      gulp.watch(resource.style[k], [`style:${k}`]);
+      watchSource.concat(resource.style[k]);
+    }
+  }
 });
 
 gulp.task('default', (callback) => {
-  // TODO
+  runSequence('template', assetTasks, 'watch', function() {
+    finishLog('Dev build done. Starting watch and LiveReload...');
+  });
 });
 
 // Error handler
