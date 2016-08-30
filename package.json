@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "fs-watch-tree": "^0.2.5",
     "http": "0.0.0",
     "marko": "^3.9.4",
     "morgan": "^1.7.0",
@@ -27,8 +28,8 @@
     "gulp-eslint": "^3.0.1",
     "gulp-if": "^2.0.1",
     "gulp-less": "^3.1.0",
+    "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "^1.2.4",
-    "gulp-markoc": "^1.0.1",
     "gulp-md5-plus": "^0.2.5",
     "gulp-print": "^2.0.1",
     "gulp-sync": "^0.1.4",

@@ -8,19 +8,10 @@ var gulp        = require('gulp'),
 var isProduction = false;
 var assetTasks = [];
 
-gulp.task('marko:cache', (callback) => {
-  log('Generate marko cache...');
+gulp.task('marko', (callback) => {
+  log('Copying marko templates...');
   gulp.src('app/templates/**/*.marko')
-    .pipe(gulp.dest('.marko_cache/'))
-    .on('end', callback);
-});
-
-gulp.task('marko:compile', (callback) => {
-  log('Compiling marko templates...');
-  gulp.src('.marko_cache/**/*.marko')
-    .pipe($.markoc({preserveWhitespace: true})
-    .on('error', handleError))
-    .pipe(gulp.dest('lib/views'))
+    .pipe(gulp.dest('lib/views/'))
     .on('end', callback);
 });
 
@@ -45,7 +36,7 @@ if(resource.script) {
           .on('error', handleError)
           .pipe($.if( isProduction, $.uglify() ))
           .pipe($.concat(k))
-          .pipe($.if(isProduction, $.md5Plus(10, '.marko_cache/partials/scripts.marko')))
+          .pipe($.if(isProduction, $.md5Plus(10, 'lib/views/partials/scripts.marko')))
           .pipe(gulp.dest('public/js/'))
           .on('end', callback);
       });
@@ -71,7 +62,7 @@ if(resource.style) {
           .pipe($.less())
           .on("error", handleError)
           .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
-          .pipe($.if(isProduction, $.md5Plus(10, '.marko_cache/partials/styles.marko')))
+          .pipe($.if(isProduction, $.md5Plus(10, 'lib/views/partials/styles.marko')))
           .pipe(gulp.dest('public/css/'))
           .on('end', callback);
       });
@@ -96,29 +87,30 @@ if(resource.vendor) {
 }
 
 gulp.task('clean', (callback) => {
-  var delPaths = [ '.marko_cache/', 'lib/views/', 'public/css/', 'public/js/' ];
+  var delPaths = [ 'lib/views/', 'public/css/', 'public/js/' ];
   log(`Cleaning: ${delPaths.join(', ')}`);
-  del(delPaths, {force: true}, callback);
+  del(delPaths, {force: true});
   log(`Done!`);
+  callback();
 });
 
-gulp.task('dev-build', (callback) => {
-  runSequence('marko:cache', assetTasks, 'marko:compile', function() {
-    log("******************");
-    log("* IT'S HIGH NOON * Dev build done!");
-    log("******************");
+gulp.task('build-dev', (callback) => {
+  runSequence('marko', assetTasks, function() {
+    finishLog('Dev build done!');
     callback();
   });
 });
 
-gulp.task('release-build', (callback) => {
+gulp.task('build-release', (callback) => {
   isProduction = true;
-  runSequence('marko:cache', assetTasks, 'marko:compile', function() {
-    log("******************");
-    log("* IT'S HIGH NOON * Release build done!");
-    log("******************");
+  runSequence('marko', assetTasks, function() {
+    finishLog('Release build done!');
     callback();
   });
+});
+
+gulp.task('watch', function() {
+  // TODO
 });
 
 gulp.task('default', (callback) => {
@@ -138,4 +130,10 @@ function log(msg) {
 
 function pLog(msg) {
   return $.print(()=>( $.util.colors.blue( msg )) );
+}
+
+function finishLog(msg) {
+  log(`******************`);
+  log(`* IT'S HIGH NOON * ${msg}`);
+  log(`******************`);
 }
