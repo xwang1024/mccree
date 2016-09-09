@@ -1,0 +1,8 @@
+{
+  "/": {
+    "view": "default",
+    "data": {
+      "user": "user_getMyInfo"
+    }
+  }
+}

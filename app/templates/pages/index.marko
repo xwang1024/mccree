@@ -1,0 +1,236 @@
+<layout-use("../layouts/default.marko")>
+  <layout-put into="title">首页 - 米盒</layout-put>
+  <layout-put into="extra_top"></layout-put>
+  <layout-put into="content">
+    <span id="uid-input" hidden>{$user_id}</span>
+    <!--logo+ 搜索 + 上传-->
+    <div class="second_nav-panel" >
+      <a href="/"><img class="not_fail_lesson" src="__PUBLIC__/img/not_fail_lesson.png"></a>
+      <!--搜索框-->
+      <div class="left-floated nav-search">
+        <div class="index-search-rectangle">
+          <!--选择搜索类型-->
+          <div class="index-search-type"></div>
+          <div class="mebox-select-tabs js-index-searchType">
+          </div>
+          <!--</div>-->
+        </div>
+        <input class="input_index" id="js-nav-search-input" type="text"
+          placeholder="搜索优质资料、文章、学霸秘籍...">
+        <a href="/search" id="js-search-icon"><i class="right-floated fa fa-search search-icon search_icon_index"></i></a>
+        <div class="nav-search-dropdown" id="js-nav-search-dropdown" hidden>
+          <div id="js-nav-search-result" hidden></div>
+          <div id="js-nav-search-history">
+            <p class="nav-search-subtitle">搜索历史：</p>
+          </div>
+          <div id="js-nav-search-hot" style="display:none"></div>
+          <div class="clear-fix"></div>
+        </div>
+        <!--热门关键字-->
+        <div class="search-hot-container" id="js-index-search-hotCourses">
+        </div>
+      </div>
+      <!--上传资料 红色图标-->
+      <button class="btn btn-navbar-upload upload_index" onclick="window.location.href='/resource/upload'"><i
+        class="fa fa-cloud-upload"></i>上传资料
+      </button>
+    </div>
+    <div class="bigshow-container">
+      <!--课程 导航-->
+      <div class="classIndex" >
+        <include file="Common/guide"/>
+      </div>
+      <!--轮播图-->
+      <div class="pictureIndex">
+        <!--轮播大图-->
+        <div class="swiper-container">
+          <!--左右切换-->
+          <div class="swiper-prev-next">
+            <div class="swiper-prev" id="js-swiper-prev">
+              <i class="fa fa-chevron-left"></i>
+            </div>
+            <div class="swiper-next" id="js-swiper-next">
+              <i class="fa fa-chevron-right"></i>
+            </div>
+          </div>
+          <div class="swiper-wrapper"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+        <!--轮播小图-->
+        <div class="smallpicture-container">
+        </div>
+      </div>
+      <!--短面板: 猜您喜欢 + 我的课程-->
+      <div class="guesslikeIndex">
+        <!--猜您喜欢 -->
+        <div class="guesslike-container guesslike-container-smallsize">
+          <div class="guesslike-title">
+            <label class="guesslike-button" onclick="changeToLike();">猜您喜欢</label>
+            <label class="guesslike-button" onclick="changeToCourse();">我的课程</label>
+          </div>
+          <div class="guesslike-line-left guess-line-left"></div>
+          <div class="guesslike-line-right guess-line-right" hidden></div>
+          <div class="guesslike-course-line"></div>
+          <!--内容区-->
+          <div class="guesslike-switch-container guess-switch-like"></div>
+          <div class="guesslike-switch-container guess-switch-course"></div>
+        </div>
+        <!--悬赏任务-->
+        <div class="moneyTask-container">
+          <!-- -->
+          <div class="moneyTask-container-font">
+            <div class="moneyTask-title"><a class="moneyTask-font"><i class="fa fa-diamond moneyTask-diamond" aria-hidden="true"></i>悬赏任务</a>
+            </div>
+            <div class="moneyTask-line"></div>
+            <div class="guesslike-course-line"></div>
+            <div class="moneyTask-schoolgrade-container" id="moneyTask-schoolgrade"></div>
+            <div class="moneyTask-font-small">课程资料库需要你的建设!若能找到以下课程的资料:
+              <label class="moneyTask-change-container" onclick="moneyTaskRefresh();"><i class="fa fa-refresh moneyTask-change-refresh" aria-hidden="true"></i><span class="guesslike-course">换一批</span> </label>
+            </div>
+            <div id="moneyTask-courses-container"></div>
+            <div class="moneyTask-bottom-container">
+              <div class="moneyTask-font-small moneyTask-toRed">可获得3倍高达60米粒的奖励!<i class="fa fa-diamond " aria-hidden="true"></i></div>
+              <div class="moneyTask-button" onclick="window.location.href='/resource/uploadText'"><span class="moneyTask-button-font">点我赢米粒</span></div>
+            </div>
+          </div>
+          <div class="jin-mask-yourInfo1" >
+            <h4 class="jin-text-align-center"><span>完善信息</span></h4>
+            <div class="file-item jin-box-bottom">
+              <div class="file-info ">
+                <div class="item jin-item">
+                  <label>学校</label>
+                  <select class="jin-school-select js-states"></select>
+                </div>
+                <div class="item jin-item">
+                  <label>院系</label>
+                  <select class="jin-department-select js-states "></select>
+                </div>
+                <div class="item jin-item">
+                  <label>入学</label>
+                  <select class="js-class-select js-states " ></select>
+                </div>
+                <div class="jin-item education">
+                  <div class="education-left">学历</div>
+                  <div class="education-right radio-box">
+                    <label><input name="Education" type="radio" value="0"  checked/>本科</label>
+                    <label><input name="Education" type="radio" value="1" />硕士</label>
+                    <label><input name="Education" type="radio" value="2" />博士 </label>
+                  </div>
+                </div>
+                <div class="button-group jin-item">
+                  <button class="jin-btn-cancel1">确认修改</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--长面板: 猜您喜欢 + 我的课程-->
+        <div class="guesslike-container guesslike-container-largesize" id="guesslike-large" hidden>
+          <div class="guesslike-title">
+            <label class="guesslike-button" onclick="changeToLike();">猜您喜欢</label>
+            <label class="guesslike-button" onclick="changeToCourse();">我的课程</label>
+          </div>
+          <div class="guesslike-line-left guess-line-left"></div>
+          <div class="guesslike-line-right guess-line-right" hidden></div>
+          <div class="guesslike-course-line"></div>
+          <!--面板区-->
+          <div class="guesslike-switch-container guess-switch-like guesslike-switch-container-large"></div>
+          <div class="guesslike-switch-container guess-switch-course guesslike-switch-container-large"></div>
+        </div>
+      </div>
+    </div>
+    <div class="m-index-handpicked">
+      <!--所有学校的攻略-->
+      <div class="title">
+        <span class="left-floated section-name">学校攻略</span>
+        <div class="clear-fix"></div>
+      </div>
+      <div class="panels">
+        <div class="panel" id="handpick-schoolStrategy-panel">
+          <div class="panel-content">
+            <div class="first">
+              <div class="first-content">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--我的专业规划-->
+      <div class="title">
+        <span class="left-floated section-name">专业规划</span>
+        <div class="clear-fix"></div>
+      </div>
+      <div class="panels">
+        <div class="panel" id="handpick-myProfessionPlan-panel">
+          <div class="panel-content">
+            <div class="first">
+              <div class="first-content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--我的课程资料-->
+      <div class="title">
+        <span class="left-floated section-name">课程资料</span>
+        <div class="clear-fix"></div>
+      </div>
+      <div class="panels">
+        <div class="panel" id="handpick-myCourseResources-panel">
+          <div class="panel-content">
+            <div class="first">
+              <div class="first-content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--悬浮窗-->
+    <div class="index-sider" id="js-sider-footer">
+      <div class="sider-footer">
+        <div class="info-left">
+          <div class="round-icon" id="js-weixin-popup">
+            <i class="fa fa-weixin"></i>
+            <div class="footer-popup" hidden>
+              <img class="left-angle" src="__PUBLIC__/img/angle.png" />
+              <span>米盒微信号</span>
+              <img src="__PUBLIC__/img/weixin_qr.jpg" alt="米盒微信号"/>
+            </div>
+          </div>
+          <div class="round-icon" id="js-android-popup">
+            <i class="fa fa-android"></i>
+            <div class="footer-popup" hidden>
+              <img class="left-angle" src="__PUBLIC__/img/angle.png" />
+              <span>米盒安卓客户端</span>
+              <img src="__PUBLIC__/img/android.png" alt="米盒安卓客户端"/>
+            </div>
+          </div>
+          <div class="round-icon" id="js-ios-popup">
+            <i class="fa fa-apple"></i>
+            <div class="footer-popup" hidden>
+              <img class="left-angle" src="__PUBLIC__/img/angle.png" />
+              <span>米盒IOS客户端</span>
+              <img src="__PUBLIC__/img/app_download_ios.jpg" alt="米盒IOS客户端"/>
+            </div>
+          </div>
+          <div class="round-icon" id="js-to-comment"><i class="fa fa-comments-o"></i></div>
+          <div class="round-icon" id="js-to-top"><i class="fa fa-arrow-up"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom_white"></div>
+    <div class="bottom_info">
+      <!--<div class="info-right">-->
+      <!--<span class="right-floated rest-link">-->
+      <!--<a class="info-item" href="/about">关于米盒</a>-->
+      <!--<span class="dot-show"> · </span>-->
+      <!--<a class="info-item" href="/help">帮助中心</a>-->
+      <!--<span class="dot-show"> · </span>-->
+      <!--<a href="/feedback">意见反馈</a>-->
+      <!--</span>-->
+      <span class="company-info">Copyright © <?php echo date('Y'); ?> 一可米互联网科技公司</span>
+      <span class="company-info"><a class="company-info" href="http://www.miibeian.gov.cn/" target="_blank">苏ICP备15062280号</a></span>
+      <div class="clear-fix"></div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom"></layout-put>
+</layout-use>

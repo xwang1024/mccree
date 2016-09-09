@@ -18,12 +18,8 @@ app.use(express.static('public'));
 app.use(logger('dev'));
 
 app.get('/', (req, res, next) => {
-  let template = require('./lib/views/index.marko');
-  res.marko(template, {
-    name: 'Frank',
-    count: 30,
-    colors: ['red', 'green', 'blue']
-  });
+  let template = require('./lib/views/pages/index.marko');
+  res.marko(template, {});
 });
 
 app.server = http.createServer(app);
@@ -31,17 +27,11 @@ app.server.listen(3000, function(){
   console.log('Server is running on port 3000');
 });
 
-// watchTree("lib/views", function (event) {
-//   var layoutFiles = ['lib/views/index.marko'];
-//   if (/\.marko$/.test(event.name)) {
-//     require('marko/hot-reload').handleFileModified('./'+event.name);
-//   }
-// });
 var templatesDir = path.join(__dirname, 'lib/views');
-require('fs').watch(templatesDir, function (event, filename) {
-    if (/\.marko$/.test(filename)) {
+watchTree("lib/views", function (event) {
+    if (/\.marko$/.test(event.name)) {
         // Resolve the filename to a full template path:
-        var templatePath = path.join(templatesDir, filename);
+        var templatePath = path.join(templatesDir, event.name);
 
         console.log('Marko template modified: ', templatePath);
 

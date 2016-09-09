@@ -1,0 +1,6 @@
+{
+  "user_getMyInfo": {
+    "path": "/Home/User/getMyInfo",
+    "method": "GET"
+  }
+}
