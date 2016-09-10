@@ -1,0 +1,241 @@
+// Color variables (appears count calculates by raw css)
+@color0: #8d7f6d; // Appears 9 times
+@color1: #d5af88; // Appears 2 times
+@color2: #bc9461; // Appears 2 times
+
+// Width variables (appears count calculates by raw css)
+@width2: 90.5%; // Appears 3 times
+@width7: 100%; // Appears 3 times
+
+
+.comment-panel {
+  margin-top: 40px;
+  padding: 20px 25px;
+  .subtitle {
+    color: @color0;
+    font-size: 16px;
+    margin: 0 0 12px 0;
+  }
+  .more {
+    color: #aea08f;
+    display: block;
+    font-size: 12px;
+    margin: 0 auto 15px auto;
+    text-align: center;
+    width: @width7;
+  }
+}
+.comment-separator {
+  background-color: #d1cac3;
+  clear: both;
+  height: 1px;
+  margin: 10px 0;
+  opacity: 0.8;
+  width: @width7;
+}
+.inner.comment-items {
+  margin-left: 9.5%;
+  width: @width2;
+}
+.comment-item {
+  display: flex;
+  flex-wrap: wrap;
+}
+.comment-content {
+  width: @width7;
+}
+.comment-operation {
+  -webkit-transition: 0.3s;
+  color: rgba(141,127,109,0.8);
+  float: right;
+  font-size: 14px;
+  margin-top: 10px;
+  transition: 0.3s;
+  span {
+    min-width: 30px;
+    text-align: right;
+  }
+  a {
+    color: rgba(141,127,109,1);
+  }
+  .op-word {
+    cursor: pointer;
+    &:hover {
+      color: rgba(141,127,109,1);
+    }
+  }
+  .op-report {
+  }
+  .op-comment {
+    margin-left: 10px;
+  }
+  .op-icon {
+    margin-right: 6px;
+    i {
+      cursor: pointer;
+      margin-right: 4px;
+      &:hover {
+        color: rgba(141,127,109,1);
+      }
+    }
+  }
+}
+.inner.comment-operation {
+  .op-icon {
+    margin-right: 0;
+  }
+  span {
+    font-size: 12px;
+  }
+}
+.comment-avatar {
+  border-radius: 50%;
+  float:left;
+  height: 50px;
+  margin-right: 1.5%;
+  width: 50px;
+}
+.comment-avatar.inner {
+  height: 44px;
+  width: 44px;
+}
+.comment-info {
+  color: @color0;
+  float: left;
+  width: @width2;
+  .comment-name {
+    color: @color1;
+    margin: 0 4px;
+  }
+}
+.comment-author {
+  color: @color0;
+  display: inline-block;
+  font-size: 17px;
+  margin-right: 10px;
+}
+.comment-description {
+  color: #737373;
+  .resource {
+    color: @color1;
+    cursor: pointer;
+    margin: 0 4px;
+  }
+}
+.inner.comment-author {
+  color: @color0;
+  font-size: 14px;
+  margin-right: 8px;
+}
+.comment-posted {
+  color: @color0;
+  font-size: 14px;
+  margin-right: 8px;
+  &::before {
+    content: '回复';
+    font-size: 12px;
+    margin-right: 10px;
+  }
+}
+.comment-detail {
+  color: @color0;
+  font-size: 17px;
+  margin: 0;
+  opacity: 0.8;
+  word-wrap: break-word;
+  &:hover {
+    opacity: 1;
+  }
+}
+.comment-bottom {
+  align-items: flex-end;
+  display: block;
+  display: flex;
+  justify-content: space-between;
+}
+.comment-bottom-1 {
+  .comment-operation {
+    float: right;
+  }
+}
+.comment-time {
+  color: @color2;
+  display: inline-block;
+  font-size: 12px;
+  margin-top: 10px;
+  opacity: 0.6;
+}
+.comment-time-1 {
+  color: @color2;
+  margin-left: 10px;
+}
+.inner.comment-detail {
+  font-size: 13px;
+  margin-top: 2px;
+}
+.comment-reply-editor {
+  margin: 12px 0;
+}
+.comment-reply {
+  textarea {
+    border-radius: 3px;
+    border: 1px solid rgba(141,127,109,0.8);
+    color: @color0;
+    font-size: 17px;
+    height: 76px;
+    margin-bottom: 9px;
+    outline: none;
+    padding: 12px 14px;
+    resize: none;
+    width: 610px;
+    &:focus {
+      border: 1px solid rgba(141,127,109,1);
+    }
+  }
+}
+.sub-comment-reply {
+  display: none;
+  margin-bottom: 6px;
+  margin-left: 9.5%;
+  width: @width2;
+  textarea {
+    border: 1px solid rgba(141,127,109,1);
+  }
+  input {
+    border-radius: 3px;
+    border: 1px solid rgba(141,127,109,0.8);
+    color: @color0;
+    font-size: 14px;
+    height: 36px;
+    line-height: 36px;
+    margin: 10px 0 4px 0;
+    outline: none;
+    padding: 0 8px;
+    resize: none;
+    width: 560px;
+  }
+  .btn {
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 8px;
+  }
+  .reply-cancel {
+    color: @color0;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 24px;
+    margin-right: 12px;
+    transition: 0.3s;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+.inner.sub-comment-reply {
+  margin-left: 9%;
+  width: 91%;
+  input {
+    width: 510px;
+  }
+}

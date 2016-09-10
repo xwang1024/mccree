@@ -1,0 +1,86 @@
+// Color variables (appears count calculates by raw css)
+@color0: #b99c7b; // Appears 2 times
+
+// Width variables (appears count calculates by raw css)
+@width0: 980px; // Appears 2 times
+@width2: 100%; // Appears 2 times
+
+
+.collection {
+  margin-top: 46px;
+  .collection-down {
+    -webkit-transition: color 0.3s;
+    color: #8d7f6d;
+    font-size: 3rem;
+    text-align: center;
+    transition: color 0.3s;
+    &:hover {
+      color: #c3a986;
+    }
+    i {
+      cursor: pointer;
+    }
+  }
+}
+.collection-title {
+  margin: 0 auto 18px auto;
+  width: @width0;
+}
+.collection-panel {
+  background-color: #faf9f9;
+  box-shadow: 0 2px 4px rgba(187, 179, 168, 0.31);
+  padding: 18px 0;
+  width: @width2;
+  .panel-content {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    margin: 0 auto;
+    width: @width0;
+  }
+}
+.collection-item {
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(187,179,168,0.46);
+  display: flex;
+  flex-direction: column;
+  height: 160px;
+  justify-content: space-between;
+  margin: 9px 0;
+  padding: 0 5px;
+  text-align: center;
+  width: 210px;
+}
+.collection-item-title {
+  color: @main-color;
+  font-size: 20px;
+  font-weight: lighter;
+  height: 52px;
+  line-height: 26px;
+  margin: 33px auto 0 auto;
+  overflow: hidden;
+  padding: 0;
+}
+.collection-item-author {
+  color: @color0;
+  margin: 0 auto;
+  a {
+    color: @color0;
+    font-size: 13px;
+    margin: 0 3px;
+  }
+}
+.collection-item-star {
+  color: #ccb79f;
+  font-size: 11px;
+  margin: 0 auto 8px auto;
+  text-align: right;
+  width: @width2;
+  i {
+    color: #ea786a;
+    font-size: 14px;
+    margin-right: 3px;
+  }
+}

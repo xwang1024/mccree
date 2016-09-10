@@ -1,0 +1,105 @@
+// Color variables (appears count calculates by raw css)
+@color1: rgb(220,111,83); // Appears 3 times
+@color2: rgb(230, 227, 212); // Appears 3 times
+
+
+
+.wangEditor-container {
+  border-radius: 3px;
+  border: 1px solid rgba(158,143,124,0.24);
+  &:focus {
+    border: 1px solid rgba(158,143,124,0.3);
+  }
+  &:hover {
+    border: 1px solid rgba(158,143,124,0.3);
+  }
+  .txt-toolbar {
+    border-top: 2px solid @main-color;
+    box-shadow: 1px 3px 3px rgba(158,143,124,0.6);
+    .tip-triangle {
+      border-color: transparent transparent @main-color;
+    }
+    a {
+      color: @main-color;
+    }
+  }
+  .wangEditor-txt {
+    table {
+      td {
+        border: 1px solid @color2;
+      }
+      th {
+        border: 1px solid @color2;
+      }
+    }
+    img.clicked {
+      box-shadow: 1px 1px 10px rgba(158,143,124,0.6);
+    }
+    table.clicked {
+      box-shadow: 1px 1px 10px rgba(158,143,124,0.6);
+    }
+  }
+}
+.wangEditor-menu-container {
+  .menu-item {
+    .selected {
+      color: rgba(220,111,83,1);
+    }
+    a {
+      color: @main-color;
+    }
+  }
+  .menu-tip {
+    background-color: @main-color;
+  }
+}
+.wangEditor-drop-panel {
+  border-top: 2px solid @main-color;
+  box-shadow: 1px 3px 3px rgba(158,143,124,0.6);
+  .tip-triangle {
+    border-color: transparent transparent @main-color;
+  }
+  input[type=text] {
+    height: 28px;
+    line-height: 28px;
+    &:focus {
+      border: 1px solid rgba(158,143,124,0.5);
+    }
+  }
+  textarea {
+    border: 1px solid rgba(158,143,124,0.24);
+    resize: none;
+    transition: 0.3s;
+    &:focus {
+      border: 1px solid rgba(158,143,124,0.5);
+    }
+    &:hover {
+      border: 1px solid rgba(158,143,124,0.5);
+    }
+  }
+  button {
+    color: @color1;
+  }
+  table.choose-table {
+    td {
+      border: 1px solid @color2;
+    }
+  }
+  .panel-tab {
+    .tab-container {
+      a.selected {
+        border-bottom: 2px solid @color1;
+        color: @color1;
+      }
+    }
+  }
+  select {
+    max-width: 200px;
+    outline: none;
+  }
+  select>option {
+    &:hover {
+      background-color: #dc6f53;
+    }
+  }
+}

@@ -1,0 +1,75 @@
+// Color variables (appears count calculates by raw css)
+@color0: #c0a784; // Appears 2 times
+@color1: #faf8f5; // Appears 2 times
+
+// Width variables (appears count calculates by raw css)
+@width1: 100%; // Appears 3 times
+
+
+.report-popup {
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.15);
+  padding: 5px 9px 10px;
+  position: absolute;
+  width: 200px;
+  z-index: 123;
+  &::before {
+    content: url("../img/angle.png");
+    display: block;
+    left: 102px;
+    position: absolute;
+    top: -14px;
+    transform: rotate(90deg);
+  }
+  .item {
+    background-color: #fefdfc;
+    box-shadow: 0 0 4px rgba(0,0,0,0.15);
+    color: #9e8f7c;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 20px;
+    margin: 7px 0;
+    padding: 7px;
+    text-align: center;
+  }
+  .item.selected {
+    background-color: #f4ece3;
+  }
+  textarea {
+    background-color: @color1;
+    border-radius: 5px;
+    border: none;
+    box-sizing: border-box;
+    color: @color0;
+    font-size: 12px;
+    line-height: 17px;
+    margin: 2px 0 0 0;
+    outline: none;
+    padding: 8px 10px;
+    resize: none;
+    width: @width1;
+  }
+  input {
+    background-color: @color1;
+    border-radius: 5px;
+    border: none;
+    box-sizing: border-box;
+    color: @color0;
+    font-size: 12px;
+    line-height: 17px;
+    margin: 2px 0 0 0;
+    outline: none;
+    padding: 8px 10px;
+    width: @width1;
+  }
+  button {
+    border: none;
+    box-sizing: border-box;
+    height: 28px;
+    line-height: 28px;
+    margin-top: 8px;
+    outline: none;
+    width: @width1;
+  }
+}

@@ -1,0 +1,395 @@
+// Color variables (appears count calculates by raw css)
+@color0: #e9ddce; // Appears 6 times
+@color1: #fefdfc; // Appears 3 times
+@color2: #ffffff; // Appears 3 times
+@color3: #9e8f7c; // Appears 3 times
+@color4: rgb(115, 115, 115); // Appears 3 times
+@color5: #c3aa8b; // Appears 3 times
+@color6: #739178; // Appears 2 times
+@color7: #ac9f8f; // Appears 2 times
+@color8: #8d7f6d; // Appears 2 times
+
+// Width variables (appears count calculates by raw css)
+@width1: 162px; // Appears 3 times
+@width3: 266px; // Appears 4 times
+@width4: 244px; // Appears 4 times
+@width7: 80px; // Appears 2 times
+@width8: 50px; // Appears 3 times
+
+// Height variables (appears count calculates by raw css)
+@height0: 30px; // Appears 3 times
+@height1: 32px; // Appears 3 times
+@height2: 15px; // Appears 2 times
+@height3: 28px; // Appears 4 times
+
+.m-user-payback-create, .m-user-resource-create, .m-article-publish-create, .m-user-coupon-redeem {
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 0 6px rgba(187,179,168,0.46);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+.m-user-payback-create {
+  align-items: flex-start;
+  padding: 20px 20px 14px;
+  width: @width3;
+  &::before {
+    content: url("../img/angle.png");
+    display: block;
+    left: 140px;
+    position: absolute;
+    top: -14px;
+    transform: rotate(90deg);
+  }
+  .large-width {
+    color: @color7;
+    float: left;
+    font-size: 14px;
+    height: @height3;
+    letter-spacing: 0.4px;
+    width: 260px;
+    width: @width7;
+  }
+  .left-item {
+    color: @color7;
+    float: left;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    width: @width7;
+    .blank-space {
+      height: @height2;
+    }
+    li {
+      height: @height3;
+    }
+  }
+  .right-item {
+    color: @color8;
+    float: right;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    width: 1@width7;
+    .blank-space {
+      height: @height2;
+    }
+    li {
+      height: @height3;
+    }
+    label {
+      float: right;
+    }
+  }
+  textarea {
+    border-radius: 2px;
+    border: solid 1px #ecdcc5;
+    color: #c0a784;
+    font-size: 12px;
+    outline: none;
+    padding: 8px 10px;
+    resize: none;
+    width: @width4;
+  }
+  .payback-hint {
+    color: @color8;
+    font-size: 12px;
+    text-align: center;
+    width: @width3;
+  }
+  .payback-head {
+    color: #6bbd7c;
+    font-size: 16px;
+  }
+  .payback-highlight {
+    color: #d7a462;
+  }
+}
+.m-user-coupon-redeem {
+  padding:6px 0px;
+  width:240px;
+  .create-panel {
+    background-color: white;
+    div {
+      margin-top:-4px;
+    }
+  }
+  .select-tabs {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    .tab-show {
+      background-color: @color0;
+      border-radius: 3px 0 0 0;
+    }
+    .tab-hide {
+      -webkit-transition: 0.3s;
+      background-color: @color0;
+      border-radius: 0 0 3px 3px;
+      position: absolute;
+      transition: 0.3s;
+      z-index: 10000;
+      &:hover {
+        background-color: @color5;
+      }
+    }
+    li {
+      border-bottom: none;
+      color: @color2;
+      cursor: pointer;
+      display: block;
+      font-size: 14px;
+      height: @height1;
+      line-height: @height1;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      width: @width8;
+    }
+  }
+  input {
+    -webkit-transition: 0.3s;
+    background-color: @color1;
+    border-radius: 3px;
+    border: 1px solid rgba(115, 115, 115, 0.1);
+    bottom: 1px;
+    color: @color3;
+    font-size: 13px;
+    height: @height0;
+    line-height: 31px;
+    margin-bottom: 8px;
+    outline: none;
+    padding: 0 10px;
+    position: relative;
+    transition: 0.3s;
+    &:hover {
+      border: 1px solid rgba(115, 115, 115, 0.3);
+      color: @color4;
+    }
+  }
+  .input-collection-name {
+    border-radius: 0 3px 3px 0;
+    margin:0px;
+    width:@width1;
+  }
+  .input-collection-tag {
+    width: @width4;
+  }
+  .confirm {
+    position: relative;
+    top: 6px;
+    i {
+      -webkit-transition: 0.3s;
+      color: rgba(220,111,83,0.8);
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        color: rgba(220,111,83,1);
+      }
+    }
+  }
+}
+.m-user-resource-create {
+  padding: 8px 10px;
+  width: @width3;
+  .select-tabs {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    .tab-show {
+      background-color: @color0;
+      border-radius: 3px 0 0 0;
+    }
+    .tab-hide {
+      -webkit-transition: 0.3s;
+      background-color: @color0;
+      border-radius: 0 0 3px 3px;
+      position: absolute;
+      transition: 0.3s;
+      z-index: 10000;
+      &:hover {
+        background-color: @color5;
+      }
+    }
+    li {
+      border-bottom: none;
+      color: @color2;
+      cursor: pointer;
+      display: block;
+      font-size: 14px;
+      height: @height1;
+      line-height: @height1;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      width: @width8;
+    }
+  }
+  input {
+    -webkit-transition: 0.3s;
+    background-color: @color1;
+    border-radius: 3px;
+    border: 1px solid rgba(115, 115, 115, 0.1);
+    bottom: 1px;
+    color: @color3;
+    font-size: 13px;
+    height: @height0;
+    line-height: 31px;
+    margin-bottom: 8px;
+    outline: none;
+    padding: 0 10px;
+    position: relative;
+    transition: 0.3s;
+    &:hover {
+      border: 1px solid rgba(115, 115, 115, 0.3);
+      color: @color4;
+    }
+  }
+  .input-collection-name {
+    border-radius: 0 3px 3px 0;
+    margin-left: -5px;
+    width: @width1;
+  }
+  .input-collection-tag {
+    width: @width4;
+  }
+  .btn-follow.btn-create {
+    float: none;
+    margin: 0;
+  }
+  .create-panel {
+    background-color: white;
+  }
+  .confirm {
+    position: relative;
+    top: 6px;
+    i {
+      -webkit-transition: 0.3s;
+      color: rgba(220,111,83,0.8);
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        color: rgba(220,111,83,1);
+      }
+    }
+  }
+  .up-angle {
+    margin-top: -20px;
+  }
+}
+.m-article-publish-create {
+  margin-left: 312px;
+  margin-top: -130px;
+  padding: 8px 10px;
+  width: @width3;
+  z-index: 999;
+  .select-tabs {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    .tab-show {
+      background-color: @color0;
+      border-radius: 3px 0 0 0;
+    }
+    .tab-hide {
+      -webkit-transition: 0.3s;
+      background-color: @color0;
+      border-radius: 0 0 3px 3px;
+      position: absolute;
+      transition: 0.3s;
+      z-index: 10000;
+      &:hover {
+        background-color: @color5;
+      }
+    }
+    li {
+      border-bottom: none;
+      color: @color2;
+      cursor: pointer;
+      display: block;
+      font-size: 14px;
+      height: @height1;
+      line-height: @height1;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      width: @width8;
+    }
+  }
+  input {
+    -webkit-transition: 0.3s;
+    background-color: @color1;
+    border-radius: 3px;
+    border: 1px solid rgba(115, 115, 115, 0.1);
+    bottom: 1px;
+    color: @color3;
+    font-size: 13px;
+    height: @height0;
+    line-height: 31px;
+    margin-bottom: 8px;
+    outline: none;
+    padding: 0 10px;
+    position: relative;
+    transition: 0.3s;
+    &:hover {
+      border: 1px solid rgba(115, 115, 115, 0.3);
+      color: @color4;
+    }
+  }
+  .input-collection-name {
+    border-radius: 0 3px 3px 0;
+    margin-left: -5px;
+    width: @width1;
+  }
+  .input-collection-tag {
+    width: @width4;
+  }
+  .btn-create {
+    float: none;
+    margin: 0;
+  }
+  .create-panel {
+    background-color: white;
+  }
+  .confirm {
+    position: relative;
+    top: 6px;
+    i {
+      -webkit-transition: 0.3s;
+      color: rgba(220,111,83,0.8);
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        color: rgba(220,111,83,1);
+      }
+    }
+  }
+  .up-angle {
+    bottom: -12px;
+    left: 140px;
+    position: absolute;
+    transform: rotate(-90deg);
+  }
+}
+.set-btn-group {
+  margin-bottom: 10px;
+  margin-top: -5px;
+}
+.btn-set-print {
+  background-color: @color6;
+  float: left;
+  font-size: 14px;
+  height: @height3;
+  line-height: @height3;
+  margin-right: 0px;
+  opacity: 0.7;
+  padding: 0px;
+  text-align: center;
+  width: 110px;
+  &:hover {
+    background-color: @color6;
+    opacity: 1;
+  }
+}

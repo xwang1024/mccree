@@ -1,0 +1,58 @@
+<nav class="navbar">
+  <!-- 导航第一行: logo+ 板块 + (登录/注册) + (打印/个人中心)-->
+  <div class="nav-panel">
+    <a href="/"><img class="logo" src="/img/logo.png"></a>
+    <!--第一行最左边的几大类-->
+    <div class="nav-items">
+      <a href="/" class="nav-item
+        <!--<php>
+        if ($_SERVER['REQUEST_URI'] == '/') {
+        echo ' active';
+        }
+        </php>-->
+        ">首页</a>
+      <a href="/resources" class="nav-item
+        <!--<php>
+        if (strpos($_SERVER['REQUEST_URI'], '/resources') === 0 ||
+        strpos($_SERVER['REQUEST_URI'], '/resource') === 0) {
+        echo ' active';
+        }
+        </php>-->
+        ">资料</a>
+      <a href="/articles" class="nav-item
+        <!--<php>
+        if (strpos($_SERVER['REQUEST_URI'], '/articles') === 0 ||
+        strpos($_SERVER['REQUEST_URI'], '/article') === 0) {
+        echo ' active';
+        }
+        </php>-->
+        ">攻略</a>
+      <!--<a class="nav-item" id="guide-open">导航</a>-->
+    </div>
+    <!--第一行最右边的几大类-->
+    <div class="right-nav">
+      <div class="right-nav-items">
+        <!--&lt;!&ndash;搜索框&ndash;&gt;-->
+        <!--<div class="left-floated nav-search">-->
+        <!--<div class="nav-search-input">-->
+        <!--<input class="input" id="js-nav-search-input" type="text"-->
+        <!--placeholder="搜索优质资料、文章、学霸秘籍...">-->
+        <!--<a href="/search" id="js-search-icon"><i class="right-floated fa fa-search search-icon"></i></a>-->
+        <!--</div>-->
+        <!--<div class="nav-search-dropdown" id="js-nav-search-dropdown" hidden>-->
+        <!--<div id="js-nav-search-result" hidden></div>-->
+        <!--<div id="js-nav-search-history"><p class="nav-search-subtitle">搜索历史：</p></div>-->
+        <!--<div id="js-nav-search-hot" style="display:none"></div>-->
+        <!--<div class="clear-fix"></div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+          <a href="/login" class="nav-item">登录</a>
+          <a href="/phone-register" class="nav-item">加入米盒</a>
+      </div>
+    </div>
+  </div>
+  <!--<script src="/js_dev/reveive.js"></script>
+  <script src="/js_dev/format.js"></script>
+  <script src="/js_dev/WebSocket.js"></script>-->
+</nav>

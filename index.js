@@ -27,11 +27,11 @@ app.server.listen(3000, function(){
   console.log('Server is running on port 3000');
 });
 
-var templatesDir = path.join(__dirname, 'lib/views');
+// var templatesDir = path.join(__dirname, 'lib/views');
 watchTree("lib/views", function (event) {
     if (/\.marko$/.test(event.name)) {
         // Resolve the filename to a full template path:
-        var templatePath = path.join(templatesDir, event.name);
+        var templatePath = path.join(__dirname, event.name);
 
         console.log('Marko template modified: ', templatePath);
 

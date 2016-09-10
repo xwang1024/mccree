@@ -1,0 +1,198 @@
+// Color variables (appears count calculates by raw css)
+@color0: #9e8f7c; // Appears 4 times
+@color1: #c3a986; // Appears 3 times
+@color2: #ffffff; // Appears 2 times
+@color3: #fefdfc; // Appears 2 times
+@color4: #e9ddce; // Appears 2 times
+
+
+// Height variables (appears count calculates by raw css)
+@height5: 20px; // Appears 2 times
+
+.collect-popup {
+  background-color: white;
+  border-radius: 3px;
+  bottom: -232px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.15);
+  height: 264px;
+  padding: 0 9px;
+  position: absolute;
+  right: -34px;
+  width: 212px;
+  z-index: 123;
+  &::before {
+    content: url("../img/angle.png");
+    display: block;
+    left: 111px;
+    position: absolute;
+    top: -14px;
+    transform: rotate(90deg);
+  }
+  .collect-title {
+    color: @color0;
+    font-size: 15px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+  }
+  .collect-items {
+    height: 184px;
+  }
+  .collect-item {
+    background-color: @color3;
+    box-shadow: 0 0 4px rgba(0,0,0,0.15);
+    color: @color0;
+    font-size: 12px;
+    line-height: @height5;
+    margin: 7px 0;
+    padding: 7px;
+    &::after {
+      clear:both;
+      content: "";
+      display: block;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    a {
+      color: @color0;
+    }
+    .name {
+      display: inline-block;
+      height: @height5;
+      max-width: 164px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space:nowrap;
+    }
+  }
+  .collect-item.selected {
+    background-color: #f4ece3;
+  }
+  .up-angle {
+    margin: 0px auto 0 auto;
+    position: absolute;
+  }
+  .btn {
+    font-size: 14px;
+    height: 22px;
+    line-height: 22px;
+    margin: 8px auto 0 auto;
+    width: 70px;
+  }
+  .select-tabs {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    .tab-show {
+      background-color: @color4;
+      border-radius: 3px 0 0 0;
+    }
+    .tab-hide {
+      -webkit-transition: 0.3s;
+      background-color: @color4;
+      border-radius: 0 0 3px 3px;
+      position: absolute;
+      transition: 0.3s;
+      z-index: 301;
+      &:hover {
+        background-color: #c3aa8b;
+      }
+    }
+    li {
+      border-bottom: none;
+      color: @color2;
+      cursor: pointer;
+      display: block;
+      font-size: 12px;
+      height: 26px;
+      line-height: 26px;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      width: 38px;
+    }
+  }
+  input {
+    -webkit-transition: 0.3s;
+    background-color: @color3;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    border: 1px solid rgba(115, 115, 115, 0.1);
+    bottom: 1px;
+    color: @color0;
+    font-size: 12px;
+    height: 24px;
+    line-height: 23px;
+    margin-bottom: 8px;
+    outline: none;
+    padding: 0 10px;
+    position: relative;
+    transition: 0.3s;
+    width: 120px;
+    &:hover {
+      border: 1px solid rgba(115, 115, 115, 0.3);
+      color: rgb(115, 115, 115);
+    }
+  }
+  .confirm {
+    font-size: 14px;
+    margin-left: 4px;
+    position: relative;
+    top: 6px;
+    i {
+      -webkit-transition: 0.3s;
+      color: rgba(220,111,83,0.8);
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        color: rgba(220,111,83,1);
+      }
+    }
+  }
+  .collect-private {
+    background-color: #d5af88;
+    border-radius: 3px;
+    color: @color2;
+    font-size: 12px;
+    height: @height5;
+    line-height: @height5;
+    margin-right: 4px;
+    text-align: center;
+    width: 30px;
+  }
+  .pages {
+    bottom: 46px;
+    position: absolute;
+    right: 7px;
+    .item {
+      color: @color1;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 0 4px;
+      opacity: 0.7;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .num {
+      color: @color1;
+      font-size: 12px;
+      line-height: 16px;
+      margin: 0 4px;
+    }
+  }
+  .tip {
+    align-items: center;
+    color: @color1;
+    display: flex;
+    font-size: 14px;
+    height: 100%;
+    justify-content: center;
+    margin-top: 7px;
+    p {
+      margin-top: -7px;
+    }
+  }
+}

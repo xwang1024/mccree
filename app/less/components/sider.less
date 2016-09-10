@@ -1,0 +1,133 @@
+// Color variables (appears count calculates by raw css)
+@color0: #d6b08a; // Appears 4 times
+@color1: #ffffff; // Appears 3 times
+@color2: #bfa083; // Appears 2 times
+@color3: #9a9a9a; // Appears 2 times
+
+
+
+.sider {
+  .separator {
+    margin-bottom: 27px;
+  }
+}
+.sider-panel {
+  margin-bottom: 27px;
+  .box {
+    margin-top: 14px;
+    min-height: 50px;
+    padding: 16px 15px;
+    .tips {
+      color: @color2;
+      font-size: 14px;
+      margin-top: 15px;
+      text-align: center;
+    }
+  }
+  .label {
+    background-color: @color0;
+    border-radius: 3px;
+    color: #fefdfc;
+    cursor: default;
+    display: inline-block;
+    font-size: 9.6px;
+    height: 19px;
+    line-height: 19px;
+    margin-right: 6px;
+    text-align: center;
+    width: 30px;
+  }
+  .title {
+    color: @color2;
+    display: inline-block;
+    font-size: 12px;
+    max-width: 197px;
+    overflow: hidden;
+    position: relative;
+    text-overflow:ellipsis;
+    top: 3px;
+    white-space:nowrap;
+  }
+}
+.sider-item {
+  border-bottom: 1px solid rgba(243,241,240,1);
+  padding: 15px 0 10px 0;
+}
+.sider-footer-panel {
+  margin-bottom: 30px;
+  width: 264px;
+}
+.sider-footer {
+  align-items: flex-end;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-between;
+  .round-icon {
+    background-color: @color1;
+    border-radius: 50%;
+    border: 2px solid @color0;
+    color: @color0;
+    font-size: 18px;
+    height: 34px;
+    line-height: 34px;
+    margin-top: 13px;
+    position: relative;
+    text-align: center;
+    width: 34px;
+    &:hover {
+      -webkit-transition: color 0.3s;
+      background-color: @color0;
+      border-radius: 50%;
+      color: @color1;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+  }
+  a {
+    color: @color3;
+  }
+  .rest-link {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .company-info {
+    clear: both;
+    color: @color3;
+    display: block;
+    font-size: 10px;
+  }
+}
+.footer-popup {
+  background-color: @color1;
+  box-shadow: 0 0 5px rgba(187,179,168,0.64);
+  height: 106px;
+  left: -120px;
+  padding: 2px 10px 7px 10px;
+  position: absolute;
+  top: -38px;
+  width: 86px;
+  z-index: 99;
+  span {
+    color: #c3a986;
+    display: block;
+    font-size: 11px;
+    line-height: 23px;
+  }
+  img {
+    width: 80px;
+  }
+  .left-angle {
+    color: #999999;
+    font-size: 20px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    right:-8px;
+    top: 46px;
+    width: 8px;
+  }
+}
+.left-footer-panel {
+  margin-top: 70px;
+}

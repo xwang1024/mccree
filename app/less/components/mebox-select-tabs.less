@@ -1,0 +1,41 @@
+
+// Width variables (appears count calculates by raw css)
+@width0: 60px; // Appears 2 times
+
+
+.mebox-select-tabs {
+  background-color: @main-color;
+  border-radius: 3px 0 0 3px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  height: 36px;
+  line-height: 32px;
+  margin: 0;
+  padding-top: 2px;
+  position: relative;
+  text-align: center;
+  width: @width0;
+  .option {
+    -webkit-transition: background-color 0.3s;
+    background-color: @main-color;
+    display: block;
+    transition: background-color 0.3s;
+    z-index: 99;
+    &:hover {
+      background-color: #8d7f6d;
+    }
+    &:last-child {
+      border-radius: 0 0 3px 3px;
+    }
+  }
+}
+.mebox-select-tabs>.options {
+  border-radius: 0 0 3px 3px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: @width0;
+  z-index: 55;
+}

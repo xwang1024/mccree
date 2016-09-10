@@ -1,0 +1,34 @@
+.toaster {
+  background-color: #fefdfc;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 rgba(187, 179, 168, 0.5);
+  display: none;
+  left: 0;
+  margin: 0 auto;
+  padding: 16px 21px;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 90px;
+  z-index: 9999;
+}
+.toaster-content {
+  display: inline-block;
+  font-size: 20px;
+  margin: 0;
+}
+.toaster-content.success {
+  color: #a7c9ae;
+}
+.toaster-content.error {
+  color: #c97f77;
+}
+.toaster-content.warning {
+  color: #977b6c;
+}
+.toaster-content>.icon {
+  font-size: 1.5em;
+  margin-right: 9px;
+  position: relative;
+  top: 3px;
+}
