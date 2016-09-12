@@ -1,6 +1,6 @@
 {
   "/": {
-    "view": "default",
+    "view": "./lib/views/pages/index.marko",
     "data": {
       "user": "user_getMyInfo"
     }
