@@ -119,19 +119,18 @@ gulp.task('build-release', (callback) => {
 gulp.task('watch', function() {
   $.livereload.listen();
 
-  var watchSource = [];
   gulp.watch(['app/templates/**/*.marko'], ['template']);
   if(resource.script) {
     for(var k in resource.script) {
       gulp.watch(resource.script[k], [`script:${k}`]);
-      watchSource.concat(resource.script[k]);
     }
   }
   if(resource.style) {
+    var styleTasks = [];
     for(var k in resource.style) {
-      gulp.watch(resource.style[k], [`style:${k}`]);
-      watchSource.concat(resource.style[k]);
+      styleTasks.push(`style:${k}`);
     }
+    gulp.watch('app/less/**/*.less', styleTasks);
   }
 });
 

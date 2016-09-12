@@ -1,0 +1,50 @@
+
+.navbar {
+  background-color: @default-bg-color;
+  border-top: @top-nav-border-h solid @main-color;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.13);
+
+  .nav-panel {
+    height: @top-nav-h;
+    margin: 0 auto;
+    position: relative;
+    width: 1200px;
+    .logo {
+      display: inline-block;
+      position: relative;
+      height: @top-nav-logo-h;
+      width: @top-nav-logo-w;
+      top: (@top-nav-h - @top-nav-logo-h)/2;
+    }
+    // 左右nav都会使用
+    .nav-item {
+      font-size: @default-font-size;
+      cursor: pointer;
+      color: @main-color;
+      margin-left: @margin-xl;
+      &:link, &:visited, &:active {
+        color: @main-color;
+      }
+      &:hover {
+        color: @main-color-lighter;
+      }
+      &.active {
+        color: @main-color-lighter;
+      }
+    }
+    .nav-items {
+      display: inline-block;
+      position: relative;
+      line-height: @top-nav-h;
+      margin-left: @margin;
+    }
+    .right-nav {
+      float: right;
+      .right-nav-items {
+        display: inline-block;
+        position: relative;
+        line-height: @top-nav-h;
+      }
+    }
+  }
+}
