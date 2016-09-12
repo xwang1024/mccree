@@ -14,6 +14,7 @@ const logger     = require('morgan');
 const bodyParser = require('body-parser');
 const async      = require('async');
 const request    = require('request');
+const qs         = require('querystring');
 
 const phpHost    = 'http://mebox.xin.me';
 
@@ -33,23 +34,32 @@ for(var url in renderConf) {
       var dataKeys = Object.keys(conf.data);
       var context = {};
       async.each(dataKeys, (dataKey, callback) => {
-        let service = serviceConf[conf.data[dataKey]];
+        let serviceName = conf.data[dataKey];
+        let query = {};
+        if(typeof(serviceName) === 'object') {
+          query       = serviceName.query;
+          serviceName = serviceName.service;
+        }
+        let service = serviceConf[serviceName];
+        if(!service) {
+          console.log(`${serviceName} not defined`);
+          return callback();
+        }
+        console.log("[REQUEST] " + phpHost+service.url + '?' + qs.stringify(query))
         request[service.method]({
-          url: phpHost+service.url,
-          headers: _.omit(req.headers, ['cookie', 'refer']),
+          url: phpHost+service.url + '?' + qs.stringify(query),
+          headers: req.headers,
         }, (err, response, body) => {
           if (!err && response.statusCode == 200) {
             context[dataKey] = JSON.parse(body);
-            callback();
           } else {
             console.log(err);
           }
+          callback();
         })
       }, (err) => {
-        console.log(context);
         res.marko(template, context);
       });
-      
     });
   })(url, renderConf[url]);
 }
