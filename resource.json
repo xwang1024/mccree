@@ -1,10 +1,9 @@
 {
   "script": {
-    "base.js": [
-      "bower_components/jquery/dist/jquery.min.js"
-    ],
     "app.js": [
-      "app/scripts/*.js"
+      "app/scripts/base/*.es6",
+      "app/scripts/pages/*.es6",
+      "app/scripts/*.es6"
     ]
   },
   "style": {
@@ -13,6 +12,6 @@
     ]
   },
   "vendor": [
-    
+    "node_modules/blueimp-md5/js/md5.min.js"
   ]
 }
