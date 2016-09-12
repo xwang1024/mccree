@@ -7,7 +7,7 @@
         <div class="m-auth-panel">
           <div class="m-auth-title">登录米盒</div>
           <div class="separator"></div>
-          <form onsubmit="return encrypt()">
+          <form id="login-form">
             <div class="m-login-item">
               <label for="phone_number">手机号</label>
               <input type="text" id="phone_number">
@@ -32,7 +32,7 @@
         <div class="oauth2">
           <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxa11f23b94aa6264c&redirect_uri=http://mebox.top&response_type=code&scope=snsapi_login&state=mebox#wechat_redirect"><img src="/img/wechat.svg" alt="微信"></a>
           <a href="https://api.weibo.com/oauth2/authorize?client_id=2472544097&redirect_uri=http://mebox.top&response_type=code"><img src="/img/weibo.svg" alt="微博"></a>
-          <img src="/img/qq.svg" alt="QQ" onclick="toQQLogin()">
+          <a href="/qqLogin"><img src="/img/qq.svg" alt="QQ"></a>
         </div>
       </div>
       <footer class="m-auth-footer">
@@ -57,10 +57,6 @@
     </div>
   </layout-put>
   <layout-put into="extra_bottom">
-    <!--<script src="/js_dev/auth.js"></script>
-    <script type="text/javascript" src="/js_dev/md5.js"></script>
-    <script>
-      init();
-    </script>-->
+    <script type="text/javascript" src="/vendor/md5.min.js"></script>
   </layout-put>
 </layout-use>

@@ -25,6 +25,7 @@ app.use(logger('dev'));
 
 const serviceConf = require('./conf/service.json');
 const renderConf = require('./conf/render.json');
+const forwardConf = require('./conf/forward.json');
 
 for(var url in renderConf) {
   (function(url, conf) {
@@ -47,8 +48,9 @@ for(var url in renderConf) {
         }
         console.log("[REQUEST] " + phpHost+service.url + '?' + qs.stringify(query))
         request[service.method]({
-          url: phpHost+service.url + '?' + qs.stringify(query),
+          url: phpHost+service.url,
           headers: req.headers,
+          qs: query
         }, (err, response, body) => {
           if (!err && response.statusCode == 200) {
             context[dataKey] = JSON.parse(body);
@@ -56,13 +58,19 @@ for(var url in renderConf) {
             console.log(err);
           }
           callback();
-        })
+        });
       }, (err) => {
         res.marko(template, context);
       });
     });
   })(url, renderConf[url]);
 }
+
+app.all('/*', (req, res, next) => {
+  if(!forwardConf[req.path]) return next();
+  var url = phpHost+req.path;
+  req.pipe(request(url)).pipe(res);
+});
 
 app.server = http.createServer(app);
 app.server.listen(3000, function(){
