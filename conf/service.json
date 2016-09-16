@@ -47,6 +47,10 @@
     "url": "/Home/Prefer/getReResource",
     "method": "get"
   },
+  "prefer_getBestResourceSet": {
+    "url": "/Home/Prefer/getBestResourceSet",
+    "method": "get"
+  },
   "console_themeEvent_getOptAll": {
     "url": "/Console/ThemeEvent/getOptAll",
     "method": "get"

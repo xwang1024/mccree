@@ -1,0 +1,84 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">资料 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/resource.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="collection">
+      <div class="collection-title">
+        <span class="left-floated section-name">资料集</span>
+        <div class="icon-more">
+          <a class="right-floated more" href="/resource-collections">查看更多</a>
+          <img class="right-floated icon" src="/img/mi.png" alt="mebox-icon" />
+        </div>
+        <div class="clear-fix"></div>
+      </div>
+      <div class="collection-panel">
+        <div class="panel-content recommendRS-list" id="resource-hot-collections-container">
+          <for(i from 0 to 7)>
+            <div class="collection-item" if(data.bestResources[i])>
+              <a href="/resource-collection/${data.bestResources[i].id}">
+                <h2 class="collection-item-title">${data.bestResources[i].name}</h2>
+              </a>
+              <p class="collection-item-author"><i class="fa fa-user"></i> <a href="/space/${data.bestResources[i].owner.id}">${data.bestResources[i].owner.name}</a></p>
+              <p class="collection-item-star"><i class="star fa fa-star"></i>${data.bestResources[i].collectCount}</p>
+            </div>
+          </for>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper">
+        <div class="container m-resource-content">
+            <div class="main">
+                <div>
+                    <span class="left-floated section-name">资料</span>
+                    <div class="clear-fix"></div>
+                </div>
+                <div class="filter">
+                    <div class="select-item">
+                        <div class="select-show">
+                            <span class="selected">热门优先</span>&nbsp;&nbsp;
+                            <i class="select-switcher fa fa-caret-down"></i>
+                        </div>
+                        <div class="select-options">
+                            <li class="select-option">热门优先</li>
+                            <li class="select-option">评分优先</li>
+                            <li class="select-option">智能推荐</li>
+
+                        </div>
+                    </div>
+                    <div class="select-item">
+                        <div class="select-show">
+                            <span class="selected">所有本校</span>&nbsp;&nbsp;
+                            <i class="select-switcher fa fa-caret-down"></i>
+                        </div>
+                        <div class="select-options">
+                            <li class="select-option">所有本校</li>
+                            <li class="select-option">只看本校</li>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-resource-panel box" id="resources-container">
+                  
+                </div>
+            </div>
+
+            <div class="right-floated sider">
+                <a href="/resource/upload"><button class="m-resource-upload"><span><i class="fa fa-cloud-upload"></i></span>上传资料/资料集</button></a>
+                <div class="separator"></div>
+                <include("../../partials/news_panel.marko")/>
+                <include("../../partials/hot_tags_panel.marko")/>
+                <div class="separator"></div>
+                <include("../../partials/sider_footer.marko")/>
+            </div>
+            <div class="clear-fix"></div>
+
+        </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/resource.js"></script>
+    <script src="/js/resource_collect_popup.js"></script>
+  </layout-put>
+</layout-use>

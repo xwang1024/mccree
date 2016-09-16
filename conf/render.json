@@ -22,5 +22,15 @@
   "/login": {
     "view": "./lib/views/pages/login.marko",
     "data": {}
+  },
+  "/resources": {
+    "view": "./lib/views/pages/resource/index.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "bestResources": "prefer_getBestResourceSet"
+    }
   }
 }
