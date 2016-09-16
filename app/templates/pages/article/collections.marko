@@ -1,0 +1,64 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">文章集 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/article.css">  
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+        <div class="container">
+            <div class="main">
+                <span class="left-floated section-name">文章集列表</span>
+                <div class="clear-fix"></div>
+                <div class="m-article-collections-panel">
+                    <div class="filter">
+                        <div class="select-item">
+                            <div class="select-show">
+                                <span class="selected" value="2">收藏优先</span>&nbsp&nbsp
+                                <i class="select-switcher fa fa-caret-down"></i>
+                            </div>
+                            <div class="select-options">
+                                <!--<li class="select-option">热门优先</li>-->
+                                <li class="select-option" value="2">收藏优先</li>
+                                <li class="select-option" value="1">时间优先</li>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="select-item">
+                            <div class="select-show">
+                                <span class="selected">只看本校</span>&nbsp&nbsp
+                                <i class="select-switcher fa fa-caret-down"></i>
+                            </div>
+                            <div class="select-options">
+                                <li class="select-option" value="1">只看本校</li>
+                                <li class="select-option" id="js-all-school" value="0">所有学校</li>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                    <div class="m-article-collections" id="js-a-collections" page="0" more="1">
+                    </div>
+                </div>
+            </div>
+            <div class="right-floated sider">
+                <div class="sider-panel">
+                    <div class="m-article-hot-collection-title">
+                        <span class="left-floated sider-name">热门文章集</span>
+                        <div class="clear-fix"></div>
+                    </div>
+                    <div class="box" id="js-hot-a-collection"></div>
+                </div>
+                <div class="separator"></div>
+                <include file="Common/hot_tags_panel"/>
+                <div class="separator"></div>
+                <!--<include file="Common/activity_panel" />-->
+                <include file="Common/sider_footer" />
+            </div>
+            <div class="clear-fix"></div>
+        </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/article_collections.js"></script>
+  </layout-put>
+</layout-use>

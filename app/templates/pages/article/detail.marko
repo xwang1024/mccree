@@ -1,0 +1,200 @@
+<layout-use("../../layouts/default.marko")>
+  <script marko-init>
+    var getFriendlyTime = function(time) {
+      if(!time) return;
+      var timestamp = Date.parse(time.replace(/-/gi,"/"));
+      var minute = 1000 * 60;
+      var hour = minute * 60;
+      var day = hour * 24;
+      var halfAMonth = day * 15;
+      var month = day * 30;
+      var year = day * 365;
+      function getDateDiff(dateTimeStamp) {
+        var now = new Date().getTime();
+        var diffValue = now - dateTimeStamp;
+        var yearC = diffValue/year;
+        var monthC = diffValue/month;
+        var weekC = diffValue/(7*day);
+        var dayC = diffValue/day;
+        var hourC = diffValue/hour;
+        var minC = diffValue/minute;
+        var result;
+        if (yearC >= 1) {
+            result = parseInt(yearC) + "年前";
+        } else if (monthC >= 1) {
+            result = parseInt(monthC) + "个月前";
+        } else if(weekC >= 1) {
+            result = parseInt(weekC) + "周前";
+        } else if(dayC >= 1) {
+            result = parseInt(dayC) +"天前";
+        } else if(hourC>=1) {
+            result = parseInt(hourC) +"个小时前";
+        } else if(minC>=1) {
+            result = parseInt(minC) +"分钟前";
+        }else {
+            result="刚刚";
+        }
+        return result;
+      }
+      return getDateDiff(timestamp);
+    }
+
+    var getSearchType = function (type){
+      if(type != null){
+        type = type.toLowerCase();
+      }
+      switch(type){
+        case "resource": return 0;
+        case "resource-collection": return 1;
+        case "article": return 2;
+        case "article-collection": return 3;
+        case "tag": return 4;
+        case "user": return 5;
+        default: return -1;
+      }
+    }
+
+    var htmlDecode = function (str) {
+      var s = "";
+      if (str.length == 0) return "";
+      s = str.replace(/&lt;/g, "<");
+      s = s.replace(/&gt;/g, ">");
+      s = s.replace(/&nbsp;/g, "hi");
+      s = s.replace(/&#39;/g, "\'");
+      s = s.replace(/&quot;/g, "\"");
+      //s = s.replace(/<br>/g, "\n");
+      s = s.replace(/&amp;/g, "&");
+      return s;
+    }
+  </script>
+  <layout-put into="title">${data.article.title} - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/plugins/wangEditor/css/wangEditor.min.css">
+    <link rel="stylesheet" href="/plugins/wangEditor/highlightjs/dark.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link href="/plugins/smohanFace/css/smohan.face.css" type="text/css" rel="stylesheet">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+      <div class="m-article-content container">
+        <div class="main">
+            <div class="m-article-detail-panel main-panel box">
+                <div class="m-article-header">
+                    <div class="right-floated">
+                        <span class="left-floated op-icon article-praise">
+                          <i class="fa fa-thumbs-o-up" if(!data.article.praiseState)></i>
+                          <i class="fa fa-thumbs-up"   else></i>
+                          <span class="js-article-praise">${data.article.commentCount}</span>
+                        </span>
+                        <span class="left-floated op-icon article-comment comment-num">
+                          <i class="fa fa-comments-o"></i>
+                          <span class="js-comment-num">${data.article.praiseCount}</span>
+                        </span>
+                        <span class="right-floated hot"><img src="/img/hot.svg" alt="hot"/>
+                          <span id="js-article-hot">${parseFloat(data.article.hotDegree).toFixed(2)}</span>
+                        </span>
+                    </div>
+                    <h2 class="title indent-title" id="js-article-title" if(data.article.title.indexOf("【")==0)>${data.article.title}</h2>
+                    <h2 class="title" id="js-article-title" else>${data.article.title}</h2>
+                    <input type="hidden" id="js-article-id" value="${data.article.id}">
+                    <div class="left-floated info">
+                        作者：<span class="author" id="js-article-author" author-id="">${data.article.authorName}</span>
+                        文章来源：<span class="source" id="js-origin">${data.article.source}</span>
+                        上传者：<span class="editor" id="js-editor">${data.article.user.name}</span>
+                        <span class="time" id="js-article-time">${getFriendlyTime(data.article.time)}</span>
+                        <div class="tags js-article-tags">
+                          <for(tag in data.article.otherTags)>
+                            <a class="tag" href="/search?key=${tag.name}&type=getSearchType('article')&condition=3&tagId=${tag.id}&ttype=${tag.type}" tid="${tag.id}">${tag.name}</a>
+                          </for>
+                        </div>
+                    </div>
+                    <div class="left-floated article-report">
+                        <span class="js-report-span">举报</span>
+                    </div>
+                    <div style="position: relative; clear: both; right: 0; bottom: 0">
+                        <div class="right-floated btn btn-a-print"  onclick="showPrintModal(${data.article.id}, ${out.global.user.result.id} ,'ARTICLE')" if(out.global.user.result)>+ 加入打印列表</div>
+                        <div class="right-floated btn btn-a-print"  onclick="showPrintModal(${data.article.id}, undefined ,'ARTICLE')" else>+ 加入打印列表</div>
+                        <div class="right-floated btn btn-collect js-a-collect" aid="${data.article.id}">+ 加入收藏集</div>
+                        <a class="right-floated btn btn-edit js-article-edit" href="/space/${data.article.user.id}/uploads" if(data.article.editable)>修改</a>
+                    </div>
+                </div>
+
+                <div class="main-panel-separator"></div>
+                <div class="m-article-content">
+                    <img class="article-pic" id="js-article-pic" src="$!{data.article.url}" alt="" if(data.article.url)/>
+                    <div class="article-summary" id="js-article-summary">${data.article.summary}</div>
+                    <div class="article-content" id="js-article-content">$!{htmlDecode(data.article.content)}</div>
+                </div>
+                <div class="bottom-items">
+                    <div class="bottom-item article-praise">
+                        <i class="fa fa-thumbs-o-up"></i>
+                        <span>点赞</span>
+                    </div>
+                    <!--<div class="bottom-item js-article-star">-->
+                        <!--<i class="star fa fa-star-o"></i>-->
+                        <!--<span>收藏</span>-->
+                    <!--</div>-->
+                    <div class="bottom-item">
+                        <include("../../partials/share.marko")/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="comment-panel box">
+                <h2 class="subtitle">评论 (<span class="comment-num js-comment-num"></span>)</h2>
+                <div class="main-panel-separator"></div>
+                <div class="comments" id="js-article-comments" page="0">
+                </div>
+                <a class="more" href="javascript:void(0)" onclick="loadMoreComments()">加载更多</a>
+                <div class="loading" id="js-comment-loading" style="display: none">
+                    <div>
+                        <img class="loading-gif" src="/img/loading.gif">
+                        <span class="loading-text">正在努力加载中~</span>
+                    </div>
+                </div>
+                <div id="comment-box" class="js-comment-box comment-reply">
+                    <textarea name="text" id="js-article-reply"  rows="3" placeholder="请输入回复"></textarea>
+                    <!--<a href="javascript:void(0)" class="face" title="表情"></a>-->
+                </div>
+                <div class="right-floated btn" id="js-article-comment-submit">发表回复</div>
+                <div class="clear-fix"></div>
+            </div>
+        </div>
+        <div class="right-floated sider">
+            <include("../../partials/author_info_panel.marko")/>
+            <div class="sider-panel js-article-other-panel">
+                <div class="m-article-other-panel-title">
+                    <span class="left-floated sider-name">上传者其他文章</span>
+                    <a href="/space/${data.article.user.id}/uploads" id="js-author-more-articles"><span class="right-floated more">更多 <i class="fa fa-angle-right"></i></span></a>
+                    <div class="clear-fix"></div>
+                </div>
+                <div class="m-article-other-panel box" id="js-author-related-articles"></div>
+            </div>
+            <div class="separator js-article-other-panel-separator"></div>
+            <div class="sider-panel js-article-related-sets">
+                <div class="m-article-related-panel-title">
+                    <span class="left-floated sider-name">有该文章的其他文章集</span>
+                    <!--<a href=""><span class="right-floated more">更多 <i class="fa fa-angle-right"></i></span></a>-->
+                    <div class="clear-fix"></div>
+                </div>
+                <div class="m-article-related-panel box" id="js-author-related-sets"></div>
+            </div>
+            <div class="separator js-article-related-sets-separator"></div>
+            <!--<include file="Common/activity_panel"/>-->
+            <include("../../partials/sider_footer.marko")/>
+            <div class="clear-fix"></div>
+        </div>
+        <div class="clear-fix"></div>
+      </div>
+    </div>
+    <include("../../partials/modals/print.marko")/>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script type="text/javascript" src="/plugins/smohanFace/js/smohan.face.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+    <script src='/js/article.js'></script>
+    <script src='/js/article_collect_popup.js'></script>
+    <script src='/js/report.js'></script>
+  </layout-put>
+</layout-use>

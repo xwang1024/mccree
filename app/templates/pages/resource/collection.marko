@@ -142,7 +142,7 @@
                           <div class="right-floated right-content">
                             <div class="user user-margin-right">
                               <a href="/space/${item.uploader.id}"><span class="right-floated">${item.uploader.nickname}</span></a>
-                              <a href="/space/${item.uploader.id}"><img class="right-floated" src="${item.uploader.iconurl}" onerror="replaceSrc('user', this)"></a>
+                              <a href="/space/${item.uploader.id}"><img class="right-floated" src="$!{item.uploader.iconurl}" onerror="replaceSrc('user', this)"></a>
                             </div>
                             <div class="btn btn-collect js-r-collect" style="display: none;" rid="${item.id}">+ 加入收藏集</div>
                             <div class="operation"><span class="comment"><i class="fa fa-comments-o"></i>${item.commentNum}</span></div>

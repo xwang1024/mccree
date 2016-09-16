@@ -63,6 +63,14 @@
     "url": "/Home/Resource/getResourceDetail",
     "method": "get"
   },
+  "articleSet_detail": {
+    "url": "/Home/ArticleSet/detail",
+    "method": "get"
+  },
+  "article_getById": {
+    "url": "/Home/Article/getById",
+    "method": "get"
+  },
   "console_themeEvent_getOptAll": {
     "url": "/Console/ThemeEvent/getOptAll",
     "method": "get"

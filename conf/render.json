@@ -77,5 +77,40 @@
       },
       "bestArticles": "prefer_getBestArticleSet"
     }
+  },
+  "/article-collections": {
+    "view": "./lib/views/pages/article/collections.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      }
+    }
+  },
+  "/article-collection/:id": {
+    "view": "./lib/views/pages/article/collection.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "articleSet": {
+        "service": "articleSet_detail",
+        "query": { "setId": "$id" }
+      }
+    }
+  },
+  "/article/:id": {
+    "view": "./lib/views/pages/article/detail.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "article": {
+        "service": "article_getById",
+        "query": { "id": "$id" }
+      }
+    }
   }
 }

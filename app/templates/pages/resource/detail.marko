@@ -124,7 +124,8 @@
                         </div>
                         <div class="btn btn-download" id="js-resource-download-btn" onclick="download()" style="display: none">下载</div>
                         <div class="btn btn-r-collect" id="js-resource-colllect">+ 加入收藏集</div>
-                        <div class="btn btn-r-print"  onclick="showPrintModal({$id},{$user_id},'RESOURCE')">+ 加入打印列表</div>
+                        <div class="btn btn-r-print"  onclick="showPrintModal(${data.resource.result.id},${out.global.user.result.id},'RESOURCE')" if(out.global.user.result)>+ 加入打印列表</div>
+                        <div class="btn btn-r-print"  onclick="showPrintModal(${data.resource.result.id},undefined,'RESOURCE')" else>+ 加入打印列表</div>
                     </div>
                     <div class="tags" id="js-resource-tags">
                       <for(tag in data.resource.result.tags)>

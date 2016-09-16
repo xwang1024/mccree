@@ -1,0 +1,190 @@
+<layout-use("../../layouts/default.marko")>
+  <script marko-init>
+    var getFriendlyTime = function(time) {
+      if(!time) return;
+      var timestamp = Date.parse(time.replace(/-/gi,"/"));
+      var minute = 1000 * 60;
+      var hour = minute * 60;
+      var day = hour * 24;
+      var halfAMonth = day * 15;
+      var month = day * 30;
+      var year = day * 365;
+      function getDateDiff(dateTimeStamp) {
+        var now = new Date().getTime();
+        var diffValue = now - dateTimeStamp;
+        var yearC = diffValue/year;
+        var monthC = diffValue/month;
+        var weekC = diffValue/(7*day);
+        var dayC = diffValue/day;
+        var hourC = diffValue/hour;
+        var minC = diffValue/minute;
+        var result;
+        if (yearC >= 1) {
+            result = parseInt(yearC) + "年前";
+        } else if (monthC >= 1) {
+            result = parseInt(monthC) + "个月前";
+        } else if(weekC >= 1) {
+            result = parseInt(weekC) + "周前";
+        } else if(dayC >= 1) {
+            result = parseInt(dayC) +"天前";
+        } else if(hourC>=1) {
+            result = parseInt(hourC) +"个小时前";
+        } else if(minC>=1) {
+            result = parseInt(minC) +"分钟前";
+        }else {
+            result="刚刚";
+        }
+        return result;
+      }
+
+      return getDateDiff(timestamp);
+    }
+  </script>
+  <layout-put into="title">${data.articleSet.result.title} - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/plugins/smohanFace/css/smohan.face.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/article.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+        <div class="container">
+            <div class="main">
+                <div class="m-article-collection-panel main-panel box">
+                    <div class="right-floated">
+                        <span class="left-floated op-icon collection-praise">
+                          <i class="fa fa-thumbs-o-up" if(!data.articleSet.result.praiseState)></i>
+                          <i class="fa fa-thumbs-up" else></i>
+                          <span class="js-a-collection-praise">${data.articleSet.result.praiseCount}</span>
+                        </span>
+                        <span class="left-floated op-icon collection-comment comment-num">
+                          <i class="fa fa-comments-o"></i>
+                          <span class="js-comment-num">${data.articleSet.result.commentCount}</span>
+                        </span>
+                        <span class="left-floated op-icon star collection-star">
+                          <i class="fa fa-star-o" if(!data.articleSet.result.collectState)></i>
+                          <i class="fa fa-star" else></i>
+                          <span class="js-a-collection-star">${data.articleSet.result.collectCount}</span>
+                        </span>
+                    </div>
+                    <h2 class="title"><span id="js-a-collection-title">${data.articleSet.result.title}</span>
+                    <span class="article-collection-size">${data.articleSet.result.articleList.length}篇文章</span></h2>
+                    <input type="hidden" id="js-a-collection-id" value="${data.articleSet.result.id}">
+                    <div class="info">
+                        创建者：<span class="author" id="js-a-collection-author">${data.articleSet.result.owner.name}</span>
+                        <span class="time" id="js-a-collection-time">${getFriendlyTime(data.articleSet.result.time)}</span>
+                    </div>
+                    <div class="right-floated set-btn-group" style="position: relative">
+                    <div class="article-all-label">全选</div>
+                        <div class="article-operator-div hide" id="article-copy">
+                        <i class="fa fa-plus-square-o"></i>
+                        <span class="article-operator-label">复制到</span>
+                        </div>
+                        <div class="article-operator-div visitor-hide hide" id="article-move">
+                        <i class="fa fa-crosshairs"></i>
+                        <span class="article-operator-label">移动到</span>
+                        </div>
+                        <div class="article-operator-div visitor-hide hide" id="article-delete">
+                        <i class="fa fa-times-circle-o" onclick="showDeleteDialog()"></i>
+                        <span class="article-operator-label" onclick="showDeleteDialog()">删除</span>
+                        </div>
+                        <div class="right-floated checkbox">
+                        <input class="js-check-all" type="checkbox" id="check-all">
+                        <label class="checkbox-img" for="check-all"></label>
+                        </div>                    </div>
+                    <div class="clear-fix"></div>
+                    <div class="main-panel-separator"></div>
+                    <div class="m-article-collection-items" id="js-a-collection-items" page="0">
+                      <for(item in data.articleSet.result.articleList)>
+                        <div class="m-article-collection-item">
+                          <div class="left-floated left-content">
+                            <a target="_blank" href="/article/${item.id}" class="title">${item.title}</a>
+                            <span class="left-floated hot">
+                              <img class="sm-icon" src="/Public/img/hot.svg" alt="热度">${parseFloat(item.hotDegree).toFixed(2)}
+                            </span>
+                            <div class="clear-fix"></div>
+                            <p class="summary">${item.summary}</p>
+                            <div class="clear-fix"></div>
+                          </div>
+                          <div class="right-floated checkbox"><input class="js-check" type="checkbox" id="${item.id}"><label class="checkbox-img"></label></div>
+                          <div class="right-floated right-content">
+                            <div class="user user-margin-right"><a href="/space/${item.user.id}"><span class="right-floated">${item.user.name}</span></a>
+                            <a href="/space/${item.user.id}"><img class="right-floated" src="$!{item.user.icon}" onerror="replaceSrc('user', this)"></a></div>
+                            <div class="btn btn-collect js-a-collect" style="display: none;" aid="${item.id}">+ 加入收藏集</div>
+                            <div class="operation">
+                              <span class="comment"><i class="fa fa-comments-o"></i>${item.commentCount}</span>
+                              <span class="up"><i class="fa fa-thumbs-o-up"></i>${item.praiseCount}</span>
+                            </div>
+                          </div>
+                          <div class="clear-fix"></div>
+                        </div>
+                      </for>
+                    </div>
+                    <div class="bottom-items">
+                        <div class="bottom-item collection-praise">
+                            <i class="collection-praise-i fa fa-thumbs-o-up"></i>
+                            <span>点赞</span>
+                        </div>
+                        <div class="bottom-item collection-star">
+                            <i class="collection-star-i star fa fa-star-o"></i>
+                            <span>收藏</span>
+                        </div>
+                        <div class="bottom-item">
+                            <include("../../partials/share.marko") />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comment-panel box">
+                    <h2 class="subtitle">评论 (<span class="comment-num js-comment-num"></span>)</h2>
+                    <div class="main-panel-separator"></div>
+                    <div class="comments" id="js-a-collection-comments" page="0">
+                    </div>
+                    <a class="more" href="javascript:void(0)" onclick="loadMoreComments()">加载更多</a>
+                    <div class="loading" id="js-comment-loading" style="display: none">
+                        <div>
+                            <img class="loading-gif" src="/img/loading.gif">
+                            <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                    </div>
+                    <div id="comment-box" class="js-comment-box comment-reply">
+                        <textarea name="text" id="js-a-collection-reply"  rows="3" placeholder="请输入回复"></textarea>
+                    </div>
+                    <div class="right-floated btn" id="js-a-collection-comment-submit">发表回复</div>
+                    <div class="clear-fix"></div>
+                </div>
+            </div>
+            <div class="right-floated sider">
+                <include("../../partials/author_info_panel.marko") />
+                <div class="sider-panel">
+                    <span class="left-floated sider-name">其他热门文章集</span>
+                    <a href="/article-collections"><span class="right-floated more">更多 <i class="fa fa-angle-right"></i></span></a>
+                    <div class="clear-fix"></div>
+                    <div class="box js-other-hot-a-collections">
+                        <div class="sider-item"></div>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <div class="sider-panel">
+                    <span class="left-floated sider-name">创建者其他文章集</span>
+                    <a class="js-author-more" href="/space/${data.articleSet.result.owner.id}/article-collections"><span class="right-floated more">更多 <i class="fa fa-angle-right"></i></span></a>
+                    <div class="clear-fix"></div>
+                    <div class="box js-uploader-a-collections"></div>
+                </div>
+                <include("../../partials/sider_footer.marko") />
+            </div>
+        </div>
+    </div>
+    <include("../../partials/print_modal.marko") />
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script type="text/javascript" src="/plugins/smohanFace/js/smohan.face.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/plugins/wangEditor/highlightjs/highlight.pack.js"></script>
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+    <script src='/js/article_collection_detail.js'></script>
+    <script src="/js/article_operation_popup.js"></script>
+    <script src="/js/article_collect_popup.js"></script>
+    <script src="/js/report.js"></script>
+    <script>console.log($!{JSON.stringify(data)})</script>
+  </layout-put>
+</layout-use>
