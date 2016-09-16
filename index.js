@@ -40,13 +40,15 @@ for(var url in renderConf) {
         let isGlobal = false;
         if(typeof(serviceName) === 'object') {
           isGlobal    = serviceName.global;
-          query       = serviceName.query;
+          query       = _.assign({}, serviceName.query);
           serviceName = serviceName.service;
 
           for(let k in query) {
+            console.log(req.params, query)
             if(query[k].indexOf('$') === 0 && req.params[query[k].slice(1)]) {
               query[k] = req.params[query[k].slice(1)];
             }
+            console.log(query)
           }
         }
         let service = serviceConf[serviceName];
