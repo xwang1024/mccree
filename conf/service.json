@@ -51,6 +51,10 @@
     "url": "/Home/Prefer/getBestResourceSet",
     "method": "get"
   },
+  "resourceSet_query": {
+    "url": "/Home/ResourceSet/query",
+    "method": "get"
+  },
   "console_themeEvent_getOptAll": {
     "url": "/Console/ThemeEvent/getOptAll",
     "method": "get"

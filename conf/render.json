@@ -41,5 +41,18 @@
         "global": true
       }
     }
+  },
+  "/resource-collection/:id": {
+    "view": "./lib/views/pages/resource/collection.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "resourceSet": {
+        "service": "resourceSet_query",
+        "query": { "id": "$id" }
+      }
+    }
   }
 }

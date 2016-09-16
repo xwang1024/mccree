@@ -42,6 +42,12 @@ for(var url in renderConf) {
           isGlobal    = serviceName.global;
           query       = serviceName.query;
           serviceName = serviceName.service;
+
+          for(let k in query) {
+            if(query[k].indexOf('$') === 0 && req.params[query[k].slice(1)]) {
+              query[k] = req.params[query[k].slice(1)];
+            }
+          }
         }
         let service = serviceConf[serviceName];
         if(!service) {
