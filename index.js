@@ -44,11 +44,9 @@ for(var url in renderConf) {
           serviceName = serviceName.service;
 
           for(let k in query) {
-            console.log(req.params, query)
             if(query[k].indexOf('$') === 0 && req.params[query[k].slice(1)]) {
               query[k] = req.params[query[k].slice(1)];
             }
-            console.log(query)
           }
         }
         let service = serviceConf[serviceName];
