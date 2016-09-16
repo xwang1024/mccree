@@ -1,0 +1,64 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">资料集 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/resource.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+        <div class="container">
+            <div class="main">
+                <span class="left-floated section-name">资料集列表</span>
+                <div class="clear-fix"></div>
+                <div class="m-resource-collections-panel">
+                    <div class="filter">
+                        <div class="select-item">
+                            <div class="select-show">
+                                <span class="selected">时间优先</span>&nbsp&nbsp
+                                <i class="select-switcher fa fa-caret-down"></i>
+                            </div>
+                            <div class="select-options">
+                                <li class="select-option">时间优先</li>
+                                <li class="select-option">收藏优先</li>
+                            </div>
+                        </div>
+                        <!--<div class="select-item">
+                            <div class="select-show">
+                                <span class="selected">所有学校</span>&nbsp&nbsp
+                                <i class="select-switcher fa fa-caret-down"></i>
+
+                            </div>
+                            <div class="select-options">
+
+                                <li class="select-option">所有学校</li>
+                                <li class="select-option">只看本校</li>
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="m-resource-collections" id="resource-collections-container"></div>
+                </div>
+            </div>
+            <div class="right-floated sider">
+                <div class="sider-panel">
+                    <div class="m-resource-hot-collection-title">
+                        <span class="left-floated sider-name">热门资料集</span>
+                       <!-- <a href=""><span class="right-floated more">更多 <i class="fa fa-angle-right"></i></span></a>-->
+                        <div class="clear-fix"></div>
+                    </div>
+                    <div class="box" id="resource-hot-collections-container">
+
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <include("../../partials/hot_tags_panel.marko")/>
+                <div class="separator"></div>
+                <include("../../partials/sider_footer.marko")/>
+            </div>
+            <div class="clear-fix"></div>
+        </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/resource_collections.js"></script>
+  </layout-put>
+</layout-use>

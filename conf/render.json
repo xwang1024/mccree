@@ -32,5 +32,14 @@
       },
       "bestResources": "prefer_getBestResourceSet"
     }
+  },
+  "/resource-collections": {
+    "view": "./lib/views/pages/resource/collections.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      }
+    }
   }
 }
