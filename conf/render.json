@@ -2,6 +2,10 @@
   "/": {
     "view": "./lib/views/pages/index.marko",
     "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
       "largeOpts": {
         "service": "console_themeEvent_getOptAll",
         "query": { "ratio": "950*380" }

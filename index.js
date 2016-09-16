@@ -37,7 +37,9 @@ for(var url in renderConf) {
       async.each(dataKeys, (dataKey, callback) => {
         let serviceName = conf.data[dataKey];
         let query = {};
+        let isGlobal = false;
         if(typeof(serviceName) === 'object') {
+          isGlobal    = serviceName.global;
           query       = serviceName.query;
           serviceName = serviceName.service;
         }
@@ -53,14 +55,25 @@ for(var url in renderConf) {
           qs: query
         }, (err, response, body) => {
           if (!err && response.statusCode == 200) {
-            context[dataKey] = JSON.parse(body);
+            if(isGlobal) {
+              context['$global'] || (context['$global']={});
+              context['$global'][dataKey] = JSON.parse(body);
+            } else {
+              context[dataKey] = JSON.parse(body);
+            }
           } else {
             console.log(err);
           }
           callback();
         });
       }, (err) => {
-        res.marko(template, context);
+        try {
+          console.log(context['$global']);
+          res.marko(template, context);
+        } catch(e) {
+          res.send(e.stack)
+        }
+        
       });
     });
   })(url, renderConf[url]);

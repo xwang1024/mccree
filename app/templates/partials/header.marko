@@ -1,45 +1,108 @@
+
 <nav class="navbar">
    <!-- 导航第一行: logo+ 板块 + (登录/注册) + (打印/个人中心)-->
     <div class="nav-panel">
-        <a href="/"><img class="logo" src="/img/logo.png"></a>
-        <!--第一行最左边的几大类-->
-        <div class="nav-items">
-            <a href="/" class="nav-item
-            <!--<php>
-                if ($_SERVER['REQUEST_URI'] == '/') {
-                    echo ' active';
-                }
-            </php>-->
-            ">首页</a>
+      <a href="/"><img class="logo" src="/img/logo.png"></a>
+      <!--第一行最左边的几大类-->
+      <div class="nav-items">
+          <a href="/" class="nav-item">首页</a>
+          <!-- /resources /resource-->
+          <a href="/resources" class="nav-item">资料</a>
+          <!-- /articles /article-->
+          <a href="/articles" class="nav-item">攻略</a>
+          <!--<a class="nav-item" id="guide-open">导航</a>-->
+      </div>
 
-            <a href="/resources" class="nav-item
-            <!--<php>
-                if (strpos($_SERVER['REQUEST_URI'], '/resources') === 0 ||
-                    strpos($_SERVER['REQUEST_URI'], '/resource') === 0) {
-                    echo ' active';
-                }
-            </php>-->
-            ">资料</a>
-
-            <a href="/articles" class="nav-item
-            <!--<php>
-                if (strpos($_SERVER['REQUEST_URI'], '/articles') === 0 ||
-                    strpos($_SERVER['REQUEST_URI'], '/article') === 0) {
-                    echo ' active';
-                }
-            </php>-->
-            ">攻略</a>
-            <!--<a class="nav-item" id="guide-open">导航</a>-->
-        </div>
-
-        <!--第一行最右边的几大类-->
-        <div class="right-nav">
-            <div class="right-nav-items">
-                    <a href="/login" class="nav-item">登录</a>
-                    <a href="/phone-register" class="nav-item">加入米盒</a>
-                    
+      <!--第一行最右边的几大类-->
+      <div class="right-nav">
+        <div class="right-nav-items">
+          <if(!out.global.user.result)>
+            <a href="/login" class="nav-item">登录</a>
+            <a href="/phone-register" class="nav-item">加入米盒</a>
+          </if>
+          <else>
+            <!--用户已登陆的显示-->
+            <!--打印机 小图标-->
+            <label class="print-btn" id="js-print-icon">
+              <i class="fa fa-print file-img" aria-hidden="true" ></i>
+              <span class="print-btn-font" style="font-size:13px;margin-left: 5px;" >打印列表</span>
+            </label>
+            <div class="popup print-popup" id="js-print-popup">
+                <a class="item" href="/space/print-list"><i class="print-list-icon svg-sicon-common"></i> 待打印列表</a>
+                <a class="item" id="js-print-coupons" href="/space/coupons"><i
+                        class="coupon-icon svg-sicon-common"></i> 我的打印券</a>
+                <a class="item" id="js-print-upload" href="/upload"><i
+                        class="print-upload-icon svg-sicon-common"></i> 添加本地文件</a>
+                <a class="item" href="/space/orders"><i class="print-order-icon svg-sicon-common"></i>
+                    查看历史订单</a>
             </div>
+            <!--消息提醒 小图标-->
+            <i class="fa fa-bell message-icon" id="js-message-icon"></i>
+            <div class="popup message-popup" id="js-message-popup">
+                <a class="item" href="/message/system"><i class="fa fa-bell-o fa-fw message-sicon"
+                                                          id="js-message-announce"></i> 系统通知</a>
+                <a class="item" href="/message/reply"><i class="fa fa-comment-o fa-fw message-sicon"
+                                                          id="js-message-comment"></i> 新的回复</a>
+                <a class="item" href="/message/update"><i class="fa fa-repeat fa-fw message-sicon"></i> 我的更新</a>
+                <a class="item" href="/message/love"><i class="fa fa-thumbs-o-up fa-fw message-sicon"
+                                                        id="js-message-praise"></i> 收到的赞</a>
+            </div>
+
+            <!--分割线-->
+            <span class="split-line">|</span>
+
+            <!--资料数量 小图标-->
+            <label class="icon-container">
+                <i class="fa fa-file-text file-img" style="margin-left:12px; " aria-hidden="true"></i>
+                <span class="print-btn-font" id="js-user-files"></span><span class="print-btn-font">份资料</span>
+            </label>
+
+            <!--米粒数量 小图标-->
+            <label class="icon-container">
+                <i class="fa fa-diamond file-img" aria-hidden="true"></i>
+                <span class="print-btn-font" id="js-user-milis"></span><span class="print-btn-font">米粒</span>
+            </label>
+            <!--个人头像 小图标-->
+            <label class="icon-container ">
+                <img class="img-avatar" id="js-navbar-user-icon" onerror="replaceSrc('user', this)">
+                <span class="print-btn-font js-user-name"></span>
+            </label>
+            <div class="popup user-popup" id="js-user-popup" hidden>
+                <div class="user-up-container">
+                    <img class="user-pic" onerror="replaceSrc('user', this)">
+                    <div class="user-right-container">
+                        <div class="user-right-name js-user-name" id="js-user-name-pop"></div>
+                        <div class="user-right-info">
+                            <div class="user-right-info-font">文章</div>
+                            <div class="user-right-info-font-number" id="js-user-articleCount"></div>
+                        </div>
+                        <div class="user-right-info">
+                            <div class="user-right-info-font">资料</div>
+                            <div class="user-right-info-font-number" id="js-user-files-big"></div>
+                        </div>
+                        <div class="user-right-info">
+                            <div class="user-right-info-font">关注</div>
+                            <div class="user-right-info-font-number" id="js-user-attentionUserCount"></div>
+                        </div>
+                        <button class="user-right-btn-container" onclick="location.href='/space/attentions'">
+                            <i class="fa fa-user user-right-btn-img"></i>
+                            <span class="user-right-btn-font">个人中心</span>
+                        </button>
+                    </div>
+                </div>
+                <hr style="width:300px;background-color: #c6bfb6;" size="1px">
+                <button class="user-btn user-btn-left" onclick="location.href='/settings'" >
+                    <i class="fa fa-cog user-btn-font" aria-hidden="true"></i>
+                    <span class="user-btn-font">账号设置</span>
+                </button>
+                <button class="user-btn user-btn-right" onclick="location.href='/logout';logout()">
+                    <i class="fa fa-rocket user-btn-font" aria-hidden="true"></i>
+                    <span class="user-btn-font">退出账号</span>
+                </button>
+            </div>
+          </else>
         </div>
+      </div>
     </div>
     <script src="/js/reveive.js"></script>
     <script src="/js/format.js"></script>

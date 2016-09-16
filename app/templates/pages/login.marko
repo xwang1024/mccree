@@ -1,62 +1,83 @@
 <layout-use("../layouts/default.marko")>
   <layout-put into="title">登录 - 米盒</layout-put>
-  <layout-put into="extra_top"></layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <style>
+        body {
+            min-width: 1300px;
+        }
+        .wrapper {
+            margin-bottom: 0;
+        }
+        .m-auth-mid-container {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) inset;
+        }
+    </style>
+  </layout-put>
   <layout-put into="content">
-    <div class="m-auth-mid-container" js-comp="LoginView">
-      <div class="m-auth-mid">
-        <div class="m-auth-panel">
-          <div class="m-auth-title">登录米盒</div>
-          <div class="separator"></div>
-          <form id="login-form">
-            <div class="m-login-item">
-              <label for="phone_number">手机号</label>
-              <input type="text" id="phone_number">
+    <div class="m-auth-mid-container">
+        <div class="m-auth-mid">
+            <div class="m-auth-panel">
+                <div class="m-auth-title">登录米盒</div>
+                <div class="separator"></div>
+                <form onsubmit="return encrypt()">
+                    <div class="m-login-item">
+                        <label for="phone_number">手机号</label>
+                        <input type="text" id="phone_number">
+                    </div>
+                    <div class="m-login-item">
+                        <label for="password">密码</label>
+                        <input class="password" type="password" id="password">
+                    </div>
+                    <input type="checkbox" name="remember"><span class="checkbox-span">记住手机号</span>
+                    <a class="right-floated m-login-a" href="/password-reset">忘记密码?</a>
+
+                    <div class="clear-fix"></div>
+                    <button class="m-login-btn" type="submit">登录</button>
+                    <div class="right-floated">
+                        <a class="m-login-a" href="/phone-register">立即注册米盒 <span><i class="fa fa-angle-double-right"></i></span></a>
+                    </div>
+                    <div class="clear-fix"></div>
+                </form>
             </div>
-            <div class="m-login-item">
-              <label for="password">密码</label>
-              <input class="password" type="password" id="password">
+        </div>
+
+        <div class="m-auth-mid-other">
+            <span class="bgw">其他方式</span>
+
+            <div class="oauth2">
+                <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxa11f23b94aa6264c&redirect_uri=http://mebox.top&response_type=code&scope=snsapi_login&state=mebox#wechat_redirect"><img src="/img/wechat.svg" alt="微信"></a>
+                <a href="https://api.weibo.com/oauth2/authorize?client_id=2472544097&redirect_uri=http://mebox.top&response_type=code"><img src="/img/weibo.svg" alt="微博"></a>
+                <img src="/img/qq.svg" alt="QQ" onclick="toQQLogin()">
             </div>
-            <input type="checkbox" name="remember"><span class="checkbox-span">记住手机号</span>
-            <a class="right-floated m-login-a" href="/password-reset">忘记密码?</a>
-            <div class="clear-fix"></div>
-            <button class="m-login-btn" type="submit">登录</button>
-            <div class="right-floated">
-              <a class="m-login-a" href="/phone-register">立即注册米盒 <span><i class="fa fa-angle-double-right"></i></span></a>
+        </div>
+
+        <footer class="m-auth-footer">
+            <div class="footer-items">
+                <div class="items big">
+                    <a href="/about" class="footer-item">关于米盒</a><span class="dot-show"> · </span>
+                    <a href="/help" class="footer-item">帮助中心</a><span class="dot-show"> · </span>
+                    <a href="/rules" class="footer-item">积分规则</a><span class="dot-show"> · </span>
+                    <a href="/protocols" class="footer-item">协议声明</a><span class="dot-show"> · </span>
+                    <a href="/feedback" class="footer-item">意见反馈</a><span class="dot-show"> · </span>
+                    <a href="/app" class="footer-item">APP下载</a>
+                </div>
+                <div class="items">
+                    <span>Copyright &copy 2016 <a class="footer-item">一可米互联网科技公司</a></span>
+                </div>
+                <div class="items">
+                    <a href="http://www.miibeian.gov.cn/" class="footer-record footer-item right-floated"
+                       target="_blank">苏ICP备15062280号</a>
+                </div>
             </div>
-            <div class="clear-fix"></div>
-          </form>
-        </div>
-      </div>
-      <div class="m-auth-mid-other">
-        <span class="bgw">其他方式</span>
-        <div class="oauth2">
-          <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxa11f23b94aa6264c&redirect_uri=http://mebox.top&response_type=code&scope=snsapi_login&state=mebox#wechat_redirect"><img src="/img/wechat.svg" alt="微信"></a>
-          <a href="https://api.weibo.com/oauth2/authorize?client_id=2472544097&redirect_uri=http://mebox.top&response_type=code"><img src="/img/weibo.svg" alt="微博"></a>
-          <a href="/qqLogin"><img src="/img/qq.svg" alt="QQ"></a>
-        </div>
-      </div>
-      <footer class="m-auth-footer">
-        <div class="footer-items">
-          <div class="items big">
-            <a href="/about" class="footer-item">关于米盒</a><span class="dot-show"> · </span>
-            <a href="/help" class="footer-item">帮助中心</a><span class="dot-show"> · </span>
-            <a href="/rules" class="footer-item">积分规则</a><span class="dot-show"> · </span>
-            <a href="/protocols" class="footer-item">协议声明</a><span class="dot-show"> · </span>
-            <a href="/feedback" class="footer-item">意见反馈</a><span class="dot-show"> · </span>
-            <a href="/app" class="footer-item">APP下载</a>
-          </div>
-          <div class="items">
-            <span>Copyright &copy 2016 <a class="footer-item">一可米互联网科技公司</a></span>
-          </div>
-          <div class="items">
-            <a href="http://www.miibeian.gov.cn/" class="footer-record footer-item right-floated"
-              target="_blank">苏ICP备15062280号</a>
-          </div>
-        </div>
-      </footer>
+        </footer>
+
     </div>
   </layout-put>
   <layout-put into="extra_bottom">
-    <script type="text/javascript" src="/vendor/md5.min.js"></script>
+    <script src="/js/auth.js"></script>
+    <script type="text/javascript" src="/js/md5.js"></script>
+    <script>init();</script>
   </layout-put>
 </layout-use>
