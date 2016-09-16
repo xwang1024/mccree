@@ -1,0 +1,54 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">文章 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/article.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="collection">
+      <div class="collection-title">
+        <span class="left-floated section-name">文章专题集</span>
+        <div class="icon-more">
+          <a class="right-floated more" href="/article-collections">查看更多</a>
+          <img class="right-floated icon" src="/img/mi.png" alt="mi"/></div>
+        <div class="clear-fix"></div>
+      </div>
+      <div class="collection-panel">
+        <div class="panel-content" id="js-best-article-collections">
+          <for(i from 0 to 7)>
+            <div class="collection-item" if(data.bestArticles[i])>
+              <a target="_blank" href="/article-collection/${data.bestArticles[i].id}">
+                <h2 class="collection-item-title">${data.bestArticles[i].title}</h2>
+              </a>
+              <p class="collection-item-author"><i class="fa fa-user"></i> <a href="/space/${data.bestArticles[i].owner.id}">${data.bestArticles[i].owner.name}</a></p>
+              <p class="collection-item-star"><i class="star fa fa-star"></i>${data.bestArticles[i].collectCount}</p>
+            </div>
+          </for>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper">
+        <div class="container">
+          <div class="main">
+            <span class="left-floated section-name">文章</span>
+            <div class="clear-fix"></div>
+            <div class="m-article-panel box" id="js-article-panel" page="0" more="1"></div>
+          </div>
+
+          <div class="right-floated sider">
+            <include("../../partials/news_panel.marko")/>
+            <include("../../partials/hot_tags_panel.marko")/>
+            <div class="separator"></div>
+            <include("../../partials/sider_footer.marko")/>
+          </div>
+          <div class="clear-fix"></div>
+        </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/article_collect_popup.js"></script>
+    <script src="/js/article_index.js"></script>
+    
+    <script>console.log($!{JSON.stringify(data)})</script>
+  </layout-put>
+</layout-use>

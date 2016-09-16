@@ -67,5 +67,15 @@
         "query": { "id": "$id" }
       }
     }
+  },
+  "/articles": {
+    "view": "./lib/views/pages/article/index.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "bestArticles": "prefer_getBestArticleSet"
+    }
   }
 }
