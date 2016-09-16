@@ -2,26 +2,17 @@
   "/": {
     "view": "./lib/views/pages/index.marko",
     "data": {
-      "myInfo": "user_getMyInfo",
-      "searchHottestKeys": "tag_searchHottestKeys",
-      "schools": "school_getAllSchools",
-      "myTask": "task_getMyTask",
       "largeOpts": {
         "service": "console_themeEvent_getOptAll",
         "query": { "ratio": "950*380" }
       },
       "smallOpts": {
-        "service": "console_themeEvent_getOptAll",
+        "service": "console_webOptPos_getOptAll",
         "query": { "ratio": "240*140" }
       },
       "schoolStrategies": "prefer_getSchoolStrategies",
       "myProfessionPlan": "prefer_getMyProfessionPlan",
-      "myCourseResources": "prefer_getMyCourseResources",
-      "myCourses": "tag_getMyCourses",
-      "reResource": {
-        "service": "prefer_getReResource",
-        "query": { "num": 7 }
-      }
+      "myCourseResources": "prefer_getMyCourseResources"
     }
   },
   "/login": {

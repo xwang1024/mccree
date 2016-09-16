@@ -46,3 +46,4 @@ public/css
 # Marko Cache
 .marko_cache
 lib/views
+/public/plugins

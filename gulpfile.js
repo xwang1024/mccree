@@ -125,17 +125,17 @@ gulp.task('watch', function() {
       gulp.watch(resource.script[k], [`script:${k}`]);
     }
   }
-  if(resource.style) {
-    var styleTasks = [];
-    for(var k in resource.style) {
-      styleTasks.push(`style:${k}`);
-    }
-    gulp.watch('app/less/**/*.less', styleTasks);
-  }
+  // if(resource.style) {
+  //   var styleTasks = [];
+  //   for(var k in resource.style) {
+  //     styleTasks.push(`style:${k}`);
+  //   }
+  //   gulp.watch('app/less/**/*.less', styleTasks);
+  // }
 });
 
 gulp.task('default', (callback) => {
-  runSequence('template', assetTasks, 'watch', function() {
+  runSequence('template', 'watch', function() {
     finishLog('Dev build done. Starting watch and LiveReload...');
   });
 });

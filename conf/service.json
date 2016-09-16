@@ -50,5 +50,9 @@
   "console_themeEvent_getOptAll": {
     "url": "/Console/ThemeEvent/getOptAll",
     "method": "get"
+  },
+  "console_webOptPos_getOptAll": {
+    "url": "/Console/WebOptPos/getOptAll",
+    "method": "get"
   }
 }

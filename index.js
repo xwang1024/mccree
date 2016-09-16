@@ -16,7 +16,7 @@ const async      = require('async');
 const request    = require('request');
 const qs         = require('querystring');
 
-const phpHost    = 'http://mebox.xin.me';
+const phpHost    = 'http://localhost';
 
 var app = express();
 
@@ -67,8 +67,7 @@ for(var url in renderConf) {
 }
 
 app.all('/*', (req, res, next) => {
-  if(!forwardConf[req.path]) return next();
-  var url = phpHost+req.path;
+  var url = phpHost+req.originalUrl;
   req.pipe(request(url)).pipe(res);
 });
 
