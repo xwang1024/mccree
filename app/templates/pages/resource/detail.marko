@@ -1,0 +1,214 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">${data.resource.result.name} - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/resource.css">
+    <link href="/plugins/smohanFace/css/smohan.face.css" type="text/css" rel="stylesheet">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+        <div class="m-resource-content container">
+            <div class="main">
+                <div class="jin-mask-box1 ">
+                        <div class="jin-task-box-left">
+                            <p><i class="fa fa-check"></i></p>
+                        </div>
+                        <div class="jin-task-box-right">
+                            <p>恭喜您完成了任务，本次任务获得 <span class="jin-task-mili"></span>米粒</p>
+                        </div>
+                </div>
+                <div class="jin-mask-yourInfo" >
+                    <p><span class="jin-float-right jin-fond-size jin-cursor jin-close">X</span></p>
+                    <h3 class="jin-padding-15 jin-border-bottom">亲爱的小伙伴：</h3>
+                    <ul class="jin-box-middle-box jin-border-bottom">
+                        <li><span>完善您的个人资料</span></li>
+                        <li><span>可以让您的搜索更智能化</span></li>
+                        <li><span>系统也会为您推送量身定制的奖励任务</span></li>
+                    </ul>
+                    <div class="file-item jin-box-bottom">
+                        <div class="file-info ">
+                            <div class="item jin-item">
+                                <label>学校</label>
+                                <select class="jin-school-select js-states"></select>
+                            </div>
+                            <div class="item jin-item">
+                                <label>院系</label>
+                                <select class="jin-department-select js-states "></select>
+                            </div>
+                            <div class="item jin-item">
+                                <label>入学</label>
+                                <select class="js-class-select js-states " ></select>
+                            </div>
+                            <div class="jin-item education">
+                                <div class="education-left">学历</div>
+                                <div class="education-right radio-box">
+                                    <label><input name="Education" type="radio" value="0"  checked/>本科</label>
+                                    <label><input name="Education" type="radio" value="1" />硕士</label>
+                                    <label><input name="Education" type="radio" value="2" />博士 </label>
+                                </div>
+                            </div>
+                            <div class="button-group jin-item">
+                                <button class="jin-btn-cancel">确认修改 可立即下载资源</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jin-mask-taskBox">
+                    <p><span class="jin-task-close">X</span></p>
+                    <div class="jin-task-logo">
+                        <span class="fa fa-diamond file-img"></span><span>悬赏任务</span>
+                    </div>
+                    <p>若您帮助我们完善 <span class="jin-school"></span> <span class="jin-department"> </span> 以下的课程资料</p>
+                    <ul class="jin-list-unstyle">
+                       <!-- <li>数据库开发技术</li>
+                        <li>linux系统基础</li>
+                        <li>面向web的计算</li>-->
+                    </ul>
+                    <p class="jin-three-score">可以获得高达三倍积分 <span>60米粒</span> <i></i></p>
+                     <div class="jin-button">
+                         <button class="jin-accept">接受</button> <button class="jin-cancel">取消</button>
+                     </div>
+                    <div class="jin-change-box">
+                        <button class="jin-change"><i class="fa fa-refresh"></i>   换一批</button>
+                    </div>
+                </div>
+
+                <input type="hidden" id="js-a-resource-id" value="${data.resource.result.id}">
+                <input type="hidden" id="js-a-resource-user-id" value="${out.global.user.result.id}" if(out.global.user.result)>
+                <div class="m-resource-detail-panel main-panel box">
+                    <div class="right-floated">
+                        <!--<span class="op-icon"><i class="fa fa-thumbs-o-up" id="js-resource-praise-icon"></i><span id="js-resource-praise"></span></span>-->
+                        <span class="op-icon"><i class="fa fa-comments-o hot" id="js-resource-comment-icon"></i><span id="js-resource-comment">${data.resource.result.commentCount}</span></span>
+                        <!--<span class="op-icon star resource-star"><i class="fa fa-star-o js-r-collect" id="js-resource-collect-icon"></i><span id="js-resource-collect"></span></span>-->
+                        <div class="right-floated hot" ><img src="/img/hot.svg" alt="hot"/><span id="js-resource-hot">${parseFloat(data.resource.result.hot).toFixed(2)}</span></div>
+                    </div>
+                    <h2 class="title" id="js-resource-name">${data.resource.result.name}</h2>
+                    <div class="left-floated resource-info">
+                        <img src="/img/typeIcon/${data.resource.result.ext.toUpperCase()}.svg" alt="${data.resource.result.ext.toUpperCase()}" class="type-icon" id="js-resource-ext" onerror="replaceSrc('resourceType', this)">
+                        <span class="origin" id="js-resource-original" if(data.resource.result.original==1)>原创</span>
+                        <span class="origin" id="js-resource-original" else>非原创</span>
+                        <span class="type" id="js-resource-type">${data.resource.result.ext.toUpperCase()}文件</span>
+                        <span class="size" id="js-resource-size">${data.resource.result.size}KB</span>
+                        <span class="size" id="js-resource-collectnum">${data.resource.result.collectCount}人收藏</span>
+                    </div>
+                    <div class="left-floated resource-report">
+                        <span class="js-report-span">举报</span>
+                    </div>
+                    <div class="clear-fix"></div>
+                    <div class="info">
+                        作者：<span class="author" id="js-resource-uploader">${data.resource.result.uploader}</span>
+                        <span class="download" id="js-resource-downloadCount">${data.resource.result.downloadCount}次下载</span>
+                        <span class="price" id="js-resource-point">${data.resource.result.point}米粒</span>
+                        <span class="time" id="js-resource-uploadTime">${data.resource.result.uploadTime}</span>
+                    </div>
+                    <div class="clear-fix"></div>
+
+                   <!-- <div class="right-floated" id="js-resource-judge-container">
+                        &lt;!&ndash;<div id="js-resource-judge-container"></div>&ndash;&gt;
+                        &lt;!&ndash;<a class="btn btn-judge" id="js-resource-scorebtn">评分</a>&ndash;&gt;
+                        &lt;!&ndash;<div class="btn btn-download" id="js-resource-download-btn">下载</div>&ndash;&gt;
+                    </div>-->
+
+                    <div class="right-floated resource-oper-group" style="position: relative;">
+                        <a class="btn btn-judge" id="js-resource-judge-btn">评分</a>
+                        <div class="mark" style="display: none" id="mark-judge">
+                            <img class="up-angle" src="/Public/img/angle.png" />
+                            <div class="mark-rank">
+                                <img src="/Public/img/good.png" onclick="mark(1)" id="judge-1" onmouseover="this.src='/Public/img/good_active.png'" onmouseout="this.src='/Public/img/good.png'" alt="满意">
+                                <img src="/Public/img/cool.png" onclick="mark(0)" id="judge-0" onmouseover="this.src='/Public/img/cool_active.png'" onmouseout="this.src='/Public/img/cool.png'" alt="一般">
+                                <img src="/Public/img/bad.png" onclick="mark(2)" id="judge-2" onmouseover="this.src='/Public/img/bad_active.png'" onmouseout="this.src='/Public/img/bad.png'" alt="不满意">
+                            </div>
+                            <textarea name="mark" id="mark_content" placeholder="你的评价" cols="17" rows="5"></textarea>
+                            <button class="btn-mark"  onclick="comment()">提交</button>
+                        </div>
+                        <div class="btn btn-download" id="js-resource-download-btn" onclick="download()" style="display: none">下载</div>
+                        <div class="btn btn-r-collect" id="js-resource-colllect">+ 加入收藏集</div>
+                        <div class="btn btn-r-print"  onclick="showPrintModal({$id},{$user_id},'RESOURCE')">+ 加入打印列表</div>
+                    </div>
+                    <div class="tags" id="js-resource-tags">
+                      <for(tag in data.resource.result.tags)>
+                        <a class="tag" href="/search?key=${tag.name}&type=0">${tag.name}</a>
+                      </for>
+                    </div>
+                    <div class="main-panel-separator"></div>
+                    <div id="preview-container">
+
+                    </div>
+                    <!--<div class="description" id="js-resource-description"></div>-->
+
+                    <div class="bottom-items">
+                        <div class="bottom-item resource-star">
+                            <!--<i class="star fa fa-star-o js-r-collect " id="js-resource-collectbtn"></i>
+                            <span>收藏</span>-->
+                            <div class="btn btn-r-collect" id="js-resource-colllect1">+ 加入收藏集</div>
+                        </div>
+                        <div class="bottom-item">
+                            <include("../../partials/share.marko")/>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="comment-panel box">
+                    <h2 class="subtitle">评论 (<span class="js-comment-num" num="0"></span>)</h2>
+                    <div class="main-panel-separator"></div>
+                    <div class="comments" id="js-comments">
+                    </div>
+                    <a class="more" href="javascript:void(0)" onclick="loadMoreComments()">加载更多</a>
+                    <div class="loading" id="js-comment-loading" style="display: none">
+                        <div>
+                            <img class="loading-gif" src="/img/loading.gif">
+                            <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                    </div>
+                    <div id="Smohan_FaceBox" class="js-comment-box comment-reply">
+                        <textarea name="text" id="js-reply"  rows="3" placeholder="请输入回复"></textarea>
+                    </div>
+                    <div class="right-floated btn" id="js-comment-submit">发表回复</div>
+                    <div class="clear-fix"></div>
+                </div>
+            </div>
+            <div class="right-floated sider">
+                <include("../../partials/author_info_panel.marko")/>
+                <div class="sider-panel js-resource-other-panel">
+                    <div class="m-resource-other-panel-title">
+                        <span class="left-floated sider-name">作者的其他资料</span>
+                        <a href="" id="r-auther-resources"><span class="right-floated more" >更多 <i class="fa fa-angle-right"></i></span></a>
+                        <div class="clear-fix"></div>
+                    </div>
+                    <div class="m-resource-other-panel box" id="js-author-related-resources">
+
+                    </div>
+                </div>
+                <div class="separator js-resource-other-panel-separator"></div>
+                <div class="sider-panel">
+                    <div class="m-resource-related-panel-title">
+                        <span class="left-floated sider-name">有该资料的其他资料集</span>
+                       <!-- <a href=""><span class="right-floated more">更多 <i class="fa fa-angle-right"></i></span></a>-->
+                        <div class="clear-fix"></div>
+                    </div>
+                    <div class="m-resource-related-panel box" id="js-resource-related-resourceset">
+
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <!--<include file="Common/activity_panel"/>-->
+                <include("../../partials/sider_footer.marko")/>
+                <div class="clear-fix"></div>
+            </div>
+            <div class="clear-fix"></div>
+        </div>
+    </div>
+    <include("../../partials/modals/resource_download.marko")/>
+    <include("../../partials/modals/pay.marko")/>
+    <include("../../partials/modals/print.marko")/>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+    <script src="/js/comment.js"></script>
+    <script src="/js/resource_detail.js"></script>
+    <script src='/js/resource_collect_popup.js'></script>
+    <script src="/js/report.js"></script>
+    <script src="/js/resource_getInfo.js"></script>
+  </layout-put>
+</layout-use>

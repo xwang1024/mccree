@@ -54,5 +54,18 @@
         "query": { "id": "$id" }
       }
     }
+  },
+  "/resource/:id": {
+    "view": "./lib/views/pages/resource/detail.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "resource": {
+        "service": "resource_getResourceDetail",
+        "query": { "id": "$id" }
+      }
+    }
   }
 }

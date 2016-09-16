@@ -55,6 +55,10 @@
     "url": "/Home/ResourceSet/query",
     "method": "get"
   },
+  "resource_getResourceDetail": {
+    "url": "/Home/Resource/getResourceDetail",
+    "method": "get"
+  },
   "console_themeEvent_getOptAll": {
     "url": "/Console/ThemeEvent/getOptAll",
     "method": "get"

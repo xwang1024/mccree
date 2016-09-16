@@ -61,11 +61,19 @@ for(var url in renderConf) {
           qs: query
         }, (err, response, body) => {
           if (!err && response.statusCode == 200) {
+            var data = {};
+            try {
+              data = JSON.parse(body);
+            } catch(e) {
+              console.log(body);
+              console.log(e.message)
+            }
+            
             if(isGlobal) {
               context['$global'] || (context['$global']={});
-              context['$global'][dataKey] = JSON.parse(body);
+              context['$global'][dataKey] = data;
             } else {
-              context[dataKey] = JSON.parse(body);
+              context[dataKey] = data;
             }
           } else {
             console.log(err);
