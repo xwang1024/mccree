@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/setting.css">
   </layout-put>
   <layout-put into="content">
-    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: true})/>
+    <include("./partials/top.marko", {userInfo: out.global.user, isMe: true})/>
     <div class="m-user-panel">
       
       <include("./partials/left.marko", {_path_: data._path_, isMe: true})/>
@@ -23,9 +23,7 @@
                             <span class="loading-text">正在努力加载中~</span>
                         </div>
                     </div>
-                    <if condition="I('get.id')">
-                        <else /><div class="more" id="comment_more" style="display: none;" onclick="getComments()">查看更多</div>
-                    </if>
+                    <div class="more" id="comment_more" style="display: none;" onclick="getComments()">查看更多</div>
                 </div>
             </div>
             <include("./partials/footer.marko")/>

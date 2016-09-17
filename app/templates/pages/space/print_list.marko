@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/setting.css">
   </layout-put>
   <layout-put into="content">
-    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: true})/>
+    <include("./partials/top.marko", {userInfo: out.global.user, isMe: true})/>
     <div class="m-user-panel">
       
       <include("./partials/left.marko", {_path_: data._path_, isMe: true})/>
