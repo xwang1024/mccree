@@ -1,5 +1,5 @@
 <layout-use("../../layouts/default.marko")>
-  <if(out.global.user.result && out.global.user.result.id == data.userInfo.id)>
+  <if(out.global.user && out.global.user.id == data.userInfo.id)>
     <var isMe=true/>
   </if>
   <layout-put into="title">打印券 - 个人中心</layout-put>
@@ -42,7 +42,7 @@
                             <span class="loading-text">正在努力加载中~</span>
                         </div>
                     </div>
-                        <div class="more" id="coupon_more" style="display: none;" onclick="getUserCoupons({${out.global.user.result.id})">查看更多</div>
+                        <div class="more" id="coupon_more" style="display: none;" onclick="getUserCoupons({${out.global.user.id})">查看更多</div>
 
                 </div>
                 <div class="m-attention-list" id="used_coupon" style="display:none">
@@ -54,7 +54,7 @@
                             <span class="loading-text">正在努力加载中~</span>
                         </div>
                     </div>
-                        <div class="more" id="coupon_used_more" style="display: none;" onclick="getUserUsedCoupons({${out.global.user.result.id})">查看更多</div>
+                        <div class="more" id="coupon_used_more" style="display: none;" onclick="getUserUsedCoupons({${out.global.user.id})">查看更多</div>
 
                 </div>
             </div>
@@ -68,9 +68,9 @@
     <script if(isMe)>
       $(document).ready(function () {
         switchCouponHasBeenUsed();
-        getUserCoupons(${out.global.user.result.id});
-        getUserUsedCoupons(${out.global.user.result.id});
-        getUserInfo(${out.global.user.result.id});
+        getUserCoupons(${out.global.user.id});
+        getUserUsedCoupons(${out.global.user.id});
+        getUserInfo(${out.global.user.id});
       });
     </script>
   </layout-put>

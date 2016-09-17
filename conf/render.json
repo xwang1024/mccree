@@ -2,10 +2,6 @@
   "/": {
     "view": "./lib/views/pages/index.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "largeOpts": {
         "service": "console_themeEvent_getOptAll",
         "query": { "ratio": "950*380" }
@@ -22,38 +18,22 @@
   "/login": {
     "view": "./lib/views/pages/login.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      }
     }
   },
   "/resources": {
     "view": "./lib/views/pages/resource/index.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "bestResources": "prefer_getBestResourceSet"
     }
   },
   "/resource-collections": {
     "view": "./lib/views/pages/resource/collections.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      }
     }
   },
   "/resource-collection/:id": {
     "view": "./lib/views/pages/resource/collection.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "resourceSet": {
         "service": "resourceSet_query",
         "query": { "id": "$id" }
@@ -63,10 +43,6 @@
   "/resource/:id": {
     "view": "./lib/views/pages/resource/detail.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "resource": {
         "service": "resource_getResourceDetail",
         "query": { "id": "$id" }
@@ -76,29 +52,17 @@
   "/articles": {
     "view": "./lib/views/pages/article/index.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "bestArticles": "prefer_getBestArticleSet"
     }
   },
   "/article-collections": {
     "view": "./lib/views/pages/article/collections.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      }
     }
   },
   "/article-collection/:id": {
     "view": "./lib/views/pages/article/collection.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "articleSet": {
         "service": "articleSet_detail",
         "query": { "setId": "$id" }
@@ -108,10 +72,6 @@
   "/article/:id": {
     "view": "./lib/views/pages/article/detail.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "article": {
         "service": "article_getById",
         "query": { "id": "$id" }
@@ -121,10 +81,6 @@
   "/space/:id/attentions": {
     "view": "./lib/views/pages/space/attentions.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "userInfo": {
         "service": "user_getOtherUserInfo",
         "query": { "userId": "$id" }
@@ -142,10 +98,6 @@
   "/space/:id/article-collections": {
     "view": "./lib/views/pages/space/article_collections.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "userInfo": {
         "service": "user_getOtherUserInfo",
         "query": { "userId": "$id" }
@@ -155,10 +107,6 @@
   "/space/:id/resource-collections": {
     "view": "./lib/views/pages/space/resource_collections.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "userInfo": {
         "service": "user_getOtherUserInfo",
         "query": { "userId": "$id" }
@@ -168,10 +116,6 @@
   "/space/:id/coupons": {
     "view": "./lib/views/pages/space/coupons.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "userInfo": {
         "service": "user_getOtherUserInfo",
         "query": { "userId": "$id" }
@@ -181,10 +125,6 @@
   "/space/:id/downloads": {
     "view": "./lib/views/pages/space/downloads.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "userInfo": {
         "service": "user_getOtherUserInfo",
         "query": { "userId": "$id" }
@@ -194,10 +134,6 @@
   "/space/:id/uploads": {
     "view": "./lib/views/pages/space/uploads.marko",
     "data": {
-      "user": {
-        "service": "user_getMyInfo",
-        "global": true
-      },
       "userInfo": {
         "service": "user_getOtherUserInfo",
         "query": { "userId": "$id" }

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/setting.css">
   </layout-put>
   <layout-put into="content">
-    <if(out.global.user.result && out.global.user.result.id == data.userInfo.id)>
+    <if(out.global.user && out.global.user.id == data.userInfo.id)>
       <var isMe=true/>
     </if>
     <include("./partials/top.marko", {userInfo: data.userInfo, isMe: isMe})/>

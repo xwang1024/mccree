@@ -75,7 +75,7 @@
                 </div>
 
                 <input type="hidden" id="js-a-resource-id" value="${data.resource.result.id}">
-                <input type="hidden" id="js-a-resource-user-id" value="${out.global.user.result.id}" if(out.global.user.result)>
+                <input type="hidden" id="js-a-resource-user-id" value="${out.global.user.id}" if(out.global.user)>
                 <div class="m-resource-detail-panel main-panel box">
                     <div class="right-floated">
                         <!--<span class="op-icon"><i class="fa fa-thumbs-o-up" id="js-resource-praise-icon"></i><span id="js-resource-praise"></span></span>-->
@@ -124,7 +124,7 @@
                         </div>
                         <div class="btn btn-download" id="js-resource-download-btn" onclick="download()" style="display: none">下载</div>
                         <div class="btn btn-r-collect" id="js-resource-colllect">+ 加入收藏集</div>
-                        <div class="btn btn-r-print"  onclick="showPrintModal(${data.resource.result.id},${out.global.user.result.id},'RESOURCE')" if(out.global.user.result)>+ 加入打印列表</div>
+                        <div class="btn btn-r-print"  onclick="showPrintModal(${data.resource.result.id},${out.global.user.id},'RESOURCE')" if(out.global.user)>+ 加入打印列表</div>
                         <div class="btn btn-r-print"  onclick="showPrintModal(${data.resource.result.id},undefined,'RESOURCE')" else>+ 加入打印列表</div>
                     </div>
                     <div class="tags" id="js-resource-tags">

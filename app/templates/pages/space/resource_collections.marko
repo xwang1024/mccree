@@ -1,5 +1,5 @@
 <layout-use("../../layouts/default.marko")>
-  <if(out.global.user.result && data.userInfo.id == data.userInfo.id)>
+  <if(out.global.user && data.userInfo.id == data.userInfo.id)>
     <var isMe=true/>
   </if>
   <layout-put into="title">资料集 - 个人中心</layout-put>

@@ -5,37 +5,65 @@ require('marko/express');
 require('marko/node-require').install();
 require('marko/hot-reload').enable();
 
-const _          = require('lodash');
-const watchTree  = require("fs-watch-tree").watchTree;
-const path       = require('path');
-const http       = require('http');
-const express    = require('express');
-const logger     = require('morgan');
-const bodyParser = require('body-parser');
-const async      = require('async');
-const request    = require('request');
-const qs         = require('querystring');
+const _            = require('lodash');
+const watchTree    = require("fs-watch-tree").watchTree;
+const path         = require('path');
+const http         = require('http');
+const express      = require('express');
+const logger       = require('morgan');
+const bodyParser   = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session      = require('express-session');
+const async        = require('async');
+const request      = require('request');
+const qs           = require('querystring');
 
-const phpHost    = 'http://localhost';
+const phpHost      = 'http://localhost';
 
 var app = express();
 
 app.use(express.static('public'));
 app.use(logger('dev'));
 
-const serviceConf = require('./conf/service.json');
-const renderConf = require('./conf/render.json');
-const forwardConf = require('./conf/forward.json');
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: 'scvkj3lnfsdoi4hef'
+}));
 
-for(var url in renderConf) {
-  (function(url, conf) {
+const serviceConfs = require('./conf/service.json');
+const renderConfs = require('./conf/render.json');
+
+for(var url in renderConfs) {
+  (function(url, renderConf) {
+    // 登录用户检测
     app.get(url, (req, res, next) => {
-      let template = require(conf.view);
+      if(req.session.user) return next();
+      console.log("[REQUEST] Current User")
+      request.get({
+        url: phpHost + '/Home/User/getMyInfo',
+        headers: req.headers
+      }, (err, response, body) => {
+        if (!err && response.statusCode == 200) {
+          var data = {};
+          try {
+            data = JSON.parse(body);
+          } catch(e) {
+            console.log(e.message)
+          }
+          data.result && (req.session.user = data.result);
+        }
+        next();
+      });
+    });
+
+    app.get(url, (req, res, next) => {
+      let template = require(renderConf.view);
       // get data from PHP Server
-      var dataKeys = Object.keys(conf.data);
+      var dataKeys = Object.keys(renderConf.data);
       var context = {};
       async.each(dataKeys, (dataKey, callback) => {
-        let serviceName = conf.data[dataKey];
+        let serviceName = renderConf.data[dataKey];
         let query = {};
         let isGlobal = false;
         if(typeof(serviceName) === 'object') {
@@ -49,7 +77,7 @@ for(var url in renderConf) {
             }
           }
         }
-        let service = serviceConf[serviceName];
+        let service = serviceConfs[serviceName];
         if(!service) {
           console.log(`${serviceName} not defined`);
           return callback();
@@ -68,7 +96,7 @@ for(var url in renderConf) {
               console.log(body);
               console.log(e.message)
             }
-            
+            context['$global'] = { user: req.session.user };
             if(isGlobal) {
               context['$global'] || (context['$global']={});
               context['$global'][dataKey] = data;
@@ -82,7 +110,7 @@ for(var url in renderConf) {
         });
       }, (err) => {
         try {
-          console.log(context['$global']);
+          console.log('global', context['$global']);
           context['_path_']   = req.path;
           context['_params_'] = req.params;
           context['_query_'] = req.query;
@@ -93,11 +121,13 @@ for(var url in renderConf) {
         
       });
     });
-  })(url, renderConf[url]);
+  })(url, renderConfs[url]);
 }
 
 app.all('/*', (req, res, next) => {
   var url = phpHost+req.originalUrl;
+  // 删除session中的用户
+  if(req.path.indexOf('/logout') >= 0 ) delete req.session.user;
   req.pipe(request(url)).pipe(res);
 });
 

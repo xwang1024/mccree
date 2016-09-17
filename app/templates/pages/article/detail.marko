@@ -113,7 +113,7 @@
                         <span class="js-report-span">举报</span>
                     </div>
                     <div style="position: relative; clear: both; right: 0; bottom: 0">
-                        <div class="right-floated btn btn-a-print"  onclick="showPrintModal(${data.article.id}, ${out.global.user.result.id} ,'ARTICLE')" if(out.global.user.result)>+ 加入打印列表</div>
+                        <div class="right-floated btn btn-a-print"  onclick="showPrintModal(${data.article.id}, ${out.global.user.id} ,'ARTICLE')" if(out.global.user)>+ 加入打印列表</div>
                         <div class="right-floated btn btn-a-print"  onclick="showPrintModal(${data.article.id}, undefined ,'ARTICLE')" else>+ 加入打印列表</div>
                         <div class="right-floated btn btn-collect js-a-collect" aid="${data.article.id}">+ 加入收藏集</div>
                         <a class="right-floated btn btn-edit js-article-edit" href="/space/${data.article.user.id}/uploads" if(data.article.editable)>修改</a>
