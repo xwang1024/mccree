@@ -138,5 +138,31 @@
         "query": { "id": "$id" }
       }
     }
+  },
+  "/space/:id/article-collections": {
+    "view": "./lib/views/pages/space/article_collections.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "userInfo": {
+        "service": "user_getOtherUserInfo",
+        "query": { "userId": "$id" }
+      }
+    }
+  },
+  "/space/:id/resource-collections": {
+    "view": "./lib/views/pages/space/resource_collections.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "userInfo": {
+        "service": "user_getOtherUserInfo",
+        "query": { "userId": "$id" }
+      }
+    }
   }
 }

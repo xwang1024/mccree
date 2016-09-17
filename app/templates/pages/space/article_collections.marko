@@ -1,0 +1,106 @@
+<layout-use("../../layouts/default.marko")>
+  <if(out.global.user.result && out.global.user.result.id == data.userInfo.id)>
+    <var isMe=true/>
+  </if>
+  <layout-put into="title">文章集 - 个人中心</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/setting.css">
+  </layout-put>
+  <layout-put into="content">
+    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: isMe})/>
+    <div class="m-user-panel">
+      
+      <include("./partials/left.marko", {_path_: data._path_, isMe: isMe})/>
+
+        <div class="m-user-main">
+            <div class="m-user-container">
+                <div class="m-attention-header">
+                    <ul class="tab-list">
+                        <li class="active">自己</li>
+                        <li>收藏</li>
+                    </ul>
+                    <if(isMe)>
+                       <button class="right-floated btn-follow btn-create" onclick="showResourceCreate()">创建</button>
+                    </if>
+                    <div class="m-user-resource-create" style="display: none">
+                        <img class="up-angle" src="/img/angle.png"/>
+                        <div class="create-panel">
+                            <div>
+                                <ul class="select-tabs">
+                                    <li class="tab-show">公开</li>
+                                    <li class="tab-hide" style="display: none">私密</li>
+                                </ul>
+                                <input type="text" class="input-collection-name">
+                                <span class="confirm"><i class="fa-2x fa fa-check-circle" onclick="createArticleSet(createArticleCollectionSuccess)"></i></span>
+                            </div>
+                            <!--<div class="confirm">-->
+                                <!--<button class="btn-follow btn-create" onclick="createArticleSet()">确认</button>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="separator-double"></div>
+                <div class="m-attention-list" id="own_list" page="0">
+                    <!--<div class="resource-item">-->
+                        <!--<div class="left-floated"><a href="#" class="resource-title">必须要掌握的技能教程合集</a></div>-->
+                        <!--<div class="resource-number right-floated">19</div>-->
+                    <!--</div>-->
+                    <div></div>
+                    <div class="loading" id="own_loading">
+                        <div>
+                            <img class="loading-gif" src="/img/loading.gif">
+                            <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                    </div>
+                    <if(isMe)>
+                      <p class="more" id="own_more" style="display: none;" onclick="getUserArticlesOwn(${out.global.user.result.id})">查看更多</p>
+                    </if>
+                    <else>
+                      <p class="more" id="own_more" style="display: none;" onclick="getArticlesOwn()">查看更多</p>
+                    </else>
+                </div>
+                <div class="m-attention-list" id="collection_list" page="0" hidden>
+                    <div></div>
+                    <div class="loading" id="collection_loading">
+                        <div>
+                            <img class="loading-gif" src="/img/loading.gif">
+                            <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                    </div>
+                    <if(isMe)>
+                      <p class="more" id="collection_more" style="display: none;" onclick="getUserArticlesCollection(${out.global.user.result.id})">查看更多</p>
+                    </if>
+                    <else>
+                      <p class="more" id="collection_more" style="display: none;" onclick="getArticlesCollection()">查看更多</p>
+                    </else>
+                </div>
+            </div>
+            <include("./partials/footer.marko")/>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/user.js"></script>
+    <script if(isMe)>
+      $(document).ready(function () {
+        switchContentResourceCollection();
+        getUserArticlesOwn(${out.global.user.result.id});
+        getUserArticlesCollection(${out.global.user.result.id});
+        getOtherUserInfo(${out.global.user.result.id});
+      });
+    </script>
+    <script else>
+      $(document).ready(function () {
+        switchContentResourceCollection();
+        getDefualtArticleSet();
+        getArticlesOwn();
+        getArticlesCollection();
+        initResourceCreate();
+        getUserInfo();
+      });
+    </script>
+  </layout-put>
+</layout-use>
