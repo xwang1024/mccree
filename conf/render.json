@@ -164,5 +164,44 @@
         "query": { "userId": "$id" }
       }
     }
+  },
+  "/space/:id/coupons": {
+    "view": "./lib/views/pages/space/coupons.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "userInfo": {
+        "service": "user_getOtherUserInfo",
+        "query": { "userId": "$id" }
+      }
+    }
+  },
+  "/space/:id/downloads": {
+    "view": "./lib/views/pages/space/downloads.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "userInfo": {
+        "service": "user_getOtherUserInfo",
+        "query": { "userId": "$id" }
+      }
+    }
+  },
+  "/space/:id/uploads": {
+    "view": "./lib/views/pages/space/uploads.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "userInfo": {
+        "service": "user_getOtherUserInfo",
+        "query": { "userId": "$id" }
+      }
+    }
   }
 }

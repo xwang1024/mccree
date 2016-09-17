@@ -1,5 +1,5 @@
 <layout-use("../../layouts/default.marko")>
-  <if(out.global.user.result && out.global.user.result.id == data.userInfo.id)>
+  <if(out.global.user.result && data.userInfo.id == data.userInfo.id)>
     <var isMe=true/>
   </if>
   <layout-put into="title">文章集 - 个人中心</layout-put>
@@ -54,8 +54,8 @@
                             <span class="loading-text">正在努力加载中~</span>
                         </div>
                     </div>
-                    <if(isMe)>
-                      <p class="more" id="own_more" style="display: none;" onclick="getUserArticlesOwn(${out.global.user.result.id})">查看更多</p>
+                    <if(!isMe)>
+                      <p class="more" id="own_more" style="display: none;" onclick="getUserArticlesOwn(${data.userInfo.id})">查看更多</p>
                     </if>
                     <else>
                       <p class="more" id="own_more" style="display: none;" onclick="getArticlesOwn()">查看更多</p>
@@ -69,8 +69,8 @@
                             <span class="loading-text">正在努力加载中~</span>
                         </div>
                     </div>
-                    <if(isMe)>
-                      <p class="more" id="collection_more" style="display: none;" onclick="getUserArticlesCollection(${out.global.user.result.id})">查看更多</p>
+                    <if(!isMe)>
+                      <p class="more" id="collection_more" style="display: none;" onclick="getUserArticlesCollection(${data.userInfo.id})">查看更多</p>
                     </if>
                     <else>
                       <p class="more" id="collection_more" style="display: none;" onclick="getArticlesCollection()">查看更多</p>
@@ -84,12 +84,11 @@
   </layout-put>
   <layout-put into="extra_bottom">
     <script src="/js/user.js"></script>
-    <script if(isMe)>
+    <script if(!isMe)>
       $(document).ready(function () {
         switchContentResourceCollection();
-        getUserArticlesOwn(${out.global.user.result.id});
-        getUserArticlesCollection(${out.global.user.result.id});
-        getOtherUserInfo(${out.global.user.result.id});
+        getUserArticlesOwn(${data.userInfo.id});
+        getUserArticlesCollection(${data.userInfo.id});
       });
     </script>
     <script else>
@@ -99,7 +98,6 @@
         getArticlesOwn();
         getArticlesCollection();
         initResourceCreate();
-        getUserInfo();
       });
     </script>
   </layout-put>

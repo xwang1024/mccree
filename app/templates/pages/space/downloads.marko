@@ -1,0 +1,56 @@
+<layout-use("../../layouts/default.marko")>
+  <if(out.global.user.result && out.global.user.result.id == data.userInfo.id)>
+    <var isMe=true/>
+  </if>
+  <layout-put into="title">下载 - 个人中心</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/setting.css">
+  </layout-put>
+  <layout-put into="content">
+    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: isMe})/>
+    <div class="m-user-panel">
+      
+      <include("./partials/left.marko", {_path_: data._path_, isMe: isMe})/>
+
+        <div class="m-user-main">
+            <div class="m-user-container">
+                <div class="separator-double"></div>
+                <div class="m-attention-list" id="download_list" page="0">
+                    <div></div>
+                    <div class="loading" id="download_loading">
+                        <div>
+                            <img class="loading-gif" src="/img/loading.gif">
+                            <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                    </div>
+                    <if(!isMe)>
+                        <div class="more" id="download_more" style="display: none;" onclick="getUserDownloads(${data.userInfo.id})">查看更多</div>
+                    </if>
+                    <else>
+                        <div class="more" id="download_more" style="display: none;" onclick="getMyDownloads()">查看更多</div>
+                    </else>
+                </div>
+            </div>
+            <include("./partials/footer.marko")/>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/user.js"></script>
+    <script if(!isMe)>
+      $(document).ready(function () {
+        switchContentUploads();
+        getUserDownloads(${data.userInfo.id});
+      });
+    </script>
+    <script else>
+      $(document).ready(function () {
+        switchContentUploads();
+        getMyDownloads();
+      });
+    </script>
+  </layout-put>
+</layout-use>

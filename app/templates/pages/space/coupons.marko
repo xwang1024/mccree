@@ -1,0 +1,77 @@
+<layout-use("../../layouts/default.marko")>
+  <if(out.global.user.result && out.global.user.result.id == data.userInfo.id)>
+    <var isMe=true/>
+  </if>
+  <layout-put into="title">打印券 - 个人中心</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/setting.css">
+  </layout-put>
+  <layout-put into="content">
+    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: isMe})/>
+    <div class="m-user-panel">
+      
+      <include("./partials/left.marko", {_path_: data._path_, isMe: isMe})/>
+
+        <div class="m-user-main">
+            <div class="m-user-container">
+                 <div class="m-attention-header">
+                    <ul class="tab-list">
+                        <li class="active">可用</li>
+                        <li>历史</li>
+                    </ul>
+                    <button class="right-floated btn-follow btn-exchange" id="redeem" onclick="showRedeemCoupon();">兑换打印券</button>
+                    <div class="m-user-coupon-redeem" style="display: none" id="m-user-coupon-redeem">
+                        <img class="up-angle" src="/img/angle.png"/>
+                        <div class="create-panel">
+                            <div>
+                                <input type="text" class="input-collection-name" id="input-coupon-code" placeholder="请输入兑换码">
+                                <span class="confirm"><i class="fa-2x fa fa-check-circle" onclick="redeemCoupon()"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="separator-double"></div>
+                <div class="m-attention-list" id="using_coupon">
+                   <ul id="m-user-coupon-list">
+                        </ul>
+                    <div class="loading" id="coupon_loading">
+                        <div>
+                            <img class="loading-gif" src="/img/loading.gif">
+                            <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                    </div>
+                        <div class="more" id="coupon_more" style="display: none;" onclick="getUserCoupons({${out.global.user.result.id})">查看更多</div>
+
+                </div>
+                <div class="m-attention-list" id="used_coupon" style="display:none">
+                   <ul id="m-user-used-coupon-list">
+                   </ul>
+                    <div class="loading" id="coupon_used_loading">
+                        <div>
+                            <img class="loading-gif" src="/img/loading.gif">
+                            <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                    </div>
+                        <div class="more" id="coupon_used_more" style="display: none;" onclick="getUserUsedCoupons({${out.global.user.result.id})">查看更多</div>
+
+                </div>
+            </div>
+            <include("./partials/footer.marko")/>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/user.js"></script>
+    <script if(isMe)>
+      $(document).ready(function () {
+        switchCouponHasBeenUsed();
+        getUserCoupons(${out.global.user.result.id});
+        getUserUsedCoupons(${out.global.user.result.id});
+        getUserInfo(${out.global.user.result.id});
+      });
+    </script>
+  </layout-put>
+</layout-use>

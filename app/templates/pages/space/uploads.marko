@@ -1,0 +1,93 @@
+<layout-use("../../layouts/default.marko")>
+  <if(out.global.user.result && out.global.user.result.id == data.userInfo.id)>
+    <var isMe=true/>
+  </if>
+  <layout-put into="title">下载 - 个人中心</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/setting.css">
+  </layout-put>
+  <layout-put into="content">
+    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: isMe})/>
+    <div class="m-user-panel">
+      
+      <include("./partials/left.marko", {_path_: data._path_, isMe: isMe})/>
+
+        <div class="m-user-main">
+            <div class="m-user-container ">
+                <div class="jin-box-mask jin-show">
+                    <div class="jin-task-box ">
+                        <div class="jin-task-box-left">
+                           <p><i class="fa fa-check"></i></p>
+                        </div>
+                        <div class="jin-task-box-right">
+                            <p>恭喜您完成了任务，本次任务获得 <span class="jin-task-mili"></span>米粒</p>
+                            <p>其中有<span class="jin-task-uploadCount"></span>件资源是3倍奖励</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="m-attention-header">
+                    <ul class="tab-list">
+                        <li class="active">资料</li>
+                        <li id="js-upload-article-tab">文章</li>
+                    </ul>
+                </div>
+                <div class="separator-double"></div>
+                <div class="m-attention-list" id="upload_list" page="0">
+                    <div></div>
+                    <div class="loading" id="upload_loading">
+                        <div>
+                            <img class="loading-gif" src="/img/loading.gif">
+                            <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                    </div>
+                    <if(!isMe)>
+                        <div class="more" id="upload_more" style="display: none;" onclick="getUserUploads(${data.userInfo.id})">查看更多</div>
+                    </if>
+                    <else>
+                        <div class="more" id="upload_more" style="display: none;" onclick="getUploads()">查看更多</div>
+                    </else>
+                </div>
+                <div class="m-attention-list" id="upload_article_list" page="0" hidden>
+                    <div></div>
+                    <div class="loading" id="upload_article_loading">
+                        <div>
+                            <img class="loading-gif" src="/img/loading.gif">
+                            <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                    </div>
+                    <if(!isMe)>
+                      <div class="more" id="upload_article_more" style="display: none;" onclick="getUserUploads(${data.userInfo.id})">查看更多</div>
+                    </if>
+                    <else>
+                      <div class="more" id="upload_article_more" style="display: none;" onclick="getUploadsArticle()">查看更多</div>
+                    </else>
+                </div>
+            </div>
+            <include("./partials/footer.marko")/>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/user.js"></script>
+    <script if(!isMe)>
+      $(document).ready(function () {
+        switchContentUploads();
+        getUserUploads(${data.userInfo.id});
+        getUserUploadsArticle(${data.userInfo.id});
+        getOtherUserInfo(${data.userInfo.id});
+      });
+    </script>
+    <script else>
+      $(document).ready(function () {
+        switchContentUploads();
+        getUploads();
+        getUploadsArticle();
+        getUserInfo();
+      });
+    </script>
+  </layout-put>
+</layout-use>
