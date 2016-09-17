@@ -28,7 +28,7 @@
         <label>排名<span id="rank"> ${data.userInfo.rank}</span></label>
       </div>
       <div>
-        <label>米粒<span id="point" if(data.isMe)> </span></label>
+        <label>米粒<span id="point" if(data.isMe)> ${out.global.user.result.point}</span></label>
       </div>
     </div>
   </div>
@@ -45,7 +45,13 @@
       </div>
     </div>
   </div>
-  <button class="btn-sign-in" user_id="${data.userInfo.id}" if(data.isMe)><span><i class="fa fa-pencil"></i></span> 签到</button>
-  <button class="btn-sign-in" user_id="${data.userInfo.id}" else><span><i class="fa fa-pencil"></i></span> 关注</button>
+  <if(data.isMe)>
+    <button class="btn-sign-in" user_id="${data.userInfo.id}" if(!out.global.user.result.signin) onclick="doSignIn();"><span><i class="fa fa-pencil"></i></span> 签到</button>
+    <button class="btn-sign-in" disabled else><span><i class="fa fa-pencil"></i></span> 已签到</button>
+  </if>
+  <else>
+    <button class="btn-sign-in" user_id="${data.userInfo.id}" if(!data.userInfo.followState) onclick="followUser(this);"><span><i class="fa fa-pencil"></i></span> 关注</button>
+    <button class="btn-sign-in" user_id="${data.userInfo.id}" else onclick="unFollowUser(this);">><span><i class="fa fa-pencil"></i></span> 取消关注</button>
+  </else>
 </div>
 

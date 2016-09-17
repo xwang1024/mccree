@@ -13,45 +13,57 @@
 
     <div class="m-user-panel">
       <include("./partials/left.marko", {_path_: data._path_, isMe: isMe})/>
-        <div class="m-user-main">
-            <div class="m-user-container">
-                <div class="m-attention-header">
-                    <ul class="tab-list">
-                        <li class="active">标签</li>
-                        <li>用户</li>
-                    </ul>
-                </div>
-                <div class="separator-double"></div>
-                <div class="m-attention-list" id="attention_list">
-                    <div></div>
-                    <!--<div class="loading" id="tag_loading">-->
-                        <!--<div>-->
-                            <!--<img class="loading-gif" src="__PUBLIC__/img/loading.gif">-->
-                            <!--<span class="loading-text">正在努力加载中~</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<p class="more" id="tag_more" style="display: none;">查看更多</p>-->
-                </div>
-                <div class="m-attention-list" id="user_list">
-                    <div></div>
-                    <!--<div class="loading" id="user_loading">-->
-                        <!--<div>-->
-                            <!--<img class="loading-gif" src="__PUBLIC__/img/loading.gif">-->
-                            <!--<span class="loading-text">正在努力加载中~</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<p class="more" id="user_more" style="display: none;">查看更多</p>-->
-                </div>
-                <div class="clear-fix"></div>
-
+      <div class="m-user-main">
+          <div class="m-user-container">
+            <div class="m-attention-header">
+              <ul class="tab-list">
+                <li class="active">标签</li>
+                <li>用户</li>
+              </ul>
             </div>
-            <include file="Setting:footer"/>
+            <div class="separator-double"></div>
+            <div class="m-attention-list" id="attention_list">
+              <div>
+                <for(item in data.attentions.result | status-var=loop)>
+                  <div class="tag-item">
+                    <div class="name"><a href="/search?key=${item.name}" class="tip tag-link">${item.name}</a></div>
+                    <div class="desc">资源数：${item.resourceCount} · 关注数：${item.resourceCount}</div>
+                    <button class="btn-follow js-btn-follow" tag_id="${item.id}" tag_type="${item.type}" onclick="unFollowTag(this)">取消关注</button>
+                    <div class="separator"></div>
+                  </div>
+                  <div class="tag-item-blank" if(loop.getIndex()%2==0)></div>
+                </for>
+              </div>
+            </div>
+            <div class="m-attention-list" id="user_list">
+              <div>
+                <for(item in data.idols | status-var=loop)>
+                  <div class="user-item">
+                    <a class="user-img" href="/space/${item.id}/attentions"><img class="img-circle" src="${item.iconurl || '/img/user_default.png'}"></a>
+                    <div class="user-info">
+                      <div class="username"><a href="/space/${item.id}/attentions">${item.nickname}</a></div>
+                      <div class="department">${item.school}·${item.department}</div>
+                    </div>
+                    <button class="btn-follow js-btn-follow" user_id="${item.id}" onclick="unFollowUser(this)">取消关注</button>
+                    <div class="separator"></div>
+                  </div>
+                  <div class="tag-item-blank" if(loop.getIndex()%2==0)></div>
+                </for>
+              </div>
+            </div>
+            <div class="clear-fix"></div>
+
         </div>
+        <include file="Setting:footer"/>
+      </div>
     </div>
     <div class="clear-fix"></div>
   </layout-put>
   <layout-put into="extra_bottom">
     <script src="/js/user.js"></script>
-    <script>console.log($!{JSON.stringify(data)})</script>
+    <script>
+      switchContentAttention();
+      console.log($!{JSON.stringify(data)});
+    </script>
   </layout-put>
 </layout-use>
