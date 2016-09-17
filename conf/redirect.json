@@ -1,0 +1,5 @@
+{
+  "/space/:id": {
+    "redirect": "/space/$id/attentions"
+  }
+}

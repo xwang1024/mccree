@@ -31,8 +31,9 @@ app.use(session({
   secret: 'scvkj3lnfsdoi4hef'
 }));
 
-const serviceConfs = require('./conf/service.json');
-const renderConfs = require('./conf/render.json');
+const serviceConfs  = require('./conf/service.json');
+const renderConfs   = require('./conf/render.json');
+const redirectConfs = require('./conf/redirect.json');
 
 for(var url in renderConfs) {
   (function(url, renderConf) {
@@ -133,6 +134,16 @@ for(var url in renderConfs) {
   })(url, renderConfs[url]);
 }
 
+for(var url in redirectConfs) {
+  (function(url, redirectConf) {
+    app.get(url, (req, res, next) => {
+      let url = redirectConf.redirect+'';
+      for(let k in req.params) url=url.replace('$' + k, req.params[k]);
+      console.log(`[REDIRECT] ${url}`);
+      return res.redirect(url);
+    });
+  })(url, redirectConfs[url]);
+}
 app.all('/*', (req, res, next) => {
   var url = phpHost+req.originalUrl;
   // 删除session中的用户
