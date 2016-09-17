@@ -1,0 +1,44 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">评论 - 个人中心</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/setting.css">
+  </layout-put>
+  <layout-put into="content">
+    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: true})/>
+    <div class="m-user-panel">
+      
+      <include("./partials/left.marko", {_path_: data._path_, isMe: true})/>
+
+        <div class="m-user-main">
+            <div class="m-user-container">
+                <div class="separator-double"></div>
+                <br>
+                <div class="m-attention-list" id="comment_list" page="0">
+                    <div></div>
+                    <div class="loading" id="comment_loading">
+                        <div>
+                            <img class="loading-gif" src="/img/loading.gif">
+                            <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                    </div>
+                    <if condition="I('get.id')">
+                        <else /><div class="more" id="comment_more" style="display: none;" onclick="getComments()">查看更多</div>
+                    </if>
+                </div>
+            </div>
+            <include("./partials/footer.marko")/>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/user.js"></script>
+    <script>
+      $(document).ready(function () {
+        getComments();
+      });
+    </script>
+  </layout-put>
+</layout-use>

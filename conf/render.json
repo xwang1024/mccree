@@ -201,5 +201,11 @@
     "data": {
       "userInfo": "user_getMyInfo"  
     }
+  },
+  "/space/comments": {
+    "view": "./lib/views/pages/space/comments.marko",
+    "data": {
+      "userInfo": "user_getMyInfo"  
+    }
   }
 }
