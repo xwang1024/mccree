@@ -168,6 +168,22 @@
       "userInfo": "user_getMyInfo"
     }
   },
+  "/space/:id/footsteps": {
+    "view": "./lib/views/pages/space/footsteps.marko",
+    "ifLogin": "/space/footsteps",
+    "data": {
+      "userInfo": {
+        "service": "user_getOtherUserInfo",
+        "query": { "userId": "$id" }
+      }
+    }
+  },
+  "/space/footsteps": {
+    "view": "./lib/views/pages/space/footsteps.marko",
+    "data": {
+      "userInfo": "user_getMyInfo"
+    }
+  },
   "/space/coupons": {
     "view": "./lib/views/pages/space/coupons.marko",
     "data": {
