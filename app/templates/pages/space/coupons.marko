@@ -1,7 +1,4 @@
 <layout-use("../../layouts/default.marko")>
-  <if(out.global.user && out.global.user.id == data.userInfo.id)>
-    <var isMe=true/>
-  </if>
   <layout-put into="title">打印券 - 个人中心</layout-put>
   <layout-put into="extra_top">
     <link rel="stylesheet" href="/css/style.css">
@@ -9,10 +6,10 @@
     <link rel="stylesheet" href="/css/setting.css">
   </layout-put>
   <layout-put into="content">
-    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: isMe})/>
+    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: true})/>
     <div class="m-user-panel">
       
-      <include("./partials/left.marko", {_path_: data._path_, isMe: isMe})/>
+      <include("./partials/left.marko", {_path_: data._path_, isMe: true})/>
 
         <div class="m-user-main">
             <div class="m-user-container">
@@ -65,7 +62,7 @@
   </layout-put>
   <layout-put into="extra_bottom">
     <script src="/js/user.js"></script>
-    <script if(isMe)>
+    <script>
       $(document).ready(function () {
         switchCouponHasBeenUsed();
         getUserCoupons(${out.global.user.id});

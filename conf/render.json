@@ -184,8 +184,20 @@
       "userInfo": "user_getMyInfo"
     }
   },
+  "/space/print-list": {
+    "view": "./lib/views/pages/space/print_list.marko",
+    "data": {
+      "userInfo": "user_getMyInfo"  
+    }
+  },
   "/space/coupons": {
     "view": "./lib/views/pages/space/coupons.marko",
+    "data": {
+      "userInfo": "user_getMyInfo"  
+    }
+  },
+  "/space/orders": {
+    "view": "./lib/views/pages/space/orders.marko",
     "data": {
       "userInfo": "user_getMyInfo"  
     }

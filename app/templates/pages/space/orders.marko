@@ -1,0 +1,86 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">我的订单 - 个人中心</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/setting.css">
+  </layout-put>
+  <layout-put into="content">
+    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: true})/>
+    <div class="m-user-panel">
+      
+      <include("./partials/left.marko", {_path_: data._path_, isMe: true})/>
+
+        <div class="m-user-main">
+            <div class="m-user-container">
+                <div class="m-user-order">
+                    <div class="m-attention-header">
+                        <ul class="tab-list">
+                            <li class="active">未支付</li>
+                            <li>可打印</li>
+                            <li>已完成</li>
+                            <li>退款售后</li>
+                        </ul>
+                    </div>
+                    <div class="separator-double"></div>
+                    <!--<ul class="m-user-order-list" id="js-order-list"></ul>-->
+                    <ul class="m-user-order-list" id="js-unpay-list">
+                        <div></div>
+                        <div class="loading" id="unpay_loading">
+                        <div>
+                        <img class="loading-gif" src="/img/loading.gif">
+                        <span class="loading-text">正在努力加载中~</span>
+                        </div>
+                        </div>
+                        <p class="more" id="unpay_more" style="display: none;">查看更多</p>
+                    </ul>
+                    <ul class="m-user-order-list" id="js-print-list">
+                        <div></div>
+                        <div class="loading" id="print_loading">
+                            <div>
+                                <img class="loading-gif" src="/img/loading.gif">
+                                <span class="loading-text">正在努力加载中~</span>
+                            </div>
+                        </div>
+                        <p class="more" id="print_more" style="display: none;">查看更多</p>
+                    </ul>
+                    <ul class="m-user-order-list" id="js-complete-list">
+                        <div></div>
+                        <div class="loading" id="complete_loading">
+                            <div>
+                                <img class="loading-gif" src="/img/loading.gif">
+                                <span class="loading-text">正在努力加载中~</span>
+                            </div>
+                        </div>
+                        <p class="more" id="complete_more" style="display: none;">查看更多</p>
+                    </ul>
+                    <ul class="m-user-order-list" id="js-refund-list">
+                        <div></div>
+                        <div class="loading" id="refund_loading">
+                            <div>
+                                <img class="loading-gif" src="/img/loading.gif">
+                                <span class="loading-text">正在努力加载中~</span>
+                            </div>
+                        </div>
+                        <p class="more" id="refund_more" style="display: none;">查看更多</p>
+                    </ul>
+                </div>
+            </div>
+            <include("./partials/footer.marko")/>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/user.js"></script>
+    <script src="/js/orders.js"></script>
+    <script src="/js/print_list_payment.js"></script>
+    <script>
+      $(document).ready(function () {
+        switchContentOrders();
+        getOrderSimpleList(0);
+        chooseCheckContent();
+      });
+    </script>
+  </layout-put>
+</layout-use>

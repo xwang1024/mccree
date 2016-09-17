@@ -1,0 +1,62 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">待打印列表 - 个人中心</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/setting.css">
+  </layout-put>
+  <layout-put into="content">
+    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: true})/>
+    <div class="m-user-panel">
+      
+      <include("./partials/left.marko", {_path_: data._path_, isMe: true})/>
+
+        <div class="m-user-main">
+            <div class="m-user-container">
+            <div class="m-user-print-header">
+                <div class="state-bar" id="js-state-bar">
+                    <label class="state-label-chosen" id="settle">结算</label>
+                    <label class="state-label"> » </label>
+                    <label class="state-label" id="choose-payment">选择支付方式</label>
+                    <label class="state-label"> » </label>
+                    <label class="state-label" id="pay">去支付</label>
+                </div>
+            </div>
+            <div class="m-user-print-header bottom-line">
+                <div>
+                    <div class="checkbox" id="remove-checkbox">
+                        <input class="js-check-all" type="checkbox" id="check-all">
+                        <label class="checkbox-img" for="check-all"></label>
+                    </div>
+                    <a id="remove-item" class="print-delete" href="javascript:void(0)" onclick="removePrintItem()">移除</a>
+                </div>
+            </div>
+            <ul class="m-user-print-list" id="js-print-list"></ul>
+                <div class="m-user-print-operation" id="js-print-operation">
+                    <div>
+                    <span class="align-left">总张数:</span>
+                    <span class="align-right" id="total-pages">0张</span>
+                    </div>
+                    <div>
+                    <span class="align-left">总计:</span>
+                    <span class="align-right" id="total-mili">0米粒(共0.00元)</span>
+                    </div>
+                    <div>
+                        <a class="order-button" href="javascript:void(0)" onclick="generatePrintOrders()">结算订单</a>
+                    </div>
+                </div>
+            </div>
+            <include("./partials/footer.marko")/>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/user.js"></script>
+    <script>
+      switchContentUploads();
+    </script>
+    <script src="/js/print_list.js"></script>
+    <script src="/js/print_list_payment.js"></script>
+  </layout-put>
+</layout-use>
