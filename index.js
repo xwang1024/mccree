@@ -83,6 +83,9 @@ for(var url in renderConf) {
       }, (err) => {
         try {
           console.log(context['$global']);
+          context['_path_']   = req.path;
+          context['_params_'] = req.params;
+          context['_query_'] = req.query;
           res.marko(template, context);
         } catch(e) {
           res.send(e.stack)

@@ -1,0 +1,57 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">关注 - 个人中心</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/setting.css">
+  </layout-put>
+  <layout-put into="content">
+    <if(out.global.user.result && out.global.user.result.id == data.userInfo.id)>
+      <var isMe=true/>
+    </if>
+    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: isMe})/>
+
+    <div class="m-user-panel">
+      <include("./partials/left.marko", {_path_: data._path_, isMe: isMe})/>
+        <div class="m-user-main">
+            <div class="m-user-container">
+                <div class="m-attention-header">
+                    <ul class="tab-list">
+                        <li class="active">标签</li>
+                        <li>用户</li>
+                    </ul>
+                </div>
+                <div class="separator-double"></div>
+                <div class="m-attention-list" id="attention_list">
+                    <div></div>
+                    <!--<div class="loading" id="tag_loading">-->
+                        <!--<div>-->
+                            <!--<img class="loading-gif" src="__PUBLIC__/img/loading.gif">-->
+                            <!--<span class="loading-text">正在努力加载中~</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<p class="more" id="tag_more" style="display: none;">查看更多</p>-->
+                </div>
+                <div class="m-attention-list" id="user_list">
+                    <div></div>
+                    <!--<div class="loading" id="user_loading">-->
+                        <!--<div>-->
+                            <!--<img class="loading-gif" src="__PUBLIC__/img/loading.gif">-->
+                            <!--<span class="loading-text">正在努力加载中~</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<p class="more" id="user_more" style="display: none;">查看更多</p>-->
+                </div>
+                <div class="clear-fix"></div>
+
+            </div>
+            <include file="Setting:footer"/>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/user.js"></script>
+    <script>console.log($!{JSON.stringify(data)})</script>
+  </layout-put>
+</layout-use>

@@ -21,7 +21,12 @@
   },
   "/login": {
     "view": "./lib/views/pages/login.marko",
-    "data": {}
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      }
+    }
   },
   "/resources": {
     "view": "./lib/views/pages/resource/index.marko",
@@ -109,6 +114,27 @@
       },
       "article": {
         "service": "article_getById",
+        "query": { "id": "$id" }
+      }
+    }
+  },
+  "/space/:id/attentions": {
+    "view": "./lib/views/pages/space/attentions.marko",
+    "data": {
+      "user": {
+        "service": "user_getMyInfo",
+        "global": true
+      },
+      "userInfo": {
+        "service": "user_getOtherUserInfo",
+        "query": { "userId": "$id" }
+      },
+      "attentions": {
+        "service": "user_getUserAttentions",
+        "query": { "id": "$id" }
+      },
+      "idols": {
+        "service": "user_getUserIdol",
         "query": { "id": "$id" }
       }
     }

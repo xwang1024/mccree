@@ -1,0 +1,97 @@
+<div class="m-user-sider">
+  <div class="m-sider-container">
+    <ul>
+      <li class={active: data._path_.indexOf("/attentions")!=-1}>
+        <a href="attentions">
+          <i class="fa fa-eye fa-lg fa-fw"></i>
+          <if(data.isMe)>我的关注</if>
+          <else>TA的关注</else>
+          <span><i class="fa fa-angle-right"></i></span>
+        </a>
+      </li>
+
+      <li class={active: data._path_.indexOf("/article-collections")!=-1}>
+        <a href="article-collections">
+          <i class="fa fa-book fa-lg fa-fw"></i>
+          <if(data.isMe)>我的文章集</if>
+          <else>TA的文章集</else>
+          <span><i class="fa fa-angle-right"></i></span>
+        </a>
+      </li>
+
+      <li class={active: data._path_.indexOf("/resource-collections")!=-1}>
+        <a href="resource-collections">
+          <i class="fa fa-briefcase fa-lg fa-fw"></i>
+          <if(data.isMe)>我的资料集</if>
+          <else>TA的资料集</else>
+          
+          <span><i class="fa fa-angle-right"></i></span>
+        </a>
+      </li>
+
+      <li class={active: data._path_.indexOf("/print-list")!=-1} if(data.isMe)>
+        <a href="print-list">
+          <i class="fa fa-briefcase fa-lg fa-fw fa-hidden"></i>
+          待打印列表
+          <span><i class="fa fa-angle-right"></i></span>
+          <i class="nav-icon-common print-list-icon"></i>
+        </a>
+      </li>
+
+      <li class={active: data._path_.indexOf("/coupons")!=-1} if(data.isMe)>
+        <a href="coupons">
+          <i class="fa fa-briefcase fa-lg fa-fw fa-hidden"></i>
+          我的打印券
+          <span><i class="fa fa-angle-right"></i></span>
+          <i class="nav-icon-common coupon-icon"></i>
+        </a>
+      </li>
+
+      <li class={active: data._path_.indexOf("/orders")!=-1} if(data.isMe)>
+        <a href="orders">
+          <i class="fa fa-briefcase fa-lg fa-fw fa-hidden"></i>
+          我的订单
+          <span><i class="fa fa-angle-right"></i></span>
+          <i class="nav-icon-common order-icon"></i>
+        </a>
+      </li>
+
+      <li class={active: data._path_.indexOf("/downloads")!=-1}>
+        <a href="downloads">
+          <i class="fa fa-download fa-lg fa-fw"></i>
+          <if(data.isMe)>我的下载</if>
+          <else>TA的下载</else>
+          <span><i class="fa fa-angle-right"></i></span>
+        </a>
+      </li>
+
+      <li class={active: data._path_.indexOf("/uploads")!=-1}>
+        <a href="uploads">
+          <i class="fa fa-upload fa-lg fa-fw"></i>
+          <if(data.isMe)>我的上传</if>
+          <else>TA的上传</else>
+          <span><i class="fa fa-angle-right"></i></span>
+        </a>
+      </li>
+
+      <li class={active: data._path_.indexOf("/comments")!=-1} if(data.isMe)>
+        <a href="comments">
+          <i class="fa fa-comments-o fa-lg fa-fw"></i>
+          我的评论
+          <span><i class="fa fa-angle-right"></i></span>
+          <i class="nav-icon-common coupons-icon"></i>
+        </a>
+      </li>
+
+      <li class={active: data._path_.indexOf("/footsteps")!=-1}>
+        <a href="footsteps">
+          <i class="fa fa-location-arrow fa-lg fa-fw"></i>
+          <if(data.isMe)>我的足迹</if>
+          <else>TA的足迹</else>
+          <span><i class="fa fa-angle-right"></i></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <br>
+</div>

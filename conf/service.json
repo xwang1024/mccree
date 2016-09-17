@@ -7,6 +7,18 @@
     "url": "/Home/User/getMyInfo",
     "method": "get"
   },
+  "user_getOtherUserInfo": {
+    "url": "/Home/User/getOtherUserInfo",
+    "method": "get"
+  },
+  "user_getUserAttentions": {
+    "url": "/Home/User/getUserAttentions",
+    "method": "get"
+  },
+  "user_getUserIdol": {
+    "url": "/Home/User/getUserIdol",
+    "method": "get"
+  },
   "course_getCoursesByDepartmentIdWithGrade": {
     "url": "/Home/Course/getCoursesByDepartmentIdWithGrade",
     "method": "get"

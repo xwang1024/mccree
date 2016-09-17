@@ -1,0 +1,51 @@
+<script marko-init>
+  var getDegree = function(i) {
+    var dic = ["本科", "硕士", "博士", "其他", "error"];
+    var index = 4;
+    try {
+      index = parseInt(i);
+    } catch(e) {
+      console.log("Unknown degree code " + i);
+    }
+    return dic[index];
+  };
+</script>
+
+<div class="m-user">
+  <div class="m-user-info">
+    <div class="left-floated">
+      <img class="img-circle" id="icon" onerror="replaceSrc('user', this)" src="$!{data.userInfo.icon}">
+    </div>
+    <div class="left-floated">
+      <h2 class="name" id="nickName">${data.userInfo.nickname}</h2>
+    </div>
+  </div>
+  <div class="m-user-info2">
+    <div class="info">
+      <div>
+        <label>等级<span id="level"> ${data.userInfo.level}</span>·</label>
+        <label>经验<span id="exp"> ${data.userInfo.exp}</span>·</label>
+        <label>排名<span id="rank"> ${data.userInfo.rank}</span></label>
+      </div>
+      <div>
+        <label>米粒<span id="point" if(data.isMe)> </span></label>
+      </div>
+    </div>
+  </div>
+  <div class="m-user-info3">
+    <div>
+      <div>
+        <label id="school">${data.userInfo.school}</label>
+      </div>
+      <div>
+        <label id="department">${data.userInfo.department}</label>
+      </div>
+      <div>
+        <label id="degree">${getDegree(data.userInfo.degree)}<span>·</span>${data.userInfo.grade}</label>
+      </div>
+    </div>
+  </div>
+  <button class="btn-sign-in" user_id="${data.userInfo.id}" if(data.isMe)><span><i class="fa fa-pencil"></i></span> 签到</button>
+  <button class="btn-sign-in" user_id="${data.userInfo.id}" else><span><i class="fa fa-pencil"></i></span> 关注</button>
+</div>
+
