@@ -39,7 +39,7 @@ for(var url in renderConfs) {
     // 登录用户检测
     app.get(url, (req, res, next) => {
       var redirectCheck = function() {
-        if(renderConf.ifLogin && req.session.user) {
+        if(renderConf.ifLogin && req.session.user && parseInt(req.params.id) == parseInt(req.session.user.id)) {
           let url = renderConf.ifLogin+'';
           for(let k in req.params) url=url.replace('$' + k, req.params[k]);
           console.log(`[LOGIN REDIRECT] ${url}`);

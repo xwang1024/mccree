@@ -1,5 +1,5 @@
 <layout-use("../../layouts/default.marko")>
-  <if(out.global.user && data.userInfo.id == data.userInfo.id)>
+  <if(!data._params_.id)>
     <var isMe=true/>
   </if>
   <layout-put into="title">资料集 - 个人中心</layout-put>
@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="/css/setting.css">
   </layout-put>
   <layout-put into="content">
-    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: isMe})/>
+    <include("./partials/top.marko", {userInfo: out.global.user, isMe: isMe}) if(isMe)/>
+    <include("./partials/top.marko", {userInfo: data.userInfo, isMe: isMe}) else/>
     <div class="m-user-panel">
       
       <include("./partials/left.marko", {_path_: data._path_, isMe: isMe})/>

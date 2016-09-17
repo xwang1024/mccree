@@ -11,8 +11,16 @@
     "url": "/Home/User/getOtherUserInfo",
     "method": "get"
   },
+  "user_getMyAttentions": {
+    "url": "/Home/User/getMyAttentions",
+    "method": "get"
+  },
   "user_getUserAttentions": {
     "url": "/Home/User/getUserAttentions",
+    "method": "get"
+  },
+  "user_getMyIdol": {
+    "url": "/Home/User/getMyIdol",
     "method": "get"
   },
   "user_getUserIdol": {

@@ -17,7 +17,7 @@
       <img class="img-circle" id="icon" onerror="replaceSrc('user', this)" src="$!{data.userInfo.icon}">
     </div>
     <div class="left-floated">
-      <h2 class="name" id="nickName">${data.userInfo.nickname}</h2>
+      <h2 class="name" id="nickName">${data.userInfo.nickname || data.userInfo.nickName}</h2>
     </div>
   </div>
   <div class="m-user-info2">
@@ -46,12 +46,12 @@
     </div>
   </div>
   <if(data.isMe)>
-    <button class="btn-sign-in" user_id="${data.userInfo.id}" if(!out.global.user.signin) onclick="doSignIn();"><span><i class="fa fa-pencil"></i></span> 签到</button>
-    <button class="btn-sign-in" disabled else><span><i class="fa fa-pencil"></i></span> 已签到</button>
+    <button class="btn-sign-in" user_id="${data.userInfo.id}" if(!out.global.user.signin) onclick="doSignIn();">签到</button>
+    <button class="btn-sign-in" disabled else>已签到</button>
   </if>
   <else>
-    <button class="btn-sign-in" user_id="${data.userInfo.id}" if(!data.userInfo.followState) onclick="followUser(this);"><span><i class="fa fa-pencil"></i></span> 关注</button>
-    <button class="btn-sign-in" user_id="${data.userInfo.id}" else onclick="unFollowUser(this);">><span><i class="fa fa-pencil"></i></span> 取消关注</button>
+    <button class="btn-sign-in" user_id="${data.userInfo.id}" if(!data.userInfo.followState) onclick="followUser(this);">关注</button>
+    <button class="btn-sign-in" user_id="${data.userInfo.id}" else onclick="unFollowUser(this);">取消关注</button>
   </else>
 </div>
 
