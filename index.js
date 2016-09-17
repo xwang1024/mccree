@@ -38,8 +38,17 @@ for(var url in renderConfs) {
   (function(url, renderConf) {
     // 登录用户检测
     app.get(url, (req, res, next) => {
-      if(req.session.user) return next();
-      console.log("[REQUEST] Current User")
+      var redirectCheck = function() {
+        if(renderConf.ifLogin && req.session.user) {
+          let url = renderConf.ifLogin+'';
+          for(let k in req.params) url=url.replace('$' + k, req.params[k]);
+          console.log(`[LOGIN REDIRECT] ${url}`);
+          return res.redirect(url);
+        }
+        return next();
+      }
+      if(req.session.user) return redirectCheck();
+      console.log("[REQUEST] Current User");
       request.get({
         url: phpHost + '/Home/User/getMyInfo',
         headers: req.headers
@@ -53,7 +62,7 @@ for(var url in renderConfs) {
           }
           data.result && (req.session.user = data.result);
         }
-        next();
+        return redirectCheck();
       });
     });
 

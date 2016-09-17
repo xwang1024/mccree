@@ -80,6 +80,7 @@
   },
   "/space/:id/attentions": {
     "view": "./lib/views/pages/space/attentions.marko",
+    "ifLogin": "/space/attentions",
     "data": {
       "userInfo": {
         "service": "user_getOtherUserInfo",
@@ -97,6 +98,7 @@
   },
   "/space/:id/article-collections": {
     "view": "./lib/views/pages/space/article_collections.marko",
+    "ifLogin": "/space/article-collections",
     "data": {
       "userInfo": {
         "service": "user_getOtherUserInfo",
@@ -106,15 +108,7 @@
   },
   "/space/:id/resource-collections": {
     "view": "./lib/views/pages/space/resource_collections.marko",
-    "data": {
-      "userInfo": {
-        "service": "user_getOtherUserInfo",
-        "query": { "userId": "$id" }
-      }
-    }
-  },
-  "/space/:id/coupons": {
-    "view": "./lib/views/pages/space/coupons.marko",
+    "ifLogin": "/space/resource-collections",
     "data": {
       "userInfo": {
         "service": "user_getOtherUserInfo",
@@ -124,6 +118,7 @@
   },
   "/space/:id/downloads": {
     "view": "./lib/views/pages/space/downloads.marko",
+    "ifLogin": "/space/downloads",
     "data": {
       "userInfo": {
         "service": "user_getOtherUserInfo",
@@ -133,6 +128,16 @@
   },
   "/space/:id/uploads": {
     "view": "./lib/views/pages/space/uploads.marko",
+    "ifLogin": "/space/uploads",
+    "data": {
+      "userInfo": {
+        "service": "user_getOtherUserInfo",
+        "query": { "userId": "$id" }
+      }
+    }
+  },
+  "/space/coupons": {
+    "view": "./lib/views/pages/space/coupons.marko",
     "data": {
       "userInfo": {
         "service": "user_getOtherUserInfo",
