@@ -1,0 +1,65 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">系统通知 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/message.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+      <div class="m-message-content">
+        <include("./partials/left.marko", {_path_: data._path_})/>
+        <div class="m-message-right box right-floated">
+          <div class="m-message-list">
+            <div class="m-message-select">
+              <ul>
+                <li class="active" id="new-announce">新消息</li>
+                <li id="all-announce">所有</li>
+              </ul>
+            </div>
+            <div class="clear-fix"></div>
+            <div class="separator-double"></div>
+          </div>
+        </div>
+        <div class="clear-fix"></div>
+      </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/message.js"></script>
+    <script>
+      $(document).ready(function(){
+        showNewAnnouncements();
+        $(window).scroll(function(){
+          var scrollTop = $(this).scrollTop();
+          var scrollHeight = $(document).height();
+          var windowHeight = $(this).height();
+          if(scrollTop + windowHeight == scrollHeight){
+              addData(new Array(showNewAnnouncements,showAllAnnouncements));
+          }
+        });
+      });
+
+      function switchContent(){
+        var head =
+                '<div class="m-message-select">'+
+                '<ul>'+
+                '<li id="new-announce">新消息</li>'+
+                '<li id="all-announce">所有</li>'+
+                '</ul>'+
+                '</div>'+
+                '<div class="clear-fix"></div>'+
+                '<div class="separator-double"></div>';
+        $("#new-announce").click(function(){
+          $(".m-message-list").html(head);
+          message_init(0);
+          showNewAnnouncements();
+        });
+        $("#all-announce").click(function(){
+          $(".m-message-list").html(head);
+          message_init(1);
+          showAllAnnouncements();
+        });
+      }
+    </script>
+  </layout-put>
+</layout-use>

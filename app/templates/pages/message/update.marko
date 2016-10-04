@@ -1,0 +1,66 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">系统通知 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/message.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+      <div class="m-message-content">
+        <include("./partials/left.marko", {_path_: data._path_})/>
+        <div class="m-message-right box right-floated">
+          <div class="m-message-list">
+            <div class="m-message-select">
+              <ul>
+                <li class="active" id="article-update">文章集</li>
+                <li id="resource-update">资料集</li>
+              </ul>
+            </div>
+            <div class="clear-fix"></div>
+            <div class="separator-double"></div>
+          </div>
+        </div>
+        <div class="clear-fix"></div>
+      </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/message.js"></script>
+    <script>
+      $(document).ready(function(){
+        showUpdateOfAS();
+
+        $(window).scroll(function(){
+          var scrollTop = $(this).scrollTop();
+          var scrollHeight = $(document).height();
+          var windowHeight = $(this).height();
+          if(scrollTop + windowHeight == scrollHeight){
+            addData(new Array(showUpdateOfAS,showUpdateOfRS));
+          }
+        });
+      });
+
+      function switchContent(){
+        var head =
+                '<div class="m-message-select">'+
+                '<ul>'+
+                '<li id="article-update">文章集</li>'+
+                '<li id="resource-update">资料集</li>'+
+                '</ul>'+
+                '</div>'+
+                '<div class="clear-fix"></div>'+
+                '<div class="separator-double"></div>';
+        $("#article-update").click(function(){
+          $(".m-message-list").html(head);
+          message_init(0);
+          showUpdateOfAS();
+        });
+        $("#resource-update").click(function(){
+          $(".m-message-list").html(head);
+          message_init(1);
+          showUpdateOfRS();
+        });
+      }
+    </script>
+  </layout-put>
+</layout-use>

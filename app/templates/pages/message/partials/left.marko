@@ -1,0 +1,32 @@
+<div class="left-floated m-message-panel box">
+  <ul class="m-message-sider">
+    <li class={active: data._path_.indexOf("/message/system")!=-1}>
+      <a href="/message/system">
+        <i class="fa fa-bell-o fa-fw"></i>
+        系统通知
+        <i class="fa fa-angle-right"></i>
+      </a>
+    </li>
+    <li class={active: data._path_.indexOf("/message/reply")!=-1}>
+      <a href="/message/reply">
+        <i class="fa fa-comments-o fa-fw"></i>
+        新的回复
+        <i class="fa fa-angle-right"></i>
+      </a>
+    </li>
+    <li class={active: data._path_.indexOf("/message/update")!=-1}>
+      <a href="/message/update">
+        <i class="fa fa-repeat fa-fw"></i>
+        我的更新
+        <i class="fa fa-angle-right"></i>
+      </a>
+    </li>
+    <li class={active: data._path_.indexOf("/message/love")!=-1}>
+      <a href="/message/love">
+        <i class="fa fa-thumbs-o-up fa-fw"></i>
+        收到的赞
+        <i class="fa fa-angle-right"></i>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -185,16 +185,28 @@
     }
   },
   "/space/print-list": {
-    "view": "./lib/views/pages/space/print_list.marko"
+    "view": "./lib/views/pages/space/print_list.marko",
+    "data": {
+      "userInfo": "user_getMyInfo"
+    }
   },
   "/space/coupons": {
-    "view": "./lib/views/pages/space/coupons.marko"
+    "view": "./lib/views/pages/space/coupons.marko",
+    "data": {
+      "userInfo": "user_getMyInfo"
+    }
   },
   "/space/orders": {
-    "view": "./lib/views/pages/space/orders.marko"
+    "view": "./lib/views/pages/space/orders.marko",
+    "data": {
+      "userInfo": "user_getMyInfo"
+    }
   },
   "/space/comments": {
-    "view": "./lib/views/pages/space/comments.marko"
+    "view": "./lib/views/pages/space/comments.marko",
+    "data": {
+      "userInfo": "user_getMyInfo"
+    }
   },
   "/about": {
     "view": "./lib/views/pages/extra/about.marko"
@@ -213,5 +225,17 @@
   },
   "/app": {
     "view": "./lib/views/pages/extra/app.marko"
+  },
+  "/message/system": {
+    "view": "./lib/views/pages/message/system.marko"
+  },
+  "/message/reply": {
+    "view": "./lib/views/pages/message/reply.marko"
+  },
+  "/message/update": {
+    "view": "./lib/views/pages/message/update.marko"
+  },
+  "/message/love": {
+    "view": "./lib/views/pages/message/love.marko"
   }
 }

@@ -81,7 +81,7 @@ for(var url in renderConfs) {
       let template = require(renderConf.view);
       // get data from PHP Server
       var dataKeys = Object.keys(renderConf.data || {});
-      var context = {};
+      var context = { '$global': { user: req.session.user } };
       async.each(dataKeys, (dataKey, callback) => {
         let serviceName = renderConf.data[dataKey];
         let query = {};
@@ -117,7 +117,6 @@ for(var url in renderConfs) {
               console.log('[Body]', body);
               console.log('[Error]', e.message)
             }
-            context['$global'] = { user: req.session.user };
             if(isGlobal) {
               context['$global'] || (context['$global']={});
               context['$global'][dataKey] = data;
