@@ -10,7 +10,7 @@ const watchTree    = require("fs-watch-tree").watchTree;
 const path         = require('path');
 const http         = require('http');
 const express      = require('express');
-const logger       = require('morgan');
+const morgan       = require('morgan');
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session      = require('express-session');
@@ -18,12 +18,12 @@ const async        = require('async');
 const request      = require('request');
 const qs           = require('querystring');
 
-const phpHost      = 'http://localhost';
+const phpHost      = 'http://mebox.xin.me';
 
 var app = express();
 
 app.use(express.static('public'));
-app.use(logger('dev'));
+app.use(morgan('dev'));
 
 app.use(session({
   resave: true,
@@ -34,6 +34,13 @@ app.use(session({
 const serviceConfs  = require('./conf/service.json');
 const renderConfs   = require('./conf/render.json');
 const redirectConfs = require('./conf/redirect.json');
+
+let genHeader = function(req) {
+  return {
+    'user-agent': req.headers['user-agent'],
+    'cookie': req.headers['cookie']
+  }
+}
 
 for(var url in renderConfs) {
   (function(url, renderConf) {
@@ -49,17 +56,20 @@ for(var url in renderConfs) {
         return next();
       }
       if(req.session.user) return redirectCheck();
-      console.log("[REQUEST] Current User");
+      console.log("[REQUEST] " + phpHost + '/Home/User/getMyInfo');
+      console.log("[headers] ", req.headers);
       request.get({
         url: phpHost + '/Home/User/getMyInfo',
-        headers: req.headers
+        headers: genHeader(req)
       }, (err, response, body) => {
+        console.log(body);
         if (!err && response.statusCode == 200) {
           var data = {};
           try {
             data = JSON.parse(body);
+            console.log("[USER]", data);
           } catch(e) {
-            console.log(e.message)
+            console.log('[Error]', e.message);
           }
           data.result && (req.session.user = data.result);
         }
@@ -93,9 +103,10 @@ for(var url in renderConfs) {
           return callback();
         }
         console.log("[REQUEST] " + phpHost+service.url + '?' + qs.stringify(query))
+        console.log("[headers] ", req.headers);
         request[service.method]({
           url: phpHost+service.url,
-          headers: req.headers,
+          headers: genHeader(req),
           qs: query
         }, (err, response, body) => {
           if (!err && response.statusCode == 200) {
@@ -103,8 +114,8 @@ for(var url in renderConfs) {
             try {
               data = JSON.parse(body);
             } catch(e) {
-              console.log(body);
-              console.log(e.message)
+              console.log('[Body]', body);
+              console.log('[Error]', e.message)
             }
             context['$global'] = { user: req.session.user };
             if(isGlobal) {
@@ -152,19 +163,15 @@ app.all('/*', (req, res, next) => {
 });
 
 app.server = http.createServer(app);
-app.server.listen(3000, function(){
-  console.log('Server is running on port 3000');
+app.server.listen(4000, function(){
+  console.log('Server is running on port 4000');
 });
 
-// var templatesDir = path.join(__dirname, 'lib/views');
+// 实时检测模板文件变更
 watchTree("lib/views", function (event) {
-    if (/\.marko$/.test(event.name)) {
-        // Resolve the filename to a full template path:
-        var templatePath = path.join(__dirname, event.name);
-
-        console.log('Marko template modified: ', templatePath);
-
-        // Pass along the *full* template path to marko
-        require('marko/hot-reload').handleFileModified(templatePath);
-    }
+  if (/\.marko$/.test(event.name)) {
+    var templatePath = path.join(__dirname, event.name);
+    console.log('Marko template modified: ', templatePath);
+    require('marko/hot-reload').handleFileModified(templatePath);
+  }
 });
