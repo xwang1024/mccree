@@ -80,7 +80,7 @@ for(var url in renderConfs) {
     app.get(url, (req, res, next) => {
       let template = require(renderConf.view);
       // get data from PHP Server
-      var dataKeys = Object.keys(renderConf.data);
+      var dataKeys = Object.keys(renderConf.data || {});
       var context = {};
       async.each(dataKeys, (dataKey, callback) => {
         let serviceName = renderConf.data[dataKey];

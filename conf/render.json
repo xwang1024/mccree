@@ -185,27 +185,33 @@
     }
   },
   "/space/print-list": {
-    "view": "./lib/views/pages/space/print_list.marko",
-    "data": {
-      "userInfo": "user_getMyInfo"  
-    }
+    "view": "./lib/views/pages/space/print_list.marko"
   },
   "/space/coupons": {
-    "view": "./lib/views/pages/space/coupons.marko",
-    "data": {
-      "userInfo": "user_getMyInfo"  
-    }
+    "view": "./lib/views/pages/space/coupons.marko"
   },
   "/space/orders": {
-    "view": "./lib/views/pages/space/orders.marko",
-    "data": {
-      "userInfo": "user_getMyInfo"  
-    }
+    "view": "./lib/views/pages/space/orders.marko"
   },
   "/space/comments": {
-    "view": "./lib/views/pages/space/comments.marko",
-    "data": {
-      "userInfo": "user_getMyInfo"  
-    }
+    "view": "./lib/views/pages/space/comments.marko"
+  },
+  "/about": {
+    "view": "./lib/views/pages/extra/about.marko"
+  },
+  "/help": {
+    "view": "./lib/views/pages/extra/help.marko"
+  },
+  "/rules": {
+    "view": "./lib/views/pages/extra/rules.marko"
+  },
+  "/protocols": {
+    "view": "./lib/views/pages/extra/protocols.marko"
+  },
+  "/feedback": {
+    "view": "./lib/views/pages/extra/feedback.marko"
+  },
+  "/app": {
+    "view": "./lib/views/pages/extra/app.marko"
   }
 }

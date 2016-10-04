@@ -1,0 +1,38 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">关于米盒 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/extra.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+      <div class="m-extra-content">
+        <div class="left-floated sider">
+          <include("./partials/left.marko", {_path_: data._path_})/>
+          <include("./partials/footer.marko")/>
+        </div>
+        <div class="right-floated m-extra-right box m-extra-feedback">
+              <h2>意见反馈</h2>
+              <div class="separator"></div>
+              <div class="feedback-submit">
+                <div class="comment-reply">
+                  <textarea name="text" id="js-reply"  rows="3" placeholder="请输入您的宝贵意见："></textarea>
+                </div>
+                <div class="right-floated btn" id="js-comment-submit">提交反馈</div>
+                <div class="clear-fix"></div>
+              </div>
+              <div class="feedback-content">
+                <h3>反馈动态</h3>
+                <div class="separator"></div>
+                <div id="js-feedbacks" class="comments" ></div>
+              </div>
+            </div>
+        <div class="clear-fix"></div>
+      </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/feedback.js"></script>
+    <script src="/js/report.js"></script>
+  </layout-put>
+</layout-use>

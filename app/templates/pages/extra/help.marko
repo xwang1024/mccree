@@ -1,0 +1,41 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">帮助中心 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/extra.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+      <div class="m-extra-content">
+        <div class="left-floated sider">
+          <include("./partials/left.marko", {_path_: data._path_})/>
+          <include("./partials/footer.marko")/>
+        </div>
+        <div class="right-floated m-extra-right box m-extra-help">
+          <h2>帮助中心</h2>
+          <div class="separator"></div>
+          <div class="details">
+            <div class="summary"><i class="fa fa-caret-right fa-lg"></i>米盒能为我带来什么？</div>
+            <p class="help-content">在米盒资源共享平台上，您可以上传你的学习资源，收藏、下载他人上传的学习资源，让网络学习无处不在；可以在宿舍楼一层的米盒打印机打印您的优质学习资源，让学习米盒资源变得更加方便；还可以给优秀的学习资源点赞，评论他人上传的资源，让资源分享充满趣味性。</p>
+          </div>
+          <div class="details">
+            <div class="summary"><i class="fa fa-caret-right fa-lg"></i>怎样获得米粒？</div>
+            <p class="help-content">您可以通过上传资料获得米粒；当您上传的资料被下载时，还可以获得相应的米粒奖励，
+                被下载次数越多，米粒奖励越多；此外，点赞、评分、评论也可以获得相应的米粒。具体请参看<a class="link" href="/rules">积分规则</a>说明。</p>
+          </div>
+          <div class="details">
+            <div class="summary"><i class="fa fa-caret-right fa-lg"></i>如何兑换礼品？</div>
+            <p class="help-content">我们会在每月末统一进行兑换活动，如您符合礼品兑换条件（账户中满10000米粒后可获得精美礼品一份），可将个人中心截图发送至邮箱 gqy3069@mebox.top,同时注明您的电话号码及收货地址，您就可以领取相应的奖励。</p>
+          </div>
+          <div class="details">
+            <div class="summary"><i class="fa fa-caret-right fa-lg"></i>其他问题</div>
+            <p class="help-content">如有其它问题，可在意见反馈中进行提问，我们的客服会及时向您解答，同时也欢迎您加入米盒用户大家庭（QQ群：297488903）参与我们的产品反馈和改进，米盒有你会更加优秀。</p>
+          </div>
+        </div>
+        <div class="clear-fix"></div>
+      </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+  </layout-put>
+</layout-use>

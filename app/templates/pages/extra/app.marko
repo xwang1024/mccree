@@ -1,0 +1,32 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">关于米盒 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/extra.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+      <div class="m-extra-content">
+        <div class="left-floated sider">
+          <include("./partials/left.marko", {_path_: data._path_})/>
+          <include("./partials/footer.marko")/>
+        </div>
+        <div class="right-floated m-extra-right box m-extra-app">
+          <img class="app-pic" src="/img/app_download_pic.png"/>
+          <div class="app-android-div app-div">
+            <p class="title">安卓客户端</p>
+            <img src="/img/app_download_android.png"/>
+            <span class="tips">扫描二维码下载</span>
+          </div>
+          <div class="app-ios-div app-div">
+            <p class="title">iOS客户端</p>
+            <img src="/img/app_download_ios.jpg"/>
+          </div>
+        </div>
+        <div class="clear-fix"></div>
+      </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+  </layout-put>
+</layout-use>

@@ -1,0 +1,290 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">帮助中心 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/extra.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+      <div class="m-extra-content">
+        <div class="left-floated sider">
+          <include("./partials/left.marko", {_path_: data._path_})/>
+          <include("./partials/footer.marko")/>
+        </div>
+        <div class="right-floated m-extra-right box m-extra-rules">
+          <h2>积分规则</h2>
+          <div class="separator"></div>
+          <section>
+            <h3 class="summary">一、总述</h3>
+            <p>米盒积分规则分为两大类：经验规则和米粒（米盒平台专用积分或者金币）规则。</p>
+          </section>
+          <section>
+            <h3 class="summary">二、经验规则</h3>
+            <span class="subtitle"><i class="fa fa-caret-right"></i>经验的用途是什么?</span>
+            <p class="sub-content">经验值反映了用户在米盒上面的贡献，同时也决定着用户在米盒上的等级，以及相对应的权限。</p>
+            <span class="subtitle"><i class="fa fa-caret-right"></i>如何获得经验？</span>
+            <p class="sub-content">您只需要在米盒平台上进行如下的各项操作，就能得到相应的经验值。这些经验会自动计入您的总经验之中。</p>
+            <table border="1">
+              <tr>
+                <th colspan="2" width="25%">操作</th>
+                <th width="12%">经验变化</th>
+                <th width="8%">经验当日变化上限</th>
+                <th width="25%">备注</th>
+              </tr>
+              <tr>
+                <td colspan="2">绑定手机号</td>
+                <td>+1</td>
+                <td></td>
+                <td>即使用手机号注册</td>
+              </tr>
+              <tr>
+                <td colspan="2">绑定社交账号</td>
+                <td>+1</td>
+                <td></td>
+                <td>每绑定一个就送一次</td>
+              </tr>
+              <tr>
+                <td colspan="2">完善个人信息</td>
+                <td>+5</td>
+                <td></td>
+                <td>即院系等</td>
+              </tr>
+              <tr>
+                <td colspan="2">第一次关注标签</td>
+                <td>+5</td>
+                <td></td>
+                <td>无论是在注册时还是在日常使用中</td>
+              </tr>
+              <tr>
+                <td colspan="2">登录</td>
+                <td>+1</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">签到</td>
+                <td>+1/+2</td>
+                <td></td>
+                <td>首日+1，连续签到+2</td>
+              </tr>
+              <tr>
+                <td colspan="2">下载</td>
+                <td>+1</td>
+                <td>+10</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">资料评分/文章点赞</td>
+                <td>+1</td>
+                <td>+10</td>
+                <td>资料评分在下载后才可以进行</td>
+              </tr>
+              <tr>
+                <td colspan="2" >评论</td>
+                <td>+1</td>
+                <td>+10</td><td>包含对资源发表评论与回复别人的评论，手机端评论额外+1</td></tr>
+              <tr>
+                <td rowspan="5" width="8%">上传</td>
+                <td>普通资料</td>
+                <td>+4</td>
+                <td rowspan="5">+100</td>
+                <td rowspan="5">同一文件不可由同一人重复上传</td>
+              </tr>
+              <tr>
+                <td>音频资料</td>
+                <td>+5</td>
+              </tr>
+              <tr>
+                <td>视频资料</td>
+                <td>+6</td>
+              </tr>
+              <tr>
+                <td>原创资料</td>
+                <td>额外+10</td>
+              </tr>
+              <tr>
+                <td>同时分享到社交平台</td>
+                <td>额外+1</td>
+              </tr>
+              <tr>
+                <td colspan="2">被下载</td>
+                <td>+1</td>
+                <td></td>
+                <td>从单文件中获取的米粒收益上限为+2000</td>
+              </tr>
+              <tr>
+                <td colspan="2">创建资料集/文章集</td>
+                <td>+1</td>
+                <td>+5</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">收藏资料到资料集/收藏文章到文章集</td>
+                <td>+1</td>
+                <td>+5</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">自己的资料集/文章集被别人收藏</td>
+                <td>+1</td>
+                <td>无限制</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">关注标签</td>
+                <td>+1</td>
+                <td>+10</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">分享</td>
+                <td>+2</td>
+                <td>+10</td>
+                <td>手机端额外+1</td>
+              </tr>
+            </table>
+            <span class="subtitle"><i class="fa fa-caret-right"></i>等级和经验的对应关系</span>
+            <table border="1" cellpadding="10">
+              <tr>
+                <th width="20%">等级</th>
+                <th width="40%">对应经验</th>
+              </tr>
+              <tr><td>1</td><td>1</td></tr>
+              <tr><td>2</td><td>5</td></tr>
+              <tr><td>3</td><td>15</td></tr>
+              <tr><td>4</td><td>30</td></tr>
+              <tr><td>5</td><td>50</td></tr>
+              <tr><td>6</td><td>100</td></tr>
+              <tr><td>7</td><td>200</td></tr>
+              <tr><td>8</td><td>500</td></tr>
+              <tr><td>9</td><td>1000</td></tr>
+              <tr><td>10</td><td>2000</td></tr>
+              <tr><td>11</td><td>3000</td></tr>
+              <tr><td>12</td><td>6000</td></tr>
+              <tr><td>13</td><td>10000</td></tr>
+              <tr><td>14</td><td>18000</td></tr>
+              <tr><td>15</td><td>30000</td></tr>
+              <tr><td>16</td><td>60000</td></tr>
+              <tr><td>17</td><td>10000</td></tr>
+              <tr><td>18</td><td>300000</td></tr>
+            </table>
+          </section>
+          <section>
+            <h3 class="summary">三、米粒规则</h3>
+            <span class="subtitle"><i class="fa fa-caret-right"></i>米粒的用途是什么?</span>
+            <p class="sub-content">用米粒可以下载米盒平台上的所需资源，也可以兑换现金及精美的礼品。</p>
+            <span class="subtitle"><i class="fa fa-caret-right"></i>如何获取米粒？</span>
+            <p class="sub-content">您只需要在米盒平台上进行如下的各项操作，就能得到相应的米粒。这些米粒会自动计入您的总米粒之中。</p>
+            <table border="1">
+              <tr>
+                <th colspan="2" width="30%">操作</th>
+                <th width="16%">米粒变化</th>
+                <th width="14%">米粒当日变化上限</th>
+                <th width="30%">备注</th>
+              </tr>
+              <tr>
+                <td colspan="2">注册</td>
+                <td>+100</td>
+                <td></td>
+                <td>即使用手机号注册</td>
+              </tr>
+              <tr>
+                <td colspan="2">绑定社交账号</td>
+                <td>+50</td>
+                <td></td>
+                <td>每绑定一个就送一次</td>
+              </tr>
+              <tr>
+                <td colspan="2">完善个人基础信息</td>
+                <td>+50</td>
+                <td></td>
+                <td>院系等</td>
+              </tr>
+              <tr>
+                <td rowspan="5" width="8%">上传</td>
+                <td>普通资料</td>
+                <td>+20</td>
+                <td rowspan="5">+1000</td>
+                <td rowspan="5">同一文件不可由同一人重复上传</td>
+              </tr>
+              <tr>
+                <td>音频资料</td>
+                <td>+30</td>
+              </tr>
+              <tr>
+                <td>视频资料</td>
+                <td>+40</td>
+              </tr>
+              <tr>
+                <td>原创资料</td>
+                <td>额外+50</td>
+              </tr>
+              <tr>
+                <td>同时分享到社交平台</td>
+                <td>额外+5</td>
+              </tr>
+              <tr>
+                <td colspan="2">被下载</td>
+                <td>+所需米粒</td>
+                <td>+5000</td>
+                <td>从单文件中获取的米粒收益上限为+2000</td>
+              </tr>
+              <tr>
+                <td colspan="2">评论被点赞</td>
+                <td>+1</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">资料被好评/文章被点赞</td>
+                <td>+1</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">注册满周年</td>
+                <td>+签到天数</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">分享文章/资料/文章集/资料集</td>
+                <td>+1</td>
+                <td>+10</td>
+                <td></td>
+              </tr>
+            </table>
+            <span class="subtitle"><i class="fa fa-caret-right"></i>米粒消耗</span>
+            <table border="1">
+              <tr>
+                <th width="25%">消耗途径</th>
+                <th width="25%">米粒变化</th>
+                <th width="50%">备注</th>
+              </tr>
+              <tr>
+                <td>下载资料</td>
+                <td>-相应米粒</td>
+                <td>同一资料多次下载只扣除一次米粒</td>
+              </tr>
+              <tr>
+                <td>兑换礼品</td>
+                <td>-相应米粒</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>打印资料</td>
+                <td>-相应米粒</td>
+                <td>若资料已下载过，只扣除打印所需米粒；若资料未经下载，则扣除下载+打印所需米粒</td>
+              </tr>
+            </table>
+            <span class="subtitle"><i class="fa fa-caret-right"></i>米粒与人民币兑换规则</span>
+            <p class="sub-content">充值时1人民币=100米粒</p>
+          </section>
+        </div>
+        <div class="clear-fix"></div>
+      </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+  </layout-put>
+</layout-use>

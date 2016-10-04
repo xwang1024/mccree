@@ -1,0 +1,34 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">关于米盒 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/extra.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper">
+      <div class="m-extra-content">
+        <div class="left-floated sider">
+          <include("./partials/left.marko", {_path_: data._path_})/>
+          <include("./partials/footer.marko")/>
+        </div>
+        <div class="right-floated m-extra-right box m-extra-about">
+          <h2>米盒，是什么？</h2>
+          <div class="separator"></div>
+          <p>米盒，一个专注于大学生专业课程学习的资源共享平台。</p>
+          <p>关键词：专业、资源与共享。</p>
+          <p><span class="span-title">[资料]</span> 作为米盒最忠实的米粉，在这里您可以看到源自南京大学最全面、最详细、最意想不到的学习资料。从历年微积分、线性代数试题，到通识选修课的课件PPT，米盒将为您打造一款专属于您的资料收割机。</p>
+          <p><span class="span-title">[文章]</span> 与此同时，这里数量庞大的技能贴和干货文章，也将成为您深度学习、修炼技能的绝佳选择。</p>
+          <p><span class="span-title">[米粒]</span> 手握米盒的流通米粒，在米盒的稻田里，您可以畅快地播种和收获美味的精神食粮。储备丰富、类型多样的学习资料将被您一网打尽。上传和下载文件的便捷服务，助您打造一间充盈的个人智库。</p>
+          <p>可米盒带给您的福利，还不止于此。</p>
+          <p><span class="span-title">[打印]</span> 安置在您宿舍楼下的自助打印机，也载满了米盒的诚意。选择资料，设置待打印文件，点击确定，来到位于一层的打印机前用米盒扫描二维码，任务即刻搞定！全程不到5分钟，轻松为您消除一切关于时间、距离成本的苦恼，让打印变成一件幸福的事情。</p>
+          <p>学习是一种孤独的修行，但米盒愿让您不再孤单。</p>
+          <p><span class="span-title">[米豆]</span> 于是，集智慧与经验于一身的Medol便出现在了这里。乐于分享的米豆是米盒最珍贵的一座宝库，令米盒迸发出无限生机。从清晰的知识点解析、疑难题目的铺陈解答，学习经验与心得到充满正能量的故事和浓郁的鸡汤，米豆诚意邀请您，和精英的人一起，分享精华的事情。</p>
+          <p>看得见的资料共享，看不见的智慧融动。入驻米盒，也许是您最正确的一个选择。因为，沉淀您智慧的奇妙之旅，从这里开始。</p>
+        </div>
+        <div class="clear-fix"></div>
+      </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+  </layout-put>
+</layout-use>
