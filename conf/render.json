@@ -15,11 +15,6 @@
       "myCourseResources": "prefer_getMyCourseResources"
     }
   },
-  "/login": {
-    "view": "./lib/views/pages/login.marko",
-    "data": {
-    }
-  },
   "/resources": {
     "view": "./lib/views/pages/resource/index.marko",
     "data": {
@@ -249,5 +244,17 @@
   },
   "/search": {
     "view": "./lib/views/pages/search.marko"
+  },
+  "/login": {
+    "view": "./lib/views/pages/auth/login.marko"
+  },
+  "/phone-register": {
+    "view": "./lib/views/pages/auth/phone_register.marko"
+  },
+  "/password-reset": {
+    "view": "./lib/views/pages/auth/password_reset.marko"
+  },
+  "/upload": {
+    "view": "./lib/views/pages/upload.marko"
   }
 }

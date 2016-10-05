@@ -1,0 +1,66 @@
+<layout-use("../layouts/default.marko")>
+  <layout-put into="title">添加本地打印文件 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/resource_upload.css">
+    <link rel="stylesheet" href="/css/print_upload.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper m-resource-upload">
+      <div class="mid-panel">
+        <div class="panel-content">
+          <h3 class="title">添加本地打印文件</h3>
+          <div id="public-switch-container" flag="2">
+            <div id="public-switch">
+              <div id="public-switch-point"></div>
+            </div>
+            <span class="text">私密</span></div>
+          <div class="clear-fix"></div>
+          <div class="separator"></div>
+          <div class="collection-select" hidden>
+            <div class="select">
+              <div class="select-text">选择加入的资料集</div>
+              <i class="fa fa-caret-down"></i>
+            </div>
+            <div class="select-expand">
+              <ul class="select-items" id="js-select-collection"></ul>
+              <div class="page-items" id="js-page-items"></div>
+              <button class="btn-create-collection" onclick="collectionCreate(this)">创建资料集</button>
+              <div class="create-collection">
+                <div class="mebox-select-tabs" id="js-public-select-tabs"></div>
+                <input type="text" class="input-collection-name">
+                <button class="btn-add-collection right-floated">创建并加入</button>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+          <div class="open-uploads" id="upload-button-area">
+            <input type="file" id="input-files" class="hide" multiple onchange="">
+            <div id="visible-input-files" class="visible" onclick="document.getElementById('input-files').click();">选择一个或多个相关文件
+              <i class="fa fa-plus"></i></div>
+          </div>
+          <div id="private-files-container"></div>
+          <div class="files-list" id="files-container" hidden></div>
+          <div class="button-group">
+            <button class="btn-create" onclick="submitAll()">添加</button>
+            <button class="btn-cancel" onclick="cancelUploadAll()">取消</button></div>
+        </div>
+      </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <style>
+        body {
+            background-color: #9e8f7c;
+        }
+        .wrapper {
+            margin-top: 84px;
+        }
+    </style>
+    <script src="//cdn.bootcss.com/plupload/2.1.8/plupload.full.min.js"></script>
+    <script src="/plugins/qiniu/dist/qiniu.js"></script>
+    <script src="/js/mebox_select_tabs.js"></script>
+    <script src="/js/upload_common.js"></script>
+    <script src="/js/print_upload.js"></script>
+  </layout-put>
+</layout-use>

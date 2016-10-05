@@ -1,0 +1,183 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">找回密码 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="/plugins/datetimepicker/css/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/select2/4.0.0/css/select2.min.css">
+    <style>
+        body {
+            min-width: 1300px;;
+        }
+
+        .wrapper {
+            margin-bottom: 0;
+        }
+
+        .m-auth-mid-container {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) inset;
+        }
+
+    </style>
+  </layout-put>
+  <layout-put into="content">
+    <div class="m-auth-mid-container">
+      <div class="dotstyle dotstyle-fillup">
+        <ul>
+          <li id="first" class="current">
+            <a>
+            </a>
+          </li>
+          <li id="second">
+            <a>
+            </a>
+          </li>
+          <li id="third">
+            <a>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="m-auth-mid" id="first_step">
+          <div class="m-auth-panel">
+            <div class="m-auth-title">注册米盒</div>
+            <div class="separator"></div>
+            <div class="m-login-item">
+              <label for="phone_number">手机号</label>
+              <input type="text" id="phone_number" onchange="checkPhoneNumber(this.value)"></div>
+            <div class="m-login-item">
+              <label for="code">验证码</label>
+              <input type="text" id="code">
+              <button class="btn-send-code" onclick="sendSmsCode1(this)">发送验证码</button></div>
+            <button class="m-login-btn" type="submit" onclick="next_1()">下一步</button>
+            <div class="clear-fix"></div>
+          </div>
+        </div>
+        <div class="m-auth-mid-other">
+          <span class="bgw">其他方式</span>
+          <div class="oauth2">
+            <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxa11f23b94aa6264c&redirect_uri=http://mebox.top&response_type=code&scope=snsapi_login&state=mebox#wechat_redirect">
+              <img src="/img/wechat.svg" alt="微信"></a>
+            <a href="https://api.weibo.com/oauth2/authorize?client_id=2472544097&redirect_uri=http://mebox.top&response_type=code">
+              <img src="/img/weibo.svg" alt="微博"></a>
+            <img src="/img/qq.svg" alt="QQ" onclick="toQQLogin()"></div>
+        </div>
+      </div>
+      <div class="m-auth-mid" id="second_step" hidden>
+        <div class="m-auth-panel">
+          <div class="user-img">
+            <img id="userIcon" onclick="$('#iconFile').click()" onerror="replaceSrc('user', this)">
+            <label class="edit" for="iconFile">
+              <span>
+                <i class="fa fa-pencil fa-fw"></i>
+              </span>
+            </label>
+            <input type="file" name="iconFile" id="iconFile" onchange="showIcon()">
+            <div>
+              <button class="active" sex="0" onclick="changeSex(this)">男</button>
+              <button sex="1" onclick="changeSex(this)">女</button></div>
+          </div>
+          <div class="m-login-item">
+            <label for="nickName">昵称</label>
+            <input type="text" id="nickName" onchange="checkNickname(this)"></div>
+          <div class="m-login-item">
+            <label for="password">密码</label>
+            <input type="password" id="password" onchange="checkPassword(this)"></div>
+          <button class="m-login-btn next" type="submit" onclick="next_2()">下一步</button>
+          <div class="clear-fix"></div>
+        </div>
+      </div>
+      <div class="m-auth-mid" id="third_step" hidden>
+        <div class="m-auth-panel">
+          <div class="m-auth-title">完善资料</div>
+          <div class="separator"></div>
+          <div>
+            <div class="m-login-item">
+              <label for="js-date-picker">生日</label>
+              <input class="register" type="text" id="js-date-picker">
+              <label for="js-date-picker">
+                <i class="fa fa-calendar fa-1x" style="margin-left: -20px;"></i>
+              </label>
+            </div>
+            <div class="m-login-item">
+              <label for="js-school-select">学校</label>
+              <select name="school" id="js-school-select" onchange="getDepartments(this.value)"></select>
+            </div>
+            <div class="m-login-item">
+              <label for="js-department-select">院系</label>
+              <select name="school" id="js-department-select"></select>
+            </div>
+            <div class="m-login-item">
+              <label for="js-grade-select">年级</label>
+              <select name="school" id="js-grade-select">
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option></select>
+            </div>
+            <div class="m-login-item" style="color: #9E8F7C">
+              <label id="degree">学历</label>
+              <input type="radio" name="degree" value="0" checked>
+              <label class="radio-label">本科</label>
+              <input type="radio" name="degree" value="1">
+              <label class="radio-label">硕士</label>
+              <input type="radio" name="degree" value="2">
+              <label class="radio-label">博士</label>
+              <input type="radio" name="degree" value="3">
+              <label class="radio-label">其他</label></div>
+            <input type="text" id="introduce" style="display: none" value="">
+            <button id="js-btn-reg" type="phone" class="m-login-btn" type="button" onclick="next_3()">完成注册</button>
+            <div class="clear-fix"></div>
+          </div>
+        </div>
+      </div>
+      <div class="m-auth-mid m-auth-fourth" id="fourth_step" hidden>
+        <div class="panel">
+          <div class="m-auth-title">推荐关注</div>
+          <div class="separator"></div>
+          <div class="tag-container" id="js-tag-container"></div>
+          <div class="btn-container">
+            <button class="btn-finish" onclick="finish()">直接进入</button></div>
+        </div>
+      </div>
+      <div style="height: 60px;" id="hide1" hidden></div>
+      <!--<div style="height: 149px;" id="hide2" hidden></div>-->
+      <footer class="m-auth-footer">
+        <div class="footer-items">
+          <div class="items big">
+            <a href="/about" class="footer-item">关于米盒</a>
+            <span class="dot-show">·</span>
+            <a href="/help" class="footer-item">帮助中心</a>
+            <span class="dot-show">·</span>
+            <a href="/rules" class="footer-item">积分规则</a>
+            <span class="dot-show">·</span>
+            <a href="/protocols" class="footer-item">协议声明</a>
+            <span class="dot-show">·</span>
+            <a href="/feedback" class="footer-item">意见反馈</a>
+            <span class="dot-show">·</span>
+            <a href="/app" class="footer-item">APP下载</a></div>
+          <div class="items">
+            <span>Copyright &copy 2016
+              <a class="footer-item">一可米互联网科技公司</a></span>
+          </div>
+          <div class="items">
+            <a href="http://www.miibeian.gov.cn/" class="footer-record footer-item right-floated" target="_blank">苏ICP备15062280号</a></div>
+        </div>
+      </footer>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/auth.js"></script>
+    <script src="/js/setting.js"></script>
+    <script src="/js/md5.js"></script>
+    <script src="/plugins/datetimepicker/js/jquery.datetimepicker.js"></script>
+    <script src="//cdn.bootcss.com/select2/4.0.0/js/select2.full.min.js"></script>
+    <script src="//cdn.bootcss.com/select2/4.0.0/js/i18n/zh-CN.js"></script>
+  </layout-put>
+</layout-use>
