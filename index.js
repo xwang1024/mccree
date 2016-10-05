@@ -1,9 +1,11 @@
 'use strict';
 
-// Install marko node requirements
+// marko渲染框架注入node内核
 require('marko/express');
 require('marko/node-require').install();
 require('marko/hot-reload').enable();
+
+
 
 const _            = require('lodash');
 const watchTree    = require("fs-watch-tree").watchTree;
@@ -14,148 +16,20 @@ const morgan       = require('morgan');
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session      = require('express-session');
-const async        = require('async');
-const request      = require('request');
-const qs           = require('querystring');
 const config       = require('./lib/config');
+const route        = require('./lib/route');
+
+global.__rootpath = path.resolve(__dirname);
 
 var app = express();
-
 app.config = config;
+app.use(express.static('public')); // 静态文件
+app.use(morgan('dev')); // http访问日志
+app.use(session({ resave: true, saveUninitialized: true, secret: 'scvkj3lnfsdoi4hef' })); // session配置
 
-app.use(express.static('public'));
-app.use(morgan('dev'));
-app.use(session({
-  resave: true,
-  saveUninitialized: true,
-  secret: 'scvkj3lnfsdoi4hef'
-}));
-
-let genHeader = function(req) {
-  return {
-    'user-agent': req.headers['user-agent'],
-    'cookie': req.headers['cookie']
-  }
-}
-
-for(var url in config.render) {
-  (function(url, renderConf) {
-    // 登录用户检测
-    app.get(url, (req, res, next) => {
-      var redirectCheck = function() {
-        if(renderConf.ifLogin && req.session.user && parseInt(req.params.id) == parseInt(req.session.user.id)) {
-          let url = renderConf.ifLogin+'';
-          for(let k in req.params) url=url.replace('$' + k, req.params[k]);
-          console.log(`[LOGIN REDIRECT] ${url}`);
-          return res.redirect(url);
-        }
-        return next();
-      }
-      if(req.session.user) return redirectCheck();
-      console.log("[REQUEST] " + config.backend.host + '/Home/User/getMyInfo');
-      console.log("[headers] ", req.headers);
-      request.get({
-        url: config.backend.host + '/Home/User/getMyInfo',
-        headers: genHeader(req)
-      }, (err, response, body) => {
-        console.log(body);
-        if (!err && response.statusCode == 200) {
-          var data = {};
-          try {
-            data = JSON.parse(body);
-            console.log("[USER]", data);
-          } catch(e) {
-            console.log('[Error]', e.message);
-          }
-          data.result && (req.session.user = data.result);
-        }
-        return redirectCheck();
-      });
-    });
-
-    app.get(url, (req, res, next) => {
-      let template = require(renderConf.view);
-      // get data from PHP Server
-      var dataKeys = Object.keys(renderConf.data || {});
-      var context = { '$global': { user: req.session.user } };
-      async.each(dataKeys, (dataKey, callback) => {
-        let serviceName = renderConf.data[dataKey];
-        let query = {};
-        let isGlobal = false;
-        if(typeof(serviceName) === 'object') {
-          isGlobal    = serviceName.global;
-          query       = _.assign({}, serviceName.query);
-          serviceName = serviceName.service;
-
-          for(let k in query) {
-            if(query[k].indexOf('$') === 0 && req.params[query[k].slice(1)]) {
-              query[k] = req.params[query[k].slice(1)];
-            }
-          }
-        }
-        let service = config.backend.services[serviceName];
-        if(!service) {
-          console.log(`${serviceName} not defined`);
-          return callback();
-        }
-        console.log("[REQUEST] " + config.backend.host+service.url + '?' + qs.stringify(query))
-        console.log("[headers] ", req.headers);
-        request[service.method]({
-          url: config.backend.host+service.url,
-          headers: genHeader(req),
-          qs: query
-        }, (err, response, body) => {
-          if (!err && response.statusCode == 200) {
-            var data = {};
-            try {
-              data = JSON.parse(body);
-            } catch(e) {
-              console.log('[Body]', body);
-              console.log('[Error]', e.message)
-            }
-            if(isGlobal) {
-              context['$global'] || (context['$global']={});
-              context['$global'][dataKey] = data;
-            } else {
-              context[dataKey] = data;
-            }
-          } else {
-            console.log(err);
-          }
-          callback();
-        });
-      }, (err) => {
-        try {
-          console.log('global', context['$global']);
-          context['_path_']   = req.path;
-          context['_params_'] = req.params;
-          context['_query_'] = req.query;
-          res.marko(template, context);
-        } catch(e) {
-          res.send(e.stack)
-        }
-        
-      });
-    });
-  })(url, config.render[url]);
-}
-
-for(var url in config.redirect) {
-  (function(url, redirectConf) {
-    app.get(url, (req, res, next) => {
-      let url = redirectConf.redirect+'';
-      for(let k in req.params) url=url.replace('$' + k, req.params[k]);
-      console.log(`[REDIRECT] ${url}`);
-      return res.redirect(url);
-    });
-  })(url, config.redirect[url]);
-}
-app.all('/*', (req, res, next) => {
-  var url = config.backend.host+req.originalUrl;
-  // 删除session中的用户
-  if(req.path.indexOf('/logout') >= 0 ) delete req.session.user;
-  req.pipe(request(url)).pipe(res);
-});
+route.initRenderRoutes(app, config.render); // 初始化渲染路由
+route.initRedirectRoutes(app, config.redirect); // 初始化跳转路由
+route.initOtherRoutes(app); // 初始化其他路由
 
 app.server = http.createServer(app);
 app.server.listen(4000, function(){

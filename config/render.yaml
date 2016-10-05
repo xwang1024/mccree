@@ -5,13 +5,13 @@
 # 渲染相关配置，在访问路由时需要加载的页面模板和请求的后台数据
 # view: 模板相对路径
 # data: 需要向后台请求的数据
-# ifLogin: 如果已经登录，执行的跳转
+# ifLogin: 如果已经登录，执行的跳转，如果路径参数中包含:userId则会和当前用户的id比较
 # ifNotLogin: 如果没有登录，执行的跳转
 
 # Author: xwang1024@126.com
 
 "/":
-  view: "./lib/views/pages/index.marko"
+  view: "/lib/views/pages/index.marko"
   data:
     largeOpts:
       service: console_themeEvent_getOptAll
@@ -25,55 +25,56 @@
     myProfessionPlan: prefer_getMyProfessionPlan
     myCourseResources: prefer_getMyCourseResources
 "/resources":
-  view: "./lib/views/pages/resource/index.marko"
+  view: "/lib/views/pages/resource/index.marko"
   data:
     bestResources: prefer_getBestResourceSet
 "/resource-collections":
-  view: "./lib/views/pages/resource/collections.marko"
+  view: "/lib/views/pages/resource/collections.marko"
   data: {}
 "/resource-collection/:id":
-  view: "./lib/views/pages/resource/collection.marko"
+  view: "/lib/views/pages/resource/collection.marko"
   data:
     resourceSet:
       service: resourceSet_query
       query:
         id: "$id"
 "/resource/:id":
-  view: "./lib/views/pages/resource/detail.marko"
+  view: "/lib/views/pages/resource/detail.marko"
   data:
     resource:
       service: resource_getResourceDetail
       query:
         id: "$id"
 "/articles":
-  view: "./lib/views/pages/article/index.marko"
+  view: "/lib/views/pages/article/index.marko"
   data:
     bestArticles: prefer_getBestArticleSet
 "/article-collections":
-  view: "./lib/views/pages/article/collections.marko"
+  view: "/lib/views/pages/article/collections.marko"
   data: {}
 "/article-collection/:id":
-  view: "./lib/views/pages/article/collection.marko"
+  view: "/lib/views/pages/article/collection.marko"
   data:
     articleSet:
       service: articleSet_detail
       query:
         setId: "$id"
 "/article/:id":
-  view: "./lib/views/pages/article/detail.marko"
+  view: "/lib/views/pages/article/detail.marko"
   data:
     article:
       service: article_getById
       query:
         id: "$id"
-"/space/:id/attentions":
-  view: "./lib/views/pages/space/attentions.marko"
+
+"/space/:userId/attentions":
+  view: "/lib/views/pages/space/attentions.marko"
   ifLogin: "/space/attentions"
   data:
     userInfo:
       service: user_getOtherUserInfo
       query:
-        userId: "$id"
+        userId: "$userId"
     attentions:
       service: user_getUserAttentions
       query:
@@ -82,121 +83,128 @@
       service: user_getUserIdol
       query:
         id: "$id"
-"/space/attentions":
-  view: "./lib/views/pages/space/attentions.marko"
-  data:
-    userInfo: user_getMyInfo
-    attentions: user_getMyAttentions
-    idols: user_getMyIdol
-"/space/:id/article-collections":
-  view: "./lib/views/pages/space/article_collections.marko"
+"/space/:userId/article-collections":
+  view: "/lib/views/pages/space/article_collections.marko"
   ifLogin: "/space/article-collections"
   data:
     userInfo:
       service: user_getOtherUserInfo
       query:
-        userId: "$id"
-"/space/article-collections":
-  view: "./lib/views/pages/space/article_collections.marko"
-  data:
-    userInfo: user_getMyInfo
-"/space/:id/resource-collections":
-  view: "./lib/views/pages/space/resource_collections.marko"
+        userId: "$userId"
+"/space/:userId/resource-collections":
+  view: "/lib/views/pages/space/resource_collections.marko"
   ifLogin: "/space/resource-collections"
   data:
     userInfo:
       service: user_getOtherUserInfo
       query:
-        userId: "$id"
-"/space/resource-collections":
-  view: "./lib/views/pages/space/resource_collections.marko"
-  data:
-    userInfo: user_getMyInfo
-"/space/:id/downloads":
-  view: "./lib/views/pages/space/downloads.marko"
+        userId: "$userId"
+"/space/:userId/downloads":
+  view: "/lib/views/pages/space/downloads.marko"
   ifLogin: "/space/downloads"
   data:
     userInfo:
       service: user_getOtherUserInfo
       query:
-        userId: "$id"
-"/space/downloads":
-  view: "./lib/views/pages/space/downloads.marko"
-  data:
-    userInfo: user_getMyInfo
-"/space/:id/uploads":
-  view: "./lib/views/pages/space/uploads.marko"
+        userId: "$userId"
+"/space/:userId/uploads":
+  view: "/lib/views/pages/space/uploads.marko"
   ifLogin: "/space/uploads"
   data:
     userInfo:
       service: user_getOtherUserInfo
       query:
-        userId: "$id"
-"/space/uploads":
-  view: "./lib/views/pages/space/uploads.marko"
-  data:
-    userInfo: user_getMyInfo
-"/space/:id/footsteps":
-  view: "./lib/views/pages/space/footsteps.marko"
+        userId: "$userId"
+"/space/:userId/footsteps":
+  view: "/lib/views/pages/space/footsteps.marko"
   ifLogin: "/space/footsteps"
   data:
     userInfo:
       service: user_getOtherUserInfo
       query:
-        userId: "$id"
+        userId: "$userId"
+
+"/space/attentions":
+  view: "/lib/views/pages/space/attentions.marko"
+  ifNotLogin: "/login"
+  data:
+    attentions: user_getMyAttentions
+    idols: user_getMyIdol
+"/space/article-collections":
+  view: "/lib/views/pages/space/article_collections.marko"
+  ifNotLogin: "/login"
+"/space/resource-collections":
+  view: "/lib/views/pages/space/resource_collections.marko"
+  ifNotLogin: "/login"
+"/space/downloads":
+  view: "/lib/views/pages/space/downloads.marko"
+  ifNotLogin: "/login"
+"/space/uploads":
+  view: "/lib/views/pages/space/uploads.marko"
+  ifNotLogin: "/login"
 "/space/footsteps":
-  view: "./lib/views/pages/space/footsteps.marko"
-  data:
-    userInfo: user_getMyInfo
+  view: "/lib/views/pages/space/footsteps.marko"
+  ifNotLogin: "/login"
 "/space/print-list":
-  view: "./lib/views/pages/space/print_list.marko"
-  data:
-    userInfo: user_getMyInfo
+  view: "/lib/views/pages/space/print_list.marko"
+  ifNotLogin: "/login"
 "/space/coupons":
-  view: "./lib/views/pages/space/coupons.marko"
-  data:
-    userInfo: user_getMyInfo
+  view: "/lib/views/pages/space/coupons.marko"
+  ifNotLogin: "/login"
 "/space/orders":
-  view: "./lib/views/pages/space/orders.marko"
-  data:
-    userInfo: user_getMyInfo
+  view: "/lib/views/pages/space/orders.marko"
+  ifNotLogin: "/login"
 "/space/comments":
-  view: "./lib/views/pages/space/comments.marko"
-  data:
-    userInfo: user_getMyInfo
+  view: "/lib/views/pages/space/comments.marko"
+  ifNotLogin: "/login"
+
 "/about":
-  view: "./lib/views/pages/extra/about.marko"
+  view: "/lib/views/pages/extra/about.marko"
 "/help":
-  view: "./lib/views/pages/extra/help.marko"
+  view: "/lib/views/pages/extra/help.marko"
 "/rules":
-  view: "./lib/views/pages/extra/rules.marko"
+  view: "/lib/views/pages/extra/rules.marko"
 "/protocols":
-  view: "./lib/views/pages/extra/protocols.marko"
+  view: "/lib/views/pages/extra/protocols.marko"
 "/feedback":
-  view: "./lib/views/pages/extra/feedback.marko"
+  view: "/lib/views/pages/extra/feedback.marko"
 "/app":
-  view: "./lib/views/pages/extra/app.marko"
+  view: "/lib/views/pages/extra/app.marko"
+
 "/message/system":
-  view: "./lib/views/pages/message/system.marko"
+  view: "/lib/views/pages/message/system.marko"
+  ifNotLogin: "/login"
 "/message/reply":
-  view: "./lib/views/pages/message/reply.marko"
+  view: "/lib/views/pages/message/reply.marko"
+  ifNotLogin: "/login"
 "/message/update":
-  view: "./lib/views/pages/message/update.marko"
+  view: "/lib/views/pages/message/update.marko"
+  ifNotLogin: "/login"
 "/message/love":
-  view: "./lib/views/pages/message/love.marko"
+  view: "/lib/views/pages/message/love.marko"
+  ifNotLogin: "/login"
+
 "/settings":
-  view: "./lib/views/pages/setting/info.marko"
+  view: "/lib/views/pages/setting/info.marko"
+  ifNotLogin: "/login"
 "/bind":
-  view: "./lib/views/pages/setting/binding.marko"
+  view: "/lib/views/pages/setting/binding.marko"
+  ifNotLogin: "/login"
 "/password":
-  view: "./lib/views/pages/setting/password.marko"
+  view: "/lib/views/pages/setting/password.marko"
+  ifNotLogin: "/login"
 "/search":
-  view: "./lib/views/pages/search.marko"
+  view: "/lib/views/pages/search.marko"
+  ifNotLogin: "/login"
 "/login":
-  view: "./lib/views/pages/auth/login.marko"
+  view: "/lib/views/pages/auth/login.marko"
+  ifNotLogin: "/login"
 "/phone-register":
-  view: "./lib/views/pages/auth/phone_register.marko"
+  view: "/lib/views/pages/auth/phone_register.marko"
+  ifNotLogin: "/login"
 "/password-reset":
-  view: "./lib/views/pages/auth/password_reset.marko"
+  view: "/lib/views/pages/auth/password_reset.marko"
+  ifNotLogin: "/login"
 "/upload":
-  view: "./lib/views/pages/upload.marko"
+  view: "/lib/views/pages/upload.marko"
+  ifNotLogin: "/login"
