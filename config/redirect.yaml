@@ -1,0 +1,10 @@
+# *****************************
+# *      Redirect Config      *
+# *****************************
+
+# 在请求某些url时进行的固定跳转，不推荐过多使用本配置
+
+# Author: xwang1024@126.com
+
+"/space/:id":
+  redirect: "/space/$id/attentions"

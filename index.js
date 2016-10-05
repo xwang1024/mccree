@@ -17,23 +17,19 @@ const session      = require('express-session');
 const async        = require('async');
 const request      = require('request');
 const qs           = require('querystring');
-
-const phpHost      = 'http://mebox.xin.me';
+const config       = require('./lib/config');
 
 var app = express();
 
+app.config = config;
+
 app.use(express.static('public'));
 app.use(morgan('dev'));
-
 app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: 'scvkj3lnfsdoi4hef'
 }));
-
-const serviceConfs  = require('./conf/service.json');
-const renderConfs   = require('./conf/render.json');
-const redirectConfs = require('./conf/redirect.json');
 
 let genHeader = function(req) {
   return {
@@ -42,7 +38,7 @@ let genHeader = function(req) {
   }
 }
 
-for(var url in renderConfs) {
+for(var url in config.render) {
   (function(url, renderConf) {
     // 登录用户检测
     app.get(url, (req, res, next) => {
@@ -56,10 +52,10 @@ for(var url in renderConfs) {
         return next();
       }
       if(req.session.user) return redirectCheck();
-      console.log("[REQUEST] " + phpHost + '/Home/User/getMyInfo');
+      console.log("[REQUEST] " + config.backend.host + '/Home/User/getMyInfo');
       console.log("[headers] ", req.headers);
       request.get({
-        url: phpHost + '/Home/User/getMyInfo',
+        url: config.backend.host + '/Home/User/getMyInfo',
         headers: genHeader(req)
       }, (err, response, body) => {
         console.log(body);
@@ -97,15 +93,15 @@ for(var url in renderConfs) {
             }
           }
         }
-        let service = serviceConfs[serviceName];
+        let service = config.backend.services[serviceName];
         if(!service) {
           console.log(`${serviceName} not defined`);
           return callback();
         }
-        console.log("[REQUEST] " + phpHost+service.url + '?' + qs.stringify(query))
+        console.log("[REQUEST] " + config.backend.host+service.url + '?' + qs.stringify(query))
         console.log("[headers] ", req.headers);
         request[service.method]({
-          url: phpHost+service.url,
+          url: config.backend.host+service.url,
           headers: genHeader(req),
           qs: query
         }, (err, response, body) => {
@@ -141,10 +137,10 @@ for(var url in renderConfs) {
         
       });
     });
-  })(url, renderConfs[url]);
+  })(url, config.render[url]);
 }
 
-for(var url in redirectConfs) {
+for(var url in config.redirect) {
   (function(url, redirectConf) {
     app.get(url, (req, res, next) => {
       let url = redirectConf.redirect+'';
@@ -152,10 +148,10 @@ for(var url in redirectConfs) {
       console.log(`[REDIRECT] ${url}`);
       return res.redirect(url);
     });
-  })(url, redirectConfs[url]);
+  })(url, config.redirect[url]);
 }
 app.all('/*', (req, res, next) => {
-  var url = phpHost+req.originalUrl;
+  var url = config.backend.host+req.originalUrl;
   // 删除session中的用户
   if(req.path.indexOf('/logout') >= 0 ) delete req.session.user;
   req.pipe(request(url)).pipe(res);

@@ -1,0 +1,108 @@
+# ****************************
+# *      Backend Config      *
+# ****************************
+
+# 后台相关配置，包括后台地址，提供的服务列表，这些服务是render配置中需要的，目前method只支持get
+
+# Author: xwang1024@126.com
+
+host: 'http://mebox.xin.me'
+services:
+  # 用户服务
+  user_getMyInfo:
+    url: "/Home/User/getMyInfo"
+    method: get
+  user_getOtherUserInfo:
+    url: "/Home/User/getOtherUserInfo"
+    method: get
+  user_getMyAttentions:
+    url: "/Home/User/getMyAttentions"
+    method: get
+  user_getUserAttentions:
+    url: "/Home/User/getUserAttentions"
+    method: get
+  user_getMyIdol:
+    url: "/Home/User/getMyIdol"
+    method: get
+  user_getUserIdol:
+    url: "/Home/User/getUserIdol"
+    method: get
+
+  # 课程服务
+  course_getCoursesByDepartmentIdWithGrade:
+    url: "/Home/Course/getCoursesByDepartmentIdWithGrade"
+    method: get
+  course_getHotCourses:
+    url: "/Home/Course/getHotCourses"
+    method: get
+
+  # 标签服务
+  tag_searchHottestKeys:
+    url: "/Home/Tag/searchHottestKeys"
+    method: get
+  tag_getMyCourses:
+    url: "/Home/Tag/getMyCourses"
+    method: get
+
+  # 学校服务
+  school_getAllSchools:
+    url: "/Home/School/getAllSchools"
+    method: get
+
+  # 院系服务
+  department_getDepartmentsBySchoolId:
+    url: "/Home/Department/getDepartmentsBySchoolId"
+    method: get
+
+  # 任务服务
+  task_getMyTask:
+    url: "/Home/Task/getMyTask"
+    method: get
+
+  # 偏好服务
+  prefer_getSchoolStrategies:
+    url: "/Home/Prefer/getSchoolStrategies"
+    method: get
+  prefer_getMyProfessionPlan:
+    url: "/Home/Prefer/getMyProfessionPlan"
+    method: get
+  prefer_getMyCourseResources:
+    url: "/Home/Prefer/getMyCourseResources"
+    method: get
+  prefer_getReResource:
+    url: "/Home/Prefer/getReResource"
+    method: get
+  prefer_getBestResourceSet:
+    url: "/Home/Prefer/getBestResourceSet"
+    method: get
+  prefer_getBestArticleSet:
+    url: "/Home/Prefer/getBestArticleSet"
+    method: get
+
+  # 资料集服务
+  resourceSet_query:
+    url: "/Home/ResourceSet/query"
+    method: get
+
+  # 资料服务
+  resource_getResourceDetail:
+    url: "/Home/Resource/getResourceDetail"
+    method: get
+
+  # 文章集服务
+  articleSet_detail:
+    url: "/Home/ArticleSet/detail"
+    method: get
+
+  # 文章服务
+  article_getById:
+    url: "/Home/Article/getById"
+    method: get
+
+  # 后台服务
+  console_themeEvent_getOptAll:
+    url: "/Console/ThemeEvent/getOptAll"
+    method: get
+  console_webOptPos_getOptAll:
+    url: "/Console/WebOptPos/getOptAll"
+    method: get
