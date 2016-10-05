@@ -246,5 +246,8 @@
   },
   "/password": {
     "view": "./lib/views/pages/setting/password.marko"
+  },
+  "/search": {
+    "view": "./lib/views/pages/search.marko"
   }
 }

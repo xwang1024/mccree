@@ -1,0 +1,101 @@
+<layout-use("../layouts/default.marko")>
+  <layout-put into="title">搜索 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="stylesheet" href="/css/resource.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="wrapper" style="margin:-50px auto 60px auto">
+      <div class="container">
+        <!--logo+ 搜索 + 上传-->
+        <div class="m-search-nav">
+          <!--搜索框-->
+          <div class="left-floated nav-search">
+            <div class="index-search-rectangle">
+              <!--选择搜索类型-->
+              <div class="index-search-type"></div>
+              <div class="mebox-select-tabs js-index-searchType"></div>
+              <!--</div>--></div>
+            <input class="input_index" id="js-nav-search-input" type="text" placeholder="搜索优质资料、文章、学霸秘籍...">
+            <a href="/search" id="js-search-icon">
+              <i class="right-floated fa fa-search search-icon search_icon_index"></i>
+            </a>
+            <div class="nav-search-dropdown" id="js-nav-search-dropdown" hidden>
+              <div id="js-nav-search-result" hidden></div>
+              <div id="js-nav-search-history">
+                <p class="nav-search-subtitle">搜索历史：</p></div>
+              <div id="js-nav-search-hot" style="display:none"></div>
+              <div class="clear-fix"></div>
+            </div>
+            <!--热门关键字-->
+            <div class="search-hot-container" id="js-index-search-hotCourses"></div>
+          </div>
+          <!--上传资料 红色图标-->
+          <button class="btn btn-navbar-upload upload_index" onclick="window.location.href='/resource/upload'">
+            <i class="fa fa-cloud-upload"></i>上传资料</button>
+        </div>
+        <div class="main">
+          <!--搜索条件筛选-->
+          <div class="search-condition">
+            <div class="condition-crumbs">
+              <label>全部结果</label>
+              <ul class="condition-item"></ul>
+            </div>
+            <table class="condition-table"></table>
+          </div>
+          <div class="m-search-panel">
+            <ul class="tab-list">
+              <li>资料
+                <span class="js-result-num-r">(0)</span></li>
+              <li>资料集
+                <span class="js-result-num-rc">(0)</span></li>
+              <li>文章
+                <span class="js-result-num-a">(0)</span></li>
+              <!--<li>文章集<span class="js-result-num-ac">(0)</span></li>-->
+              <li>标签
+                <span class="js-result-num-t">(0)</span></li>
+              <li>用户
+                <span class="js-result-num-u">(0)</span></li>
+            </ul>
+            <div class="m-search-result-panel">
+              <div class="m-resource-panel result-panel box " id="js-search-resource" page="0" more="1" value="0"></div>
+              <div class="m-resource-collections result-panel" id="js-search-resource-collection" page="0" more="1" value="1"></div>
+              <div class="m-article-panel result-panel" id="js-search-article" page="0" more="1" value="2"></div>
+              <!--<div class="m-article-collections result-panel" id="js-search-article-collection" page="0" more="1" value="3"></div>-->
+              <div class="m-search-tag result-panel" id="js-search-tag" page="0" more="1" value="4"></div>
+              <div class="m-search-user result-panel" id="js-search-user" page="0" more="1" value="5"></div>
+              <!-- <div class="loading" id="js-search-loading">
+              <div>
+              <img class="loading-gif" src="__PUBLIC__/img/loading.gif">
+              <span class="loading-text">正在努力加载中~</span></div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="right-floated sider">
+          <div class="sider-panel">
+            <div class="m-search-history-title">
+              <span class="left-floated sider-name">搜索历史</span>
+              <span class="m-search-clear" id="js-clear-history">清空</span>
+              <div class="clear-fix"></div>
+            </div>
+            <div class="m-search-history-panel box" id="js-search-history"></div>
+          </div>
+          <div class="separator"></div>
+          <include file="Common/hot_tags_panel" />
+          <include file="Common/sider_footer" /></div>
+        <div class="clear-fix"></div>
+      </div>
+    </div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/search.js"></script>
+    <script src="/js/article_collect_popup.js"></script>
+    <script src="/js/resource_collect_popup.js"></script>
+    <script src="/js/mebox_select_tabs.js"></script>
+    <script src="/js/search_condition.js"></script>
+  </layout-put>
+</layout-use>
