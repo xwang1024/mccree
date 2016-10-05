@@ -1,0 +1,149 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">账号绑定 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="/css/setting.css">
+    <link rel="stylesheet" href="/css/withdraw.css">
+    <style>
+      .m-auth-mid {
+          width: 316px;
+          margin: 0 auto;
+          padding: 0;
+          background-color: inherit;
+          border-radius: 0;
+          box-shadow: none;
+      }
+    </style>
+  </layout-put>
+  <layout-put into="content">
+    <div class="m-setting-panel">
+      <include("./partials/left.marko", {_path_: data._path_})/>
+      <div class="m-setting-main">
+        <div class="m-setting-content">
+          <h2>账号绑定</h2>
+          <div class="separator-double"></div>
+          <div class="profile-list">
+            <div class="left-floated m-setting-label">手机绑定</div>
+            <div class="bind-img">
+              <img src="/img/phone.png" alt="手机">
+              <img src="/img/bind.png" alt=""></div>
+            <div class="bind-content" id="phone-bind">
+              <button class="btn-follow" onclick="$('#js-common-modal').modal()">绑定</button></div>
+          </div>
+          <div class="profile-list">
+            <div class="left-floated m-setting-label">微信绑定</div>
+            <div class="bind-img">
+              <img src="/img/wechat.png" alt="微信">
+              <img src="/img/bind.png" alt=""></div>
+            <div class="bind-content" id="wechat-bind">
+              <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxa11f23b94aa6264c&redirect_uri=http://mebox.top/bind&response_type=code&scope=snsapi_login&state=mebox#wechat_redirect">
+                <button class="btn-follow">绑定</button></a>
+            </div>
+          </div>
+          <div class="profile-list">
+            <div class="left-floated m-setting-label">Q Q 绑定</div>
+            <div class="bind-img">
+              <img src="/img/qq.png" alt="QQ">
+              <img src="/img/bind.png" alt=""></div>
+            <div class="bind-content" id="qq-bind">
+              <button class="btn-follow" onclick="toQQLogin('bind')">绑定</button></div>
+          </div>
+          <div class="profile-list">
+            <div class="left-floated m-setting-label">微博绑定</div>
+            <div class="bind-img">
+              <img src="/img/weibo.png" alt="微博">
+              <img src="/img/bind.png" alt=""></div>
+            <div class="bind-content" id="weibo-bind">
+              <a href="https://api.weibo.com/oauth2/authorize?client_id=2472544097&redirect_uri=http://mebox.top/bind&response_type=code">
+                <button class="btn-follow">绑定</button></a>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <include("./partials/footer.marko")/>
+      </div>
+    </div>
+    <div class="common-modal" id="js-common-modal" style="display: none;width: 310px;">
+      <a href="#close" rel="modal:close" class="modal-close">
+        <i class="fa fa-close fa-fw"></i>
+      </a>
+      <div class="modal-title" id="js-common-modal-title">绑定手机</div>
+      <div class="separator-double"></div>
+      <div class="modal-panel m-auth-mid">
+        <div class="m-login-item">
+          <label for="phone_number">手机号</label>
+          <input type="text" id="phone_number"></div>
+        <div class="m-login-item">
+          <label for="code">验证码</label>
+          <input type="text" id="code" style="width: 104px">
+          <button class="" onclick="sendSmsCode(this)" style="width: 100px">发送验证码</button></div>
+        <br>
+        <br>
+        <div class="modal-btn  modal-btn-center" style="width: 310px">
+          <button class="modal-confirm" onclick="bindMobile()">绑定</button>
+          <button class="modal-cancel" onclick="$.modal.close()">取消</button></div>
+      </div>
+    </div>
+    <div class="clear-fix"></div>
+    <span id="bind" style="display: none;">{$bind}</span>
+    <span style="display: none;">{$openId}</span>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/setting.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/md5.js"></script>
+    <script>
+      getBinds();
+      if('{$bind}' == 1 && '{$openId}' != ""){
+        //bind
+        $.ajax({
+          method: "post",
+          url: urlPrefix + "/User/bind",
+          data: {
+            type: '{$type}',
+            binded: '{$nickname}',
+            openId:hex_md5('{$openId}')
+          },
+          success: function (data) {
+            if (data["result"] == 1) {
+              toaster("绑定成功", "success");
+              if('$type' == 2){
+                window.location.href = "/bind";
+              }
+              switch ('{$type}') {
+                case "0":
+                  //手机号
+                  $("#phone-bind").html('{$nickname}');
+                  break;
+                case "1":
+                  //邮箱
+                  break;
+                case "2":
+                  //qq号
+                  $("#qq-bind").html('{$nickname}');
+                  break;
+                case "3":
+                  //微博
+                  $("#weibo-bind").html('{$nickname}');
+                  break;
+                case "4":
+                  //微信
+                  $("#wechat-bind").html('{$nickname}');
+                default:
+                  break;
+              }
+            } else {
+              toaster("该第三方账号已被绑定", "error");
+            }
+          },
+          error: function () {
+
+          }
+        });
+      }
+    </script>
+  </layout-put>
+</layout-use>

@@ -237,5 +237,14 @@
   },
   "/message/love": {
     "view": "./lib/views/pages/message/love.marko"
+  },
+  "/settings": {
+    "view": "./lib/views/pages/setting/info.marko"
+  },
+  "/bind": {
+    "view": "./lib/views/pages/setting/binding.marko"
+  },
+  "/password": {
+    "view": "./lib/views/pages/setting/password.marko"
   }
 }

@@ -1,0 +1,118 @@
+<layout-use("../../layouts/default.marko")>
+  <layout-put into="title">资料设置 - 米盒</layout-put>
+  <layout-put into="extra_top">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/setting.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/plugins/datetimepicker/css/jquery.datetimepicker.css">
+  </layout-put>
+  <layout-put into="content">
+    <div class="m-setting-panel">
+      <include("./partials/left.marko", {_path_: data._path_})/>
+      <div class="m-setting-main">
+        <div class="m-setting-content">
+          <h2>个人资料</h2>
+          <div class="separator-double"></div>
+          <form enctype="multipart/form-data" method="post">
+            <div class="profile-list">
+              <div class="left-floated m-setting-label">头像：</div>
+              <div class="m-setting-input">
+                <img class="m-setting-user-img" id="userIcon" onclick="$('#iconFile').click()" onerror="replaceSrc('user', this)">
+                <label class="edit" for="iconFile">
+                  <span>
+                    <i class="fa fa-pencil fa-fw"></i>
+                  </span>
+                </label>
+              </div>
+              <div class="file">
+                <input type="file" name="iconFile" id="iconFile" onchange="showIcon()">
+                <p class="file-p">支持JPG/PNG/BMP格式</p>
+                <p class="file-p">大小不超过3M</p></div>
+            </div>
+            <div class="profile-list">
+              <div class="left-floated m-setting-label">昵称：</div>
+              <div class="m-setting-input">
+                <input type="text" name="nickName" id="nickName" onchange="checkNickName(this)"></div>
+            </div>
+            <div class="profile-list">
+              <div class="left-floated m-setting-label">性别：</div>
+              <div class="m-setting-input">
+                <input type="radio" name="gender" value="0">
+                <label class="radio-label">男</label>
+                <input type="radio" name="gender" value="1">
+                <label class="radio-label">女</label></div>
+            </div>
+            <div class="profile-list">
+              <div class="left-floated m-setting-label">生日：</div>
+              <div class="m-setting-input">
+                <input type="text" name="birthday" id="js-date-picker">
+                <label for="js-date-picker">
+                  <i class="calendar fa fa-calendar fa-2x search-icon"></i>
+                </label>
+              </div>
+            </div>
+            <div class="profile-list">
+              <div class="left-floated m-setting-label">学校：</div>
+              <div class="m-setting-input">
+                <select id="js-school-select" name="school" onchange="getDepartments(this.value)"></select>
+              </div>
+            </div>
+            <div class="profile-list">
+              <div class="left-floated m-setting-label">院系：</div>
+              <div class="m-setting-input">
+                <select id="js-department-select" name="department"></select>
+              </div>
+            </div>
+            <div class="profile-list">
+              <div class="left-floated m-setting-label">年级：</div>
+              <div class="m-setting-input">
+                <select id="js-grade-select" name="grade">
+                  <option value="2008">2008</option>
+                  <option value="2009">2009</option>
+                  <option value="2010">2010</option>
+                  <option value="2011">2011</option>
+                  <option value="2012">2012</option>
+                  <option value="2013">2013</option>
+                  <option value="2014">2014</option>
+                  <option value="2015">2015</option>
+                  <option value="2016">2016</option></select>
+              </div>
+            </div>
+            <div class="profile-list">
+              <div class="left-floated m-setting-label">学历：</div>
+              <div class="m-setting-input">
+                <input type="radio" name="degree" value="0">
+                <label class="radio-label">本科</label>
+                <input type="radio" name="degree" value="1">
+                <label class="radio-label">硕士</label>
+                <input type="radio" name="degree" value="2">
+                <label class="radio-label">博士</label>
+                <input type="radio" name="degree" value="3">
+                <label class="radio-label">其他</label></div>
+            </div>
+            <div class="profile-list">
+              <div class="left-floated m-setting-label">简历：</div>
+              <div class="m-setting-input">
+                <textarea name="introduce" id="introduce"></textarea>
+              </div>
+            </div>
+            <div class="profile-list">
+              <button class="btn-follow comment m-setting-modify-btn" type="button" onclick="changeUserInfo('修改成功！')">确认修改</button>
+              <div class="danger" id="changeResult" style="display: none;"></div>
+            </div>
+          </form>
+        </div>
+        <include("./partials/footer.marko")/>
+      </div>
+    </div>
+    <div class="clear-fix"></div>
+  </layout-put>
+  <layout-put into="extra_bottom">
+    <script src="/js/setting.js"></script>
+    <script src="/plugins/datetimepicker/js/jquery.datetimepicker.js"></script>
+    <script>
+        getSchools();
+        initUserInfo();
+    </script>
+  </layout-put>
+</layout-use>
