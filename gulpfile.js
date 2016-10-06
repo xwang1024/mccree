@@ -84,7 +84,8 @@ if(resource.style) {
 if(resource.vendor) {
   gulp.task('vendor', (callback) => {
     log('Copying vendors...');
-    gulp.src(resource.vendor)
+    gulp.src(resource.vendor, {base: 'bower_components'})
+      .pipe($.expectFile(resource.vendor))
       .pipe(gulp.dest('public/vendor'))
       .on('end', callback);
   });
@@ -135,7 +136,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', (callback) => {
-  runSequence('template', 'watch', function() {
+  runSequence('template', 'vendor', 'watch', function() {
     finishLog('Dev build done. Starting watch and LiveReload...');
   });
 });

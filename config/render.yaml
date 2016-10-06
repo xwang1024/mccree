@@ -199,12 +199,6 @@
 "/password":
   view: "/lib/views/pages/setting/password.marko"
   ifNotLogin: "/login"
-"/search":
-  view: "/lib/views/pages/search.marko"
-  ifNotLogin: "/login"
-"/login":
-  view: "/lib/views/pages/auth/login.marko"
-  ifNotLogin: "/login"
 "/phone-register":
   view: "/lib/views/pages/auth/phone_register.marko"
   ifNotLogin: "/login"
@@ -214,3 +208,7 @@
 "/upload":
   view: "/lib/views/pages/upload.marko"
   ifNotLogin: "/login"
+"/search":
+  view: "/lib/views/pages/search.marko"
+"/login":
+  view: "/lib/views/pages/auth/login.marko"

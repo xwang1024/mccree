@@ -12,6 +12,17 @@
     ]
   },
   "vendor": [
-    "node_modules/blueimp-md5/js/md5.min.js"
+    "bower_components/jquery/dist/jquery.min.js",
+    "bower_components/jquery-listnav/jquery-listnav.min.js",
+    "bower_components/jquery-modal/jquery.modal.min.js",
+    "bower_components/jquery-modal/jquery.modal.min.css",
+    "bower_components/jquery.lazyload/jquery.lazyload.min.js",
+    "bower_components/select2/dist/js/select2.full.min.js",
+    "bower_components/select2/dist/js/i18n/zh-CN.js",
+    "bower_components/select2/dist/css/select2.min.css",
+    "bower_components/Swiper/dist/js/swiper.jquery.min.js",
+    "bower_components/Swiper/dist/css/swiper.min.css",
+    "bower_components/font-awesome/css/font-awesome.min.css",
+    "bower_components/font-awesome/fonts/*"
   ]
 }

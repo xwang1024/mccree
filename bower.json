@@ -15,7 +15,12 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.7",
-    "jquery": "^3.1.0"
+    "jquery": "2.2.1",
+    "jquery.lazyload": "1.9.1",
+    "select2": "^4.0.3",
+    "jquery-modal": "^0.8.0",
+    "jquery-listnav": "^2.4.9",
+    "font-awesome": "^4.6.3",
+    "Swiper": "swiper#^3.3.1"
   }
 }

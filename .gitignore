@@ -47,3 +47,4 @@ public/css
 .marko_cache
 lib/views
 /public/plugins
+/public/vendor
