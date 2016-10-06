@@ -5,8 +5,6 @@ require('marko/express');
 require('marko/node-require').install();
 require('marko/hot-reload').enable();
 
-
-
 const _            = require('lodash');
 const watchTree    = require("fs-watch-tree").watchTree;
 const path         = require('path');
@@ -18,11 +16,14 @@ const cookieParser = require('cookie-parser');
 const session      = require('express-session');
 const config       = require('./lib/config');
 const route        = require('./lib/route');
+const cacheMgr     = require('./lib/cache_manager');
 
 global.__rootpath = path.resolve(__dirname);
 
 var app = express();
 app.config = config;
+app.cacheMgr = cacheMgr;
+
 app.use(express.static('public')); // 静态文件
 app.use(morgan('dev')); // http访问日志
 app.use(session({ resave: true, saveUninitialized: true, secret: 'scvkj3lnfsdoi4hef' })); // session配置

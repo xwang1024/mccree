@@ -17,10 +17,16 @@
       service: console_themeEvent_getOptAll
       query:
         ratio: 950*380
+      cache: true
+      cacheKey: bigOpt
+      cacheExpire: 30000
     smallOpts:
       service: console_webOptPos_getOptAll
       query:
         ratio: 240*140
+      cache: true
+      cacheKey: smallOpt
+      cacheExpire: 30000
     schoolStrategies: prefer_getSchoolStrategies
     myProfessionPlan: prefer_getMyProfessionPlan
     myCourseResources: prefer_getMyCourseResources
