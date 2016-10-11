@@ -12,15 +12,14 @@
   <meta property="qc:admins" content="3504265732706470" />
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/plugins/jquery-modal/jquery.modal.css">
-  <link rel="stylesheet" href="//cdn.bootcss.com/select2/4.0.2-rc.1/css/select2.min.css">
+  <link rel="stylesheet" href="/vendor/jquery-modal/jquery.modal.min.css">
+  <link rel="stylesheet" href="/vendor/select2/dist/css/select2.min.css">
   <layout-placeholder name="extra_top">
     <link rel="stylesheet" href="/css/style.css">
   </layout-placeholder>
   <link rel="stylesheet" href="/css/guide.css">
 </head>
 <body>
-<script>console.log('body', $!{JSON.stringify(data)})</script>
   <layout-placeholder name="header">
     <include("../partials/header.marko")/>
   </layout-placeholder>
@@ -28,19 +27,23 @@
     <layout-placeholder name="content" />
   </div>
   <include("../partials/toaster.marko")/>
-  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-  <script src="//cdn.bootcss.com/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-  <script src="//cdn.bootcss.com/select2/4.0.2-rc.1/js/select2.full.min.js"></script>
-  <script src="//cdn.bootcss.com/select2/4.0.2-rc.1/js/i18n/zh-CN.js"></script>
-  <script src="/plugins/jquery-modal/jquery.modal.min.js" ></script>
-  <script src="/plugins/listnav/jquery.charfirst.pinyin.js"></script>
-  <script src="/plugins/listnav/jquery.listnav.min-2.1.js"></script>
+  <script src="/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
+  <script src="/vendor/select2/dist/js/select2.full.min.js"></script>
+  <script src="/vendor/select2/dist/js/i18n/zh-CN.js"></script>
+  <script src="/vendor/jquery-modal/jquery.modal.min.js" ></script>
+  <script src="/vendor/jquery-listnav/jquery-listnav.min.js"></script>
+  <!--<script src="/vendor/jquery.charfirst.pinyin.js"></script>
   <script src="/js/script.js"></script>
   <script src="/js/mebox_toaster.js"></script>
   <script src="/js/guide.js"></script>
   <script src="/js/baidu.js"></script>
+  <script src="/js/reveive.js"></script>
+  <script src="/js/format.js"></script>
+  <script src="/js/WebSocket.js"></script>-->
+  <layout-placeholder name="extra_bottom"></layout-placeholder>
   <script src="/js/base.js"></script>
   <script src="/js/app.js"></script>
-  <layout-placeholder name="extra_bottom"></layout-placeholder>
+  <script>require("app");</script>
 </body>
 </html>

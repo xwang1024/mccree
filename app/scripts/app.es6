@@ -1,10 +1,12 @@
 'use strict';
 
-class Demo {
+class ComponentInvoker {
   constructor() {
-    console.log(123);
+    $('[data-js-comp]').each(function() {
+      var componentName = $(this).data('jsComp');
+      console.log(`[invoke] ${componentName}`);
+      require(componentName);
+    });
   }
 }
-new Demo();
-
-exports.Demo = Demo;
+new ComponentInvoker();

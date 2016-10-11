@@ -46,10 +46,10 @@ if(resource.script) {
           .on('error', handleError)
           .pipe($.wrapper({
             header: function(file) {
-              var moduleName = file.path.replace(__dirname, '').replace('\\app\\scripts\\', '').replace(/(\.js)|(\.es6)$/, '');
-              return 'define("'+moduleName+'", function(require, exports, module) {\n';
+              var moduleName = file.path.replace(__dirname, '').replace('\\app\\scripts\\', '').replace(/(\.js)|(\.es6)$/, '').replace(/\\/g,'/');
+              return 'this.require.define({"'+moduleName+'":function(exports, require, module){\n';
             },
-            footer: '\n});'
+            footer: '\n}});'
           }))
           .pipe(es6Filter.restore)
           .pipe(jsFilter)

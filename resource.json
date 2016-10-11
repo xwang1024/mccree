@@ -1,10 +1,11 @@
 {
   "script": {
     "base.js": [
-      "app/scripts/base/require.js",
-      "app/scripts/base/main.js"
+      "app/scripts/base/require.js"
     ],
     "app.js": [
+      
+      "app/scripts/components/**/*",
       "app/scripts/app.es6"
     ]
   },
@@ -25,6 +26,7 @@
     "bower_components/Swiper/dist/js/swiper.jquery.min.js",
     "bower_components/Swiper/dist/css/swiper.min.css",
     "bower_components/font-awesome/css/font-awesome.min.css",
-    "bower_components/font-awesome/fonts/*"
+    "bower_components/font-awesome/fonts/*",
+    "app/scripts/vendor/*"
   ]
 }
