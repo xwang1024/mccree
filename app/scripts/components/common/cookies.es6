@@ -1,3 +1,4 @@
+'use strict';
 
 /** *
   * Cookies模块, 可以对cookies做简单的set, get, delete操作, value参数可以为任何值

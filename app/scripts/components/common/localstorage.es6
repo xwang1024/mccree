@@ -1,3 +1,4 @@
+'use strict';
 
 /** *
   * LocalStorage模块, set, get, delete操作, 优先使用本地存储, 否则使用cookies, value参数可以为任何值

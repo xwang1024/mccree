@@ -41,9 +41,7 @@
       service: prefer_getReResource
       query:
         num: 15
-      cache: true
-      cacheKey: reResources
-      cacheExpire: 30000
+    myTasks: task_getMyTask
 "/resources":
   view: "/lib/views/pages/resource/index.marko"
   data:

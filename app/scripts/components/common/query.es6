@@ -1,4 +1,5 @@
-;
+'use strict';
+
 /** *
   * url_search管理组件，和$.query的不同点在于，该组件对于url的操作会累积
   * @author xwang1024@126.com
