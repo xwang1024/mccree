@@ -4,9 +4,11 @@
       "app/scripts/base/require.js"
     ],
     "app.js": [
-      
       "app/scripts/components/**/*",
       "app/scripts/app.es6"
+    ],
+    "vendor.js": [
+      "app/scripts/vendor/**/*"
     ]
   },
   "style": {

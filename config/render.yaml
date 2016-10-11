@@ -18,18 +18,32 @@
       query:
         ratio: 950*380
       cache: true
-      cacheKey: bigOpt
+      cacheKey: bigOpts
       cacheExpire: 30000
     smallOpts:
       service: console_webOptPos_getOptAll
       query:
         ratio: 240*140
       cache: true
-      cacheKey: smallOpt
+      cacheKey: smallOpts
       cacheExpire: 30000
     schoolStrategies: prefer_getSchoolStrategies
     myProfessionPlan: prefer_getMyProfessionPlan
     myCourseResources: prefer_getMyCourseResources
+    searchHottestKeys:
+      service: tag_searchHottestKeys
+      query:
+        num: 3
+      cache: true
+      cacheKey: searchHottestKeys
+      cacheExpire: 30000
+    reResources:
+      service: prefer_getReResource
+      query:
+        num: 15
+      cache: true
+      cacheKey: reResources
+      cacheExpire: 30000
 "/resources":
   view: "/lib/views/pages/resource/index.marko"
   data:

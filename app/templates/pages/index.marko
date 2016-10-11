@@ -35,9 +35,9 @@
     <link rel="stylesheet" href="/css/resource.css">
   </layout-put>
   <layout-put into="content">
-    <span id="uid-input" hidden>{$user_id}</span>
+    <input type="hidden" name="uid" value="${out.global.user.id}" if(out.global.user)>
     <!--logo+ 搜索 + 上传-->
-    <div class="second_nav-panel" >
+    <div class="second_nav-panel" data-js-comp="components/index/main">
         <a href="/"><img class="not_fail_lesson" src="/img/not_fail_lesson.png"></a>
         <!--搜索框-->
         <div class="left-floated nav-search">
@@ -59,6 +59,12 @@
             </div>
             <!--热门关键字-->
             <div class="search-hot-container" id="js-index-search-hotCourses">
+              <for(item in data.searchHottestKeys | status-var=loop)>
+                <a class="search-hot-font" href="/search?key=${item.name}" if(loop.getIndex()<3) >${item.name}</a>
+              </for>
+              <for(item in data.myCourses.result.list | status-var=loop) if(data.myCourses && data.myCourses.result)>
+                <a class="search-hot-font" href="/search?key=${item.name}" if(loop.getIndex()<2) >${item.name}</a>
+              </for>
             </div>
         </div>
 
@@ -119,8 +125,30 @@
                 <div class="guesslike-line-right guess-line-right" hidden></div>
                 <div class="guesslike-course-line"></div>
                 <!--内容区-->
-                <div class="guesslike-switch-container guess-switch-like"></div>
-                <div class="guesslike-switch-container guess-switch-course" hidden></div>
+                <div class="guesslike-switch-container guess-switch-like">
+                  <for(item in data.reResources | status-var=loop)>
+                    <div class="guesslike-course" if((!out.global.user && loop.getIndex()<7) || (out.global.user && loop.getIndex()<15))>
+                      <a class="guesslike-course" href="/resource/${item.id}">${item.name}</a>
+                      <div class="guesslike-course-line"></div>
+                    </div>
+                  </for>
+                </div>
+                <div class="guesslike-switch-container guess-switch-course" hidden>
+                  <section if(!out.global.user)>
+                    <p class="guesslike-p">您还没有登录哟!</p>
+                    <p class="guesslike-p">赶快注册登录,可以查看所在</p>
+                    <p class="guesslike-p">"学校+院系"的课程资料!</p>
+                  </section>
+                  <section else>
+                    <p class="guesslike-p" if(!data.myCourses.result.list || data.myCourses.result.length==0)>您这学期都没有什么课,很空哟~</p>
+                    <for(item in data.myCourses.result.list | status-var=loop)>
+                      <div class="guesslike-course" if((!out.global.user && loop.getIndex()<7) || (out.global.user && loop.getIndex()<15))>
+                        <a class="guesslike-course" href="/search?key=${item.name}">${item.name}</a>
+                        <div class="guesslike-course-line"></div>
+                      </div>
+                    </for>
+                  </section>
+                </div>
             </div>
             <!--悬赏任务-->
             <div class="moneyTask-container">
