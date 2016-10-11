@@ -1,3 +1,4 @@
+'use strict';
 var resource = require('./resource.json');
 
 var gulp        = require('gulp'),
@@ -23,10 +24,14 @@ gulp.task('template', (callback) => {
 // compile script
 if(resource.script) {
   for(var k in resource.script) {
-    ((k) => {
-      gulp.task(`script:${k}`, (callback) => {
-        log(`Compiling script ${k}...`);
-        gulp.src(resource.script[k])
+    (function(destFile, sources) {
+      console.log(destFile, sources);
+      gulp.task(`script:${destFile}`, (callback) => {
+        var jsFilter = $.filter('**/*.js', {restore: true});
+        var es6Filter = $.filter('**/*.es6', {restore: true});
+        log(`Compiling script ${destFile}...`);
+        gulp.src(sources)
+          .pipe(es6Filter)
           .pipe($.eslint({
             rules: { 'strict': 2 },
             globals: [ 'jQuery', '$' ],
@@ -39,15 +44,27 @@ if(resource.script) {
           .on('error', handleError)
           .pipe($.babel({ presets: ['es2015'] }))
           .on('error', handleError)
+          .pipe($.wrapper({
+            header: function(file) {
+              var moduleName = file.path.replace(__dirname, '').replace('\\app\\scripts\\', '').replace(/(\.js)|(\.es6)$/, '');
+              return 'define("'+moduleName+'", function(require, exports, module) {\n';
+            },
+            footer: '\n});'
+          }))
+          .pipe(es6Filter.restore)
+          .pipe(jsFilter)
+          .pipe($.jsvalidate())
+          .on('error', handleError)
+          .pipe(jsFilter.restore)
           .pipe($.if( isProduction, $.uglify() ))
-          .pipe($.concat(k))
+          .pipe($.concat(destFile))
           .pipe($.if(isProduction, $.md5Plus(10, 'lib/views/partials/scripts.marko')))
           .pipe(gulp.dest('public/js/'))
           .pipe($.livereload())
           .on('end', callback);
       });
       assetTasks.push(`script:${k}`);
-    })(k);
+    })(k, resource.script[k]);
   }
 } else {
   log('There is no script attribute in resource.json');
@@ -73,7 +90,7 @@ if(resource.style) {
           .pipe($.livereload())
           .on('end', callback);
       });
-      assetTasks.push(`style:${k}`);
+      // assetTasks.push(`style:${k}`);
     })(k);
   }
 } else {
@@ -136,7 +153,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', (callback) => {
-  runSequence('template', 'vendor', 'watch', function() {
+  runSequence('template', assetTasks, 'watch', function() {
     finishLog('Dev build done. Starting watch and LiveReload...');
   });
 });

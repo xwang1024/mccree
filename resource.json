@@ -1,9 +1,11 @@
 {
   "script": {
+    "base.js": [
+      "app/scripts/base/require.js",
+      "app/scripts/base/main.js"
+    ],
     "app.js": [
-      "app/scripts/base/*.es6",
-      "app/scripts/pages/*.es6",
-      "app/scripts/*.es6"
+      "app/scripts/app.es6"
     ]
   },
   "style": {
