@@ -3,8 +3,9 @@
 const Loading        = require('components/common/loading')
 const LocalStorage   = require('components/common/localstorage');
 const SelectTabs     = require('components/common/selectTabs');
-const TaskService    = require('components/data/task');
-const PreferService  = require('components/data/prefer');
+const TaskService    = require('components/service/task');
+const PreferService  = require('components/service/prefer');
+const UserService    = require('components/service/user');
 
 module.exports = (function main() {
   var urlPrefix = '/Home'
@@ -60,35 +61,28 @@ module.exports = (function main() {
     if(!uid || flag) return;
 
     LocalStorage.set('checkUnbindPhone', 1);
-    $.ajax({
-      type: "get",
-      url: urlPrefix + "/User/getbinds",
-      success: function(data) {
-        var binds = data["result"];
-        for (var i = 0; i < binds.length; i++) {
-          if (binds[i]["type"] == 0) {
-            return;
-          }
+    UserService.getBinds((binds) => {
+      for (var i = 0; i < binds.length; i++) {
+        if (binds[i]["type"] == 0) {
+          return;
         }
-        var html = `<div class="unbind-phone-div" id="js-unbind-phone-div">
-                      <div class="container">
-                        <p class="message">
-                          您的账号安全系数较低，请尽快
-                          <a href="/bind" class="link">绑定手机号</a>
-                          ，绑定完成即可获得<span class="point">100米粒</span>
-                        </p>
-                        <i class="fa fa-close"></i>
-                      </div>
-                    </div>`;
-        $("#toaster-container").after(html);
-        $("#js-unbind-phone-div").find(".fa-close").eq(0).bind("click",
-        function() {
-          $("#js-unbind-phone-div").hide();
-        });
-      },
-      error: function() {
-        serverErrorToaster();
       }
+      var html = `<div class="unbind-phone-div" id="js-unbind-phone-div">
+                    <div class="container">
+                      <p class="message">
+                        您的账号安全系数较低，请尽快
+                        <a href="/bind" class="link">绑定手机号</a>
+                        ，绑定完成即可获得<span class="point">100米粒</span>
+                      </p>
+                      <i class="fa fa-close"></i>
+                    </div>
+                  </div>`;
+      $("#toaster-container").after(html);
+      $("#js-unbind-phone-div").find(".fa-close").eq(0).bind("click",
+      function() {
+        $("#js-unbind-phone-div").hide();
+      });
     });
+
   })();
 })();

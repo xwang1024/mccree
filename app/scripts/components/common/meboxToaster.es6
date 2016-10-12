@@ -1,3 +1,5 @@
+'use strict';
+
 /**
 新的Toaster
 options:
