@@ -129,12 +129,7 @@
                 <div class="guesslike-course-line"></div>
                 <!--内容区-->
                 <div class="guesslike-switch-container guess-switch-like">
-                  <for(item in data.reResources | status-var=loop)>
-                    <div class="guesslike-course" if(loop.getIndex()<7)>
-                      <a class="guesslike-course" href="/resource/${item.id}">${item.name}</a>
-                      <div class="guesslike-course-line"></div>
-                    </div>
-                  </for>
+                  <!-- js异步增加 -->
                 </div>
                 <div class="guesslike-switch-container guess-switch-course" hidden>
                   <section if(!out.global.user)>
@@ -228,12 +223,7 @@
                 <div class="guesslike-course-line"></div>
                 <!--面板区-->
                 <div class="guesslike-switch-container guess-switch-like guesslike-switch-container-large">
-                  <for(item in data.reResources | status-var=loop)>
-                    <div class="guesslike-course" if(loop.getIndex()<15)>
-                      <a class="guesslike-course" href="/resource/${item.id}">${item.name}</a>
-                      <div class="guesslike-course-line"></div>
-                    </div>
-                  </for>
+                  <!-- js异步增加 -->
                 </div>
                 <div class="guesslike-switch-container guess-switch-course guesslike-switch-container-large" hidden>
                   <section if(!out.global.user)>

@@ -1,9 +1,10 @@
 'use strict';
 
-
-const LocalStorage = require("components/common/localstorage");
-const SelectTabs   = require('components/common/selectTabs');
-const TaskService  = require('components/data/task');
+const Loading        = require('components/common/loading')
+const LocalStorage   = require('components/common/localstorage');
+const SelectTabs     = require('components/common/selectTabs');
+const TaskService    = require('components/data/task');
+const PreferService  = require('components/data/prefer');
 
 module.exports = (function main() {
   var urlPrefix = '/Home'
@@ -12,7 +13,25 @@ module.exports = (function main() {
     options: ['全部','课件', '笔记', '习题', '试卷', '其他']
   });
   
-  // 猜您喜欢
+  // 猜您喜欢数据
+  var guessLikeLoading = new Loading('.guess-switch-like', "");
+  guessLikeLoading.start();
+  PreferService.getPreferResources(15, (resources) => {
+    guessLikeLoading.stop();
+    var newElemArr = [];
+    resources.forEach((item) => {
+      newElemArr.push(`
+        <div class="guesslike-course">
+          <a class="guesslike-course" href="/resource/${item.id}">${item.name}</a>
+          <div class="guesslike-course-line"></div>
+        </div>
+      `);
+    });
+    $('.guess-switch-like').html(newElemArr.slice(0, 7).join(''));
+    $('.guess-switch-like .guesslike-switch-container-large').append(newElemArr.slice(7, 8).join(''));
+  });
+
+  // 猜您喜欢按钮
   $('.guesslike-button').click(() => {
     $('.guess-line-left').toggle();
     $('.guess-line-right').toggle();
@@ -27,8 +46,8 @@ module.exports = (function main() {
     TaskService.getMyRefreshedTask(moneyTaskId, (courses) => {
       $('#moneyTask-courses-container').empty();
       var html = '';
-      courses.forEach((course) => {
-        html += `<label class="moneyTask-schoolgrade-rec"><span class="moneyTask-schoolgrade-font">${course["name"]}</a></label>`;
+      courses.forEach((item) => {
+        html += `<label class="moneyTask-schoolgrade-rec"><span class="moneyTask-schoolgrade-font">${item.name}</a></label>`;
       });
       $('#moneyTask-courses-container').append(html);
     });

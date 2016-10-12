@@ -2,13 +2,15 @@
 
 class Loading {
   constructor(container, content, append) {
+    var text = (typeof(content) === 'string') ? content : "正在努力加载中~";
+
     this.container = container;
     this.$ctn = $(container);
     this.append = append;
     this.html = `
                   <div class="loading">
                     <img class="loading-gif" src="/img/loading.gif">
-                    <span class="loading-text">${content || "正在努力加载中~"}</span>
+                    <span class="loading-text">${text}</span>
                   </div>
                 `;
   }
@@ -22,6 +24,7 @@ class Loading {
   }
 
   stop() {
+    var vm = this;
     vm.$ctn.children('.loading').remove();
   }
 }

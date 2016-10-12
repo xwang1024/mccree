@@ -37,10 +37,6 @@
       cache: true
       cacheKey: searchHottestKeys
       cacheExpire: 30000
-    reResources:
-      service: prefer_getReResource
-      query:
-        num: 15
     myTasks: task_getMyTask
 "/resources":
   view: "/lib/views/pages/resource/index.marko"
