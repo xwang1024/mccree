@@ -39,7 +39,6 @@ module.exports = (function() {
       type: 'get',
       url: urlPrefix + "/School/getAllSchools",
       dataType: 'json',
-      async: true,
       success: function(data) {
         var result = new Array();
         var schools = data['result'];

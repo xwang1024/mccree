@@ -4,6 +4,7 @@
       "app/scripts/base/require.js"
     ],
     "app.js": [
+      "app/scripts/framework/**/*",
       "app/scripts/components/**/*",
       "app/scripts/app.es6"
     ],
