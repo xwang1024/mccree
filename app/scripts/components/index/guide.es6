@@ -423,16 +423,16 @@ module.exports = (function initGuide() {
     },
     t);
     return this.each(function() {
-      var e = $(this),
-      t = "number" == typeof s.scrollTarget ? s.scrollTarget: $(s.scrollTarget),
-      o = "number" == typeof t ? t: t.offset().top - e.offset().top + e.scrollTop() - parseInt(s.offsetTop);
-      e.animate({
-        scrollTop: o
-      },
-      parseInt(s.duration), s.easing,
-      function() {
-        "function" == typeof r && r.call(this)
-      })
+      // var e = $(this),
+      // t = "number" == typeof s.scrollTarget ? s.scrollTarget: $(s.scrollTarget),
+      // o = "number" == typeof t ? t: t.offset().top - e.offset().top + e.scrollTop() - parseInt(s.offsetTop);
+      // e.animate({
+      //   scrollTop: o
+      // },
+      // parseInt(s.duration), s.easing,
+      // function() {
+      //   "function" == typeof r && r.call(this)
+      // })
     })
   },
   $(".course-list").on("click", ".jin-jump",

@@ -1,6 +1,9 @@
 'use strict';
 
-const SelectTabs = require('components/common/selectTabs');
+
+const LocalStorage = require("components/common/localstorage");
+const SelectTabs   = require('components/common/selectTabs');
+const TaskService  = require('components/data/task');
 
 module.exports = (function main() {
   var urlPrefix = '/Home'
@@ -9,6 +12,7 @@ module.exports = (function main() {
     options: ['全部','课件', '笔记', '习题', '试卷', '其他']
   });
   
+  // 猜您喜欢
   $('.guesslike-button').click(() => {
     $('.guess-line-left').toggle();
     $('.guess-line-right').toggle();
@@ -16,29 +20,22 @@ module.exports = (function main() {
     $('.guess-switch-course').toggle();
   });
 
+  // 悬赏刷新
   $('[name=moneyRefreshBtn]').click(function() {
     var moneyTaskId = $("[name=moneyTaskId]").val();
     if(!moneyTaskId) return;
-    $.ajax({
-      type: "get",
-      url: urlPrefix + "/Task/refreshMyTask?id=" + moneyTaskId,
-      success: function(data) {
-        var courses = data["result"]["courses"];
-        $('#moneyTask-courses-container').empty();
-        var html = '';
-        for (var i = 0; i < courses.length; i++) {
-          html += '<label class="moneyTask-schoolgrade-rec"><span class="moneyTask-schoolgrade-font">' + courses[i]["name"] + '</a></label>';
-        }
-        $('#moneyTask-courses-container').append(html);
-      },
-      error: function() {
-        serverErrorToaster();
-      }
+    TaskService.getMyRefreshedTask(moneyTaskId, (courses) => {
+      $('#moneyTask-courses-container').empty();
+      var html = '';
+      courses.forEach((course) => {
+        html += `<label class="moneyTask-schoolgrade-rec"><span class="moneyTask-schoolgrade-font">${course["name"]}</a></label>`;
+      });
+      $('#moneyTask-courses-container').append(html);
     });
   });
 
-  function checkUnbindPhone() {
-    var LocalStorage = require("components/common/localstorage");
+  // 绑定手机检查
+  (function checkUnbindPhone() {
     var flag = LocalStorage.get('checkUnbindPhone');
     var uid = $("[name=uid]").val();
     if(!uid || flag) return;
@@ -74,5 +71,5 @@ module.exports = (function main() {
         serverErrorToaster();
       }
     });
-  }
+  })();
 })();
