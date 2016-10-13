@@ -4,3 +4,4 @@ require('framework/componentInvoker');
 require('framework/ajaxConfig');
 require('framework/dateFormat');
 require('framework/getQuery');
+require('framework/imgError');

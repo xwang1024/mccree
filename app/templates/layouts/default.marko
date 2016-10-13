@@ -21,7 +21,7 @@
 </head>
 <body>
   <layout-placeholder name="header">
-    <include("../partials/header.marko")/>
+    <include("../partials/header.marko", {user: out.global.user})/>
   </layout-placeholder>
   <div class="wrapper">
     <layout-placeholder name="content" />
