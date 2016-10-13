@@ -2,17 +2,13 @@
 
 const Loading        = require('components/common/loading')
 const LocalStorage   = require('components/common/localstorage');
-const SelectTabs     = require('components/common/selectTabs');
+const NavSearch      = require('components/common/navSearch/index');
 const TaskService    = require('components/service/task');
 const PreferService  = require('components/service/prefer');
 const UserService    = require('components/service/user');
 
 module.exports = (function main() {
-  var urlPrefix = '/Home'
-  var selectTabs = new SelectTabs({
-    container: $(".js-index-searchType").eq(0),
-    options: ['全部','课件', '笔记', '习题', '试卷', '其他']
-  });
+  var navSearch = new NavSearch();
   
   // 猜您喜欢数据
   var guessLikeLoading = new Loading('.guess-switch-like', "");

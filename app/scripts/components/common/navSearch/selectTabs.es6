@@ -34,8 +34,7 @@ class SelectTabs {
       }
     }
 
-    container.on("click",
-    function() {
+    container.on("click", function() {
       if (container.attr("isopen") == 0) {
         container.attr("isopen", 1);
         container.css("border-bottom-left-radius", 0);
@@ -46,16 +45,14 @@ class SelectTabs {
         optionsUL.hide();
       }
     });
-    container.on("mouseleave",
-    function() {
+    container.on("mouseleave", function() {
       if (container.attr("isopen") == 1) {
         container.attr("isopen", 0);
         container.css("border-bottom-left-radius", 3);
         optionsUL.fadeOut();
       }
     });
-    optionsUL.on("click", ".option",
-    function(event) {
+    optionsUL.on("click", ".option", function(event) {
       container.attr("isopen", 0);
       showText.text($(this).text());
       var showOption = optionsUL.children('.option').eq(Number(container.attr("type")));
@@ -84,6 +81,11 @@ class SelectTabs {
     if (initCallback !== undefined) {
       initCallback();
     }
+  }
+
+  getValue() {
+    var type = $(".js-index-searchType").eq(0).attr('type') || 0;
+    return type;
   }
 }
 

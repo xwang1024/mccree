@@ -1,17 +1,17 @@
 'use strict';
 
-/** *
-  * url_search管理组件，和$.query的不同点在于，该组件对于url的操作会累积
-  * @author xwang1024@126.com
-  */
+/**
+ * url_search管理组件，该组件对于url的操作会累积
+ * @author xwang1024@126.com
+ */
 class Query {
-  constructor() {
-    this.init()
+  constructor(empty) {
+    this.init(empty);
   }
 
-  init() {
+  init(empty) {
     this.params = {};
-    if(window.location.search) {
+    if(!empty && window.location.search) {
       window.location.search.substring(1).split('&').map(x => {
         var sp = x.split('=');
         this.params[decodeURIComponent(sp[0])] = decodeURIComponent(sp[1]);
