@@ -38,6 +38,7 @@
       cacheKey: searchHottestKeys
       cacheExpire: 30000
     myTasks: task_getMyTask
+    myCourses: tag_getMyCourses
 "/resources":
   view: "/lib/views/pages/resource/index.marko"
   data:
@@ -220,3 +221,4 @@
   view: "/lib/views/pages/search.marko"
 "/login":
   view: "/lib/views/pages/auth/login.marko"
+  ifLogin: "/"
