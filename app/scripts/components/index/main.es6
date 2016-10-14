@@ -40,10 +40,10 @@ module.exports = (function main() {
   $('[name=moneyRefreshBtn]').click(function() {
     var moneyTaskId = $("[name=moneyTaskId]").val();
     if(!moneyTaskId) return;
-    TaskService.getMyRefreshedTask(moneyTaskId, (courses) => {
+    TaskService.getMyRefreshedTask(moneyTaskId, (taskInfo) => {
       $('#moneyTask-courses-container').empty();
       var html = '';
-      courses.forEach((item) => {
+      taskInfo.courses.forEach((item) => {
         html += `<label class="moneyTask-schoolgrade-rec"><span class="moneyTask-schoolgrade-font">${item.name}</a></label>`;
       });
       $('#moneyTask-courses-container').append(html);
