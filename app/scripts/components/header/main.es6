@@ -10,16 +10,10 @@ const UserService    = require('components/service/user');
 module.exports = (function main() {
   // 导航栏Popup
   var printOpen = false;
-  navbarPopup();
-  
-})();
-
-function navbarPopup() {
   var messageOpen = false;
   var userOpen = false;
 
-  $("#js-print-icon").bind("click",
-  function() {
+  $("#js-print-icon").bind("click", function() {
     if (printOpen == false) {
       if (messageOpen == true) {
         messageOpen = false;
@@ -37,8 +31,7 @@ function navbarPopup() {
     }
   });
 
-  $("#js-message-icon").bind("click",
-  function() {
+  $("#js-message-icon").bind("click", function() {
     if (messageOpen == false) {
       if (printOpen == true) {
         printOpen = false;
@@ -56,8 +49,7 @@ function navbarPopup() {
     }
   });
 
-  $("#js-navbar-user-icon,.js-user-name ").bind("click",
-  function() {
+  $("#js-navbar-user-icon,.js-user-name ").bind("click", function() {
     if (userOpen == false) {
       if (printOpen == true) {
         printOpen = false;
@@ -75,8 +67,7 @@ function navbarPopup() {
     }
   });
 
-  $("#js-print-popup").bind("mouseleave",
-  function() {
+  $("#js-print-popup").bind("mouseleave", function() {
     printOpen = false;
     $("#js-print-icon").removeClass("active");
     $("#js-print-popup").fadeOut();
@@ -89,10 +80,10 @@ function navbarPopup() {
     $("#js-message-popup").fadeOut();
   });
 
-  $("#js-user-popup").bind("mouseleave",
-  function() {
+  $("#js-user-popup").bind("mouseleave", function() {
     userOpen = false;
     $("#js-navbar-user-icon").removeClass("active");
     $("#js-user-popup").fadeOut();
   });
-}
+})();
+
